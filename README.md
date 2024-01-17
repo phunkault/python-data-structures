@@ -1,7 +1,7 @@
 # CI-CD-learning
 Personal CI/CD Basics Learning Project
 
-This repository is my personal space for learning and experimenting with Continuous Integration and Continuous Deployment (CI/CD) basics. 
+This repository is my personal space for learning and experimenting with Continuous Integration and Continuous Deployment (CI/CD) basics.
 
 ## Features
 
