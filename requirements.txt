@@ -1,2 +1,3 @@
+bandit==1.7.6
 pre-commit==3.6.0
 ruff==0.1.13
