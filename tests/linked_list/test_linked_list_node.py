@@ -26,12 +26,13 @@ def test_to_string_method(test_value):
 
 def test_links_nodes_together():
     # Arrange
-    node1 = LinkedListNode(1)
-    node2 = LinkedListNode(2)
+    node2 = LinkedListNode(1)
 
     # Act
-    node1.next = node2
+    node1 = LinkedListNode(2, node2)
 
     # Assert
-    assert node1.next == node2
+    assert node1.next is not None
     assert node2.next is None
+    assert node1.value == 2
+    assert node1.next.value == 1
