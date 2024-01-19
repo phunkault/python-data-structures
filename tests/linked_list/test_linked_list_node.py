@@ -16,7 +16,7 @@ def test_creates_node_with_value(test_value):
 
 
 @pytest.mark.parametrize("test_value", test_values)
-def test_links_nodes_together(test_value):
+def test_to_string_method(test_value):
     # Arrange
     node = LinkedListNode(test_value)
 
