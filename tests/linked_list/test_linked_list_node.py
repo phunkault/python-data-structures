@@ -24,7 +24,7 @@ def test_to_string_method(test_value):
     assert str(node) == f"LinkedListNode({node.value})"
 
 
-def test_linked_list_link_nodes_together():
+def test_links_nodes_together():
     # Arrange
     node1 = LinkedListNode(1)
     node2 = LinkedListNode(2)
