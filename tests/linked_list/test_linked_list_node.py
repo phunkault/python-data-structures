@@ -6,7 +6,7 @@ test_values = (1, "1", 1.1, True, None, [1, 2, 3], {"1", "2", "3"}, {"key": 1})
 
 
 @pytest.mark.parametrize("test_value", test_values)
-def test_linked_list_node_init_with_primitive_value_type(test_value):
+def test_creates_node_with_value(test_value):
     # Act
     node = LinkedListNode(test_value)
 
