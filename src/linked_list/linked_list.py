@@ -58,3 +58,32 @@ class LinkedList:
             self.append(value)
 
         return self
+
+    def delete_by_value(self, value: Any) -> LinkedListNode | None:
+        current_node = self.head
+        # deleted_node = None
+
+        if current_node and current_node.value == value:
+            deleted_node = current_node
+            self.head = current_node.next
+            if self.head is None:
+                self.tail = None
+            # current_node = None
+            self.size -= 1
+            return deleted_node
+
+        prev_node = None
+        while current_node and current_node.value != value:
+            prev_node = current_node
+            current_node = current_node.next
+
+        if current_node is None:
+            return None
+
+        deleted_node = current_node
+        prev_node.next = current_node.next
+        if current_node == self.tail:
+            self.tail = prev_node
+        # current_node = None
+        self.size -= 1
+        return deleted_node
