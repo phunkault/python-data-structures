@@ -111,3 +111,6 @@ class LinkedList:
         for i in range(index):
             current_node = current_node.next
         return current_node
+
+    def is_empty(self) -> bool:
+        return self.head is None

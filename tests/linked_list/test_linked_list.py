@@ -323,3 +323,25 @@ def test_insert_at_call_chain(empty_linked_list):
         == "LinkedListNode(1) -> LinkedListNode(2)"
     )
     assert empty_linked_list.size == 2
+
+
+def test_is_empty_empty_list(empty_linked_list):
+    # Act and Assert
+    assert empty_linked_list.is_empty()
+
+
+def test_is_empty_non_empty_list(non_empty_linked_list):
+    # Act and Assert
+    assert not non_empty_linked_list.is_empty()
+
+
+def test_is_empty_after_append(empty_linked_list):
+    # Act and Assert
+    empty_linked_list.append(1)
+    assert not empty_linked_list.is_empty()
+
+
+def test_is_empty_after_delete(non_empty_linked_list):
+    # Act and Assert
+    non_empty_linked_list.delete(1)
+    assert non_empty_linked_list.is_empty()
