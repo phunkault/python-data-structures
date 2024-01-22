@@ -9,12 +9,14 @@ class LinkedList:
 
         if initial:
             node = LinkedListNode(initial)
+
             self.head = node
             self.tail = node
             self.size = 1
 
     def append(self, value):
         node = LinkedListNode(value)
+
         if not self.head:
             self.head = node
             self.tail = node
@@ -22,4 +24,5 @@ class LinkedList:
             self.tail.next = node
             self.tail = node
         self.size += 1
+
         return self
