@@ -141,7 +141,7 @@ def test_non_empty_array_creates_list_with_same_nodes(empty_linked_list):
 
 def test_returns_null_when_deleting_a_non_existing_node(empty_linked_list):
     # Act
-    deleted_node = empty_linked_list.delete_by_value(2)
+    deleted_node = empty_linked_list.delete(2)
 
     # Assert
     assert deleted_node is None
@@ -155,7 +155,7 @@ def test_deletes_the_element_outside_the_list(empty_linked_list):
     empty_linked_list.from_array([1, 2])
 
     # Act
-    deleted_node = empty_linked_list.delete_by_value(3)
+    deleted_node = empty_linked_list.delete(3)
 
     # Assert
     assert deleted_node is None
@@ -171,7 +171,7 @@ def test_deletes_the_element_outside_the_list(empty_linked_list):
 
 def test_deletes_the_node_from_the_singular_node_list(non_empty_linked_list):
     # Act
-    deleted_element = non_empty_linked_list.delete_by_value(1)
+    deleted_element = non_empty_linked_list.delete(1)
 
     # Assert
     assert deleted_element.value == 1
@@ -185,7 +185,7 @@ def test_deletes_the_first_node_from_the_multi_node_list(empty_linked_list):
     empty_linked_list.from_array([1, 2, 3])
 
     # Act
-    deleted_node = empty_linked_list.delete_by_value(1)
+    deleted_node = empty_linked_list.delete(1)
 
     # Assert
     assert deleted_node.value == 1
@@ -204,7 +204,7 @@ def test_deletes_an_element_in_the_middle(empty_linked_list):
     empty_linked_list.from_array([1, 2, 3])
 
     # Act
-    deleted_element = empty_linked_list.delete_by_value(2)
+    deleted_element = empty_linked_list.delete(2)
 
     # Assert
     assert deleted_element.value == 2
@@ -223,7 +223,7 @@ def test_deletes_the_last_element(empty_linked_list):
     empty_linked_list.from_array([1, 2, 3])
 
     # Act
-    deleted_element = empty_linked_list.delete_by_value(3)
+    deleted_element = empty_linked_list.delete(3)
 
     # Assert
     assert deleted_element.value == 3

@@ -59,7 +59,7 @@ class LinkedList:
 
         return self
 
-    def delete_by_value(self, value: Any) -> LinkedListNode | None:
+    def delete(self, value: Any) -> LinkedListNode | None:
         current_node = self.head
         # deleted_node = None
 
