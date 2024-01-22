@@ -236,3 +236,90 @@ def test_deletes_the_last_element(empty_linked_list):
         == "LinkedListNode(1) -> LinkedListNode(2)"
     )
     assert empty_linked_list.size == 2
+
+
+def test_insert_at_throws_exception_if_index_less_than_list_length(
+    empty_linked_list
+):
+    # Act and Assert
+    with pytest.raises(
+        IndexError,
+        match="Index should be >= 0 and <= list length.",
+    ):
+        empty_linked_list.insert_at(-1, 1)
+
+
+def test_insert_at_throws_exception_if_index_greater_than_list_length(
+    empty_linked_list
+):
+    # Act and Assert
+    with pytest.raises(
+        IndexError,
+        match="Index should be >= 0 and <= list length.",
+    ):
+        empty_linked_list.insert_at(10, 1)
+
+
+def test_insert_at_beginning_of_list(non_empty_linked_list):
+    # Act
+    non_empty_linked_list.insert_at(0, 0)
+
+    # Assert
+    assert non_empty_linked_list.head.value == 0
+    assert non_empty_linked_list.head.next.value == 1
+    assert non_empty_linked_list.tail.value == 1
+    assert non_empty_linked_list.tail.next is None
+    assert (
+        non_empty_linked_list.to_string()
+        == "LinkedListNode(0) -> LinkedListNode(1)"
+    )
+    assert non_empty_linked_list.size == 2
+
+
+def test_insert_at_end_of_list(non_empty_linked_list):
+    # Act
+    non_empty_linked_list.insert_at(1, 2)
+
+    # Assert
+    assert non_empty_linked_list.head.value == 1
+    assert non_empty_linked_list.head.next.value == 2
+    assert non_empty_linked_list.tail.value == 2
+    assert non_empty_linked_list.tail.next is None
+    assert (
+        non_empty_linked_list.to_string()
+        == "LinkedListNode(1) -> LinkedListNode(2)"
+    )
+    assert non_empty_linked_list.size == 2
+
+
+def test_insert_in_middle_of_list(empty_linked_list):
+    # Arrange
+    empty_linked_list.append(1).append(3)
+
+    # Act
+    empty_linked_list.insert_at(1, 3)
+
+    # Assert
+    assert empty_linked_list.head.value == 1
+    assert empty_linked_list.head.next.next.value == 2
+    assert empty_linked_list.tail.value == 3
+    assert empty_linked_list.tail.next is None
+    assert (
+        empty_linked_list.to_string()
+        == "LinkedListNode(1) -> LinkedListNode(2) -> LinkedListNode(3)"
+    )
+    assert empty_linked_list.size == 4
+
+
+def test_insert_at_call_chain(empty_linked_list):
+    # Act
+    empty_linked_list.insert_at(0, 1).insert_at(1, 2)
+
+    # Assert
+    assert empty_linked_list.head.value == 1
+    assert empty_linked_list.tail.value == 2
+    assert (
+        empty_linked_list.to_string()
+        == "LinkedListNode(1) -> LinkedListNode(2)"
+    )
+    assert empty_linked_list.size == 2

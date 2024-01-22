@@ -87,3 +87,27 @@ class LinkedList:
         # current_node = None
         self.size -= 1
         return deleted_node
+
+    def insert_at(self, index: int, value: Any) -> LinkedList:
+        if index < 0 or index > self.size:
+            raise IndexError("Index should be >= 0 and <= list length.")
+
+        if index == 0:
+            self.prepend(value)
+        elif index == self.size:
+            self.append(value)
+        else:
+            prev_node = self._find_node_by_index(index - 1)
+            new_node = LinkedListNode(value)
+
+            new_node.next = prev_node.next
+            prev_node.next = new_node
+
+            self.size += 1
+        return self
+
+    def _find_node_by_index(self, index: int) -> LinkedListNode:
+        current_node = self.head
+        for i in range(index):
+            current_node = current_node.next
+        return current_node
