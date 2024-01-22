@@ -114,3 +114,6 @@ class LinkedList:
 
     def is_empty(self) -> bool:
         return self.head is None
+
+    def get_size(self) -> int:
+        return self.size

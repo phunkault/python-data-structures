@@ -345,3 +345,21 @@ def test_is_empty_after_delete(non_empty_linked_list):
     # Act and Assert
     non_empty_linked_list.delete(1)
     assert non_empty_linked_list.is_empty()
+
+
+def test_get_size_empty_list(empty_linked_list):
+    assert empty_linked_list.get_size() == 0
+
+
+def test_get_size_non_empty_list(non_empty_linked_list):
+    assert non_empty_linked_list.get_size() == 1
+
+
+def test_get_size_after_append(empty_linked_list):
+    empty_linked_list.append(2)
+    assert empty_linked_list.get_size() == 1
+
+
+def test_get_size_after_delete(non_empty_linked_list):
+    non_empty_linked_list.delete(1)
+    assert non_empty_linked_list.get_size() == 0
