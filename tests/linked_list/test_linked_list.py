@@ -118,3 +118,22 @@ def test_returns_non_empty_string_for_non_empty_list(non_empty_linked_list):
         non_empty_linked_list.to_string()
         == "LinkedListNode(1) -> LinkedListNode(2)"
     )
+
+
+def test_empty_array_creates_empty_list(empty_linked_list):
+    # Act
+    empty_linked_list.from_array([])
+
+    # Assert
+    assert empty_linked_list.size == 0
+
+
+def test_non_empty_array_creates_list_with_same_nodes(empty_linked_list):
+    # Act
+    empty_linked_list.from_array([1, 2, 3])
+
+    # Assert
+    assert (
+        empty_linked_list.to_string()
+        == "LinkedListNode(1) -> LinkedListNode(2) -> LinkedListNode(3)"
+    )

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from src.linked_list.linked_list_node import LinkedListNode
-from typing import Any
+from typing import Any, List
 
 
 class LinkedList:
@@ -52,3 +52,9 @@ class LinkedList:
                 string += separator
             current = current.next
         return string
+
+    def from_array(self, array: List[Any]) -> LinkedList:
+        for value in array:
+            self.append(value)
+
+        return self
