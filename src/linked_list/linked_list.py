@@ -29,3 +29,16 @@ class LinkedList:
         self.size += 1
 
         return self
+
+    def prepend(self, value: Any) -> LinkedList:
+        node = LinkedListNode(value)
+
+        if not self.head:
+            self.head = node
+            self.tail = node
+        else:
+            node.next = self.head
+            self.head = node
+        self.size += 1
+
+        return self

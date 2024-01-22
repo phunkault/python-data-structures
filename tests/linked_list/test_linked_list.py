@@ -64,3 +64,41 @@ def test_append_non_empty_list(non_empty_linked_list):
     assert non_empty_linked_list.tail.next is None
 
     assert non_empty_linked_list.size == 2
+
+
+def test_prepend_empty_list(empty_linked_list):
+    # Act
+    empty_linked_list.prepend(1)
+
+    # Assert
+    assert empty_linked_list.head.value == 1
+    assert empty_linked_list.head.next is None
+
+    assert empty_linked_list.tail.value == 1
+    assert empty_linked_list.tail.next is None
+    assert empty_linked_list.size == 1
+
+
+def test_prepend_non_empty_list(empty_linked_list):
+    # Arrange
+    empty_linked_list.append(2)
+
+    # Act
+    empty_linked_list.prepend(1)
+
+    # Assert
+    assert empty_linked_list.head.value == 1
+    assert empty_linked_list.head.next.value == 2
+
+    assert empty_linked_list.tail.value == 2
+    assert empty_linked_list.tail.next is None
+
+    assert empty_linked_list.size == 2
+
+
+def test_prepend_call_chain(empty_linked_list):
+    # Act
+    empty_linked_list.prepend(3).prepend(2).prepend(1)
+
+    # Assert
+    assert empty_linked_list.size == 3
