@@ -43,15 +43,15 @@ class LinkedList:
 
         return self
 
-    def to_string(self, separator: str = " -> ") -> str:
-        string = ""
+    def __str__(self, separator: str = " -> ") -> str:
+        ll_str_repr = ""
         current = self.head
         while current:
-            string += str(current)
+            ll_str_repr += str(current)
             if current.next:
-                string += separator
+                ll_str_repr += separator
             current = current.next
-        return string
+        return ll_str_repr
 
     def from_array(self, array: List[Any]) -> LinkedList:
         for value in array:

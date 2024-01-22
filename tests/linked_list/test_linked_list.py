@@ -106,7 +106,7 @@ def test_prepend_call_chain(empty_linked_list):
 
 def test_returns_empty_string_for_empty_list(empty_linked_list):
     # Act and Assert
-    assert empty_linked_list.to_string() == ""
+    assert str(empty_linked_list) == ""
 
 
 def test_returns_non_empty_string_for_non_empty_list(non_empty_linked_list):
@@ -115,8 +115,7 @@ def test_returns_non_empty_string_for_non_empty_list(non_empty_linked_list):
 
     # Act and Assert
     assert (
-        non_empty_linked_list.to_string()
-        == "LinkedListNode(1) -> LinkedListNode(2)"
+        str(non_empty_linked_list) == "LinkedListNode(1) -> LinkedListNode(2)"
     )
 
 
@@ -134,7 +133,7 @@ def test_non_empty_array_creates_list_with_same_nodes(empty_linked_list):
 
     # Assert
     assert (
-        empty_linked_list.to_string()
+        str(empty_linked_list)
         == "LinkedListNode(1) -> LinkedListNode(2) -> LinkedListNode(3)"
     )
 
@@ -162,10 +161,7 @@ def test_deletes_the_element_outside_the_list(empty_linked_list):
     assert empty_linked_list.head.value == 1
     assert empty_linked_list.tail.value == 2
     assert empty_linked_list.tail.next is None
-    assert (
-        empty_linked_list.to_string()
-        == "LinkedListNode(1) -> LinkedListNode(2)"
-    )
+    assert str(empty_linked_list) == "LinkedListNode(1) -> LinkedListNode(2)"
     assert empty_linked_list.length == 2
 
 
@@ -192,10 +188,7 @@ def test_deletes_the_first_node_from_the_multi_node_list(empty_linked_list):
     assert empty_linked_list.head.value == 2
     assert empty_linked_list.head.next.value == 3
     assert empty_linked_list.tail.value == 3
-    assert (
-        empty_linked_list.to_string()
-        == "LinkedListNode(2) -> LinkedListNode(3)"
-    )
+    assert str(empty_linked_list) == "LinkedListNode(2) -> LinkedListNode(3)"
     assert empty_linked_list.length == 2
 
 
@@ -211,10 +204,7 @@ def test_deletes_an_element_in_the_middle(empty_linked_list):
     assert empty_linked_list.head.value == 1
     assert empty_linked_list.head.next.value == 3
     assert empty_linked_list.tail.value == 3
-    assert (
-        empty_linked_list.to_string()
-        == "LinkedListNode(1) -> LinkedListNode(3)"
-    )
+    assert str(empty_linked_list) == "LinkedListNode(1) -> LinkedListNode(3)"
     assert empty_linked_list.length == 2
 
 
@@ -231,10 +221,7 @@ def test_deletes_the_last_element(empty_linked_list):
     assert empty_linked_list.head.next.value == 2
     assert empty_linked_list.tail.value == 2
     assert empty_linked_list.tail.next is None
-    assert (
-        empty_linked_list.to_string()
-        == "LinkedListNode(1) -> LinkedListNode(2)"
-    )
+    assert str(empty_linked_list) == "LinkedListNode(1) -> LinkedListNode(2)"
     assert empty_linked_list.length == 2
 
 
@@ -270,8 +257,7 @@ def test_insert_at_beginning_of_list(non_empty_linked_list):
     assert non_empty_linked_list.tail.value == 1
     assert non_empty_linked_list.tail.next is None
     assert (
-        non_empty_linked_list.to_string()
-        == "LinkedListNode(0) -> LinkedListNode(1)"
+        str(non_empty_linked_list) == "LinkedListNode(0) -> LinkedListNode(1)"
     )
     assert non_empty_linked_list.length == 2
 
@@ -286,8 +272,7 @@ def test_insert_at_end_of_list(non_empty_linked_list):
     assert non_empty_linked_list.tail.value == 2
     assert non_empty_linked_list.tail.next is None
     assert (
-        non_empty_linked_list.to_string()
-        == "LinkedListNode(1) -> LinkedListNode(2)"
+        str(non_empty_linked_list) == "LinkedListNode(1) -> LinkedListNode(2)"
     )
     assert non_empty_linked_list.length == 2
 
@@ -305,7 +290,7 @@ def test_insert_in_middle_of_list(empty_linked_list):
     assert empty_linked_list.tail.value == 3
     assert empty_linked_list.tail.next is None
     assert (
-        empty_linked_list.to_string()
+        str(empty_linked_list)
         == "LinkedListNode(1) -> LinkedListNode(2) -> LinkedListNode(3)"
     )
     assert empty_linked_list.length == 3
@@ -318,10 +303,7 @@ def test_insert_at_call_chain(empty_linked_list):
     # Assert
     assert empty_linked_list.head.value == 1
     assert empty_linked_list.tail.value == 2
-    assert (
-        empty_linked_list.to_string()
-        == "LinkedListNode(1) -> LinkedListNode(2)"
-    )
+    assert str(empty_linked_list) == "LinkedListNode(1) -> LinkedListNode(2)"
     assert empty_linked_list.length == 2
 
 
