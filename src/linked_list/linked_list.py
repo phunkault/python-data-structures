@@ -42,3 +42,13 @@ class LinkedList:
         self.size += 1
 
         return self
+
+    def to_string(self, separator: str = " -> ") -> str:
+        string = ""
+        current = self.head
+        while current:
+            string += str(current)
+            if current.next:
+                string += separator
+            current = current.next
+        return string

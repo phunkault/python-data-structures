@@ -102,3 +102,19 @@ def test_prepend_call_chain(empty_linked_list):
 
     # Assert
     assert empty_linked_list.size == 3
+
+
+def test_returns_empty_string_for_empty_list(empty_linked_list):
+    # Act and Assert
+    assert empty_linked_list.to_string() == ""
+
+
+def test_returns_non_empty_string_for_non_empty_list(non_empty_linked_list):
+    # Arrange
+    non_empty_linked_list.append(2)
+
+    # Act and Assert
+    assert (
+        non_empty_linked_list.to_string()
+        == "LinkedListNode(1) -> LinkedListNode(2)"
+    )
