@@ -8,14 +8,14 @@ class LinkedList:
     def __init__(self, initial: Any = None) -> None:
         self.head = None
         self.tail = None
-        self.size = 0
+        self.length = 0
 
         if initial:
             node = LinkedListNode(initial)
 
             self.head = node
             self.tail = node
-            self.size = 1
+            self.length = 1
 
     def append(self, value: Any) -> LinkedList:
         node = LinkedListNode(value)
@@ -26,7 +26,7 @@ class LinkedList:
         else:
             self.tail.next = node
             self.tail = node
-        self.size += 1
+        self.length += 1
 
         return self
 
@@ -39,7 +39,7 @@ class LinkedList:
         else:
             node.next = self.head
             self.head = node
-        self.size += 1
+        self.length += 1
 
         return self
 
@@ -69,7 +69,7 @@ class LinkedList:
             if self.head is None:
                 self.tail = None
             # current_node = None
-            self.size -= 1
+            self.length -= 1
             return deleted_node
 
         prev_node = None
@@ -85,16 +85,16 @@ class LinkedList:
         if current_node == self.tail:
             self.tail = prev_node
         # current_node = None
-        self.size -= 1
+        self.length -= 1
         return deleted_node
 
     def insert_at(self, index: int, value: Any) -> LinkedList:
-        if index < 0 or index > self.size:
+        if index < 0 or index > self.length:
             raise IndexError("Index should be >= 0 and <= list length.")
 
         if index == 0:
             self.prepend(value)
-        elif index == self.size:
+        elif index == self.length:
             self.append(value)
         else:
             prev_node = self._find_node_by_index(index - 1)
@@ -103,7 +103,7 @@ class LinkedList:
             new_node.next = prev_node.next
             prev_node.next = new_node
 
-            self.size += 1
+            self.length += 1
         return self
 
     def _find_node_by_index(self, index: int) -> LinkedListNode:
@@ -115,5 +115,5 @@ class LinkedList:
     def is_empty(self) -> bool:
         return self.head is None
 
-    def get_size(self) -> int:
-        return self.size
+    def get_length(self) -> int:
+        return self.length
