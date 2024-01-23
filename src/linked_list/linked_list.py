@@ -203,3 +203,17 @@ class LinkedList:
         self._head = prev_node
 
         return self
+
+    def find(self, value: Any) -> Optional[LinkedListNode]:
+        if not self.head:
+            return None
+
+        current_node = self.head
+
+        while current_node:
+            if current_node.value == value:
+                return current_node
+
+            current_node = current_node.next
+
+        return None

@@ -488,3 +488,30 @@ def test_reverse_call_chain(empty_linked_list):
     assert str(empty_linked_list) == "3 -> 2 -> 1 -> 4"
 
     assert empty_linked_list.length == 4
+
+
+def test_find_empty_list(empty_linked_list):
+    # Act and Assert
+    assert empty_linked_list.find(1) is None
+
+
+def test_find_list_with_single_node(empty_linked_list):
+    # Arrange
+    empty_linked_list.from_array([1])
+
+    # Act
+    founded_node = empty_linked_list.find(1)
+
+    # Assert
+    assert founded_node.value == 1
+
+
+def test_find_list_with_multiple_node(empty_linked_list):
+    # Arrange
+    empty_linked_list.from_array([1, 2, 2, 4])
+
+    # Act
+    founded_node = empty_linked_list.find(2)
+
+    # Assert
+    assert founded_node.value == 2
