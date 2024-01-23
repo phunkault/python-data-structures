@@ -6,16 +6,24 @@ from typing import Any, List, Optional
 
 class LinkedList:
     def __init__(self, initial: Any = None) -> None:
-        self.head = None
+        self.__head = None
         self.tail = None
         self.length = 0
 
         if initial:
             node = LinkedListNode(initial)
 
-            self.head = node
+            self.__head = node
             self.tail = node
             self.length = 1
+
+    @property
+    def head(self) -> Optional[LinkedListNode]:
+        return self.__head
+
+    @head.setter
+    def head(self, new_head: Optional[LinkedListNode]) -> None:
+        self.__head = new_head
 
     def is_empty(self) -> bool:
         return self.head is None
