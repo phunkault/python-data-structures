@@ -59,7 +59,6 @@ class LinkedList:
 
     def to_array(self) -> List[Any]:
         values = []
-
         current = self.head
 
         while current:
