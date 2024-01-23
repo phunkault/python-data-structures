@@ -6,16 +6,12 @@ from typing import Any, List, Optional
 
 class LinkedList:
     def __init__(self, initial: Any = None) -> None:
-        self.__head = None
-        self.__tail = None
-        self.__length = 0
+        self.__head: Optional[LinkedListNode] = None
+        self.__tail: Optional[LinkedListNode] = None
+        self.__length: int = 0
 
         if initial:
-            node = LinkedListNode(initial)
-
-            self.__head = node
-            self.__tail = node
-            self.__length = 1
+            self.append(initial)
 
     @property
     def head(self) -> Optional[LinkedListNode]:
