@@ -32,7 +32,7 @@ class LinkedList:
             self._head = node
             self._tail = node
         else:
-            self.tail.next = node
+            self._tail.next = node
             self._tail = node
         self._length += 1
 
