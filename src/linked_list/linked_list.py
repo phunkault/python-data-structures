@@ -145,3 +145,16 @@ class LinkedList:
             current_node = current_node.next
 
         return current_node
+
+    def delete_head(self) -> Optional[LinkedListNode]:
+        if self.head is None:
+            return None
+
+        deleted_node = self.head
+
+        if deleted_node.next:
+            self._head = deleted_node.next
+
+        self._length -= 1
+
+        return deleted_node

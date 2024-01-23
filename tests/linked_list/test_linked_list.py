@@ -349,3 +349,35 @@ def test_get_length_after_delete(non_empty_linked_list):
 
     # Act and Assert
     assert non_empty_linked_list.length == 0
+
+
+def test_delete_head_empty_list(empty_linked_list):
+    # Act
+    deleted_head = empty_linked_list.delete_head()
+
+    # Assert
+    assert deleted_head is None
+    assert empty_linked_list.head is None
+    assert empty_linked_list.tail is None
+    assert empty_linked_list.length == 0
+
+
+def test_delete_head_list_with_multiple_nodes(empty_linked_list):
+    # Arrange
+    empty_linked_list.from_array([1, 2, 3])
+
+    # Act
+    deleted_head = empty_linked_list.delete_head()
+
+    # Assert
+    assert deleted_head.value == 1
+
+    assert empty_linked_list.head.value == 2
+    assert empty_linked_list.head.next.value == 3
+
+    assert empty_linked_list.tail.value == 3
+    assert empty_linked_list.tail.next is None
+
+    assert str(empty_linked_list) == "2 -> 3"
+
+    assert empty_linked_list.length == 2
