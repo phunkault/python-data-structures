@@ -81,7 +81,7 @@ class LinkedList:
 
         current = self.head
 
-        while current is not None:
+        while current:
             values.append(current.value)
             current = current.next
 
@@ -153,6 +153,7 @@ class LinkedList:
             prev_node.next = new_node
 
             self.length += 1
+
         return self
 
     def _find_node_by_index(self, index: int) -> LinkedListNode:
