@@ -426,3 +426,65 @@ def test_delete_tail_list_with_multiple_nodes(empty_linked_list):
     assert empty_linked_list.tail.next is None
 
     assert str(empty_linked_list) == "1 -> 2"
+
+
+def test_reverse_empty_list(empty_linked_list):
+    # Act
+    empty_linked_list.reverse()
+
+    # Assert
+    assert empty_linked_list.head is None
+    assert empty_linked_list.tail is None
+    assert empty_linked_list.length == 0
+
+
+def test_reverse_list_with_single_node(empty_linked_list):
+    # Arrange
+    empty_linked_list.append(1)
+
+    # Act
+    empty_linked_list.reverse()
+
+    # Assert
+    assert empty_linked_list.head.value == 1
+
+    assert empty_linked_list.tail.value == 1
+
+    assert str(empty_linked_list) == "1"
+
+    assert empty_linked_list.length == 1
+
+
+def test_reverse_list_with_multiple_nodes(empty_linked_list):
+    # Arrange
+    empty_linked_list.from_array([1, 2, 3])
+
+    # Act
+    empty_linked_list.reverse()
+
+    # Assert
+    assert empty_linked_list.head.value == 3
+    assert empty_linked_list.head.next.value == 2
+
+    assert empty_linked_list.tail.value == 1
+    assert empty_linked_list.tail.next is None
+
+    assert str(empty_linked_list) == "3 -> 2 -> 1"
+
+    assert empty_linked_list.length == 3
+
+
+def test_reverse_call_chain(empty_linked_list):
+    # Act
+    empty_linked_list.from_array([1, 2, 3]).reverse().append(4)
+
+    # Assert
+    assert empty_linked_list.head.value == 3
+
+    assert empty_linked_list.tail.value == 4
+
+    assert empty_linked_list.tail.next is None
+
+    assert str(empty_linked_list) == "3 -> 2 -> 1 -> 4"
+
+    assert empty_linked_list.length == 4

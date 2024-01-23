@@ -184,3 +184,22 @@ class LinkedList:
         self._length -= 1
 
         return deleted_tail
+
+    def reverse(self) -> LinkedList:
+        if not self.head or not self.head.next:
+            return self
+
+        current_node = self.head
+        prev_node = None
+
+        while current_node:
+            next_node = current_node.next
+            current_node.next = prev_node
+
+            prev_node = current_node
+            current_node = next_node
+
+        self._tail = self.head
+        self._head = prev_node
+
+        return self
