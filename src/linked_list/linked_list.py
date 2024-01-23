@@ -43,16 +43,6 @@ class LinkedList:
 
         return self
 
-    def __str__(self, separator: str = " -> ") -> str:
-        ll_str_repr = ""
-        current = self.head
-        while current:
-            ll_str_repr += str(current)
-            if current.next:
-                ll_str_repr += separator
-            current = current.next
-        return ll_str_repr
-
     def from_array(self, array: List[Any]) -> LinkedList:
         for value in array:
             self.append(value)
@@ -69,6 +59,11 @@ class LinkedList:
             current = current.next
 
         return values
+
+    def __str__(self, separator: str = " -> ") -> str:
+        values = [str(value) for value in self.to_array()]
+
+        return f"{separator}".join(values)
 
     def delete(self, value: Any) -> LinkedListNode | None:
         current_node = self.head
