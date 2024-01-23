@@ -138,6 +138,14 @@ def test_non_empty_array_creates_list_with_same_nodes(empty_linked_list):
     )
 
 
+def test_to_array_empty_list(empty_linked_list):
+    # Act and Assert
+    assert empty_linked_list.to_array() == []
+    assert empty_linked_list.head is None
+    assert empty_linked_list.tail is None
+    assert empty_linked_list.length == 0
+
+
 def test_returns_null_when_deleting_a_non_existing_node(empty_linked_list):
     # Act
     deleted_node = empty_linked_list.delete(2)

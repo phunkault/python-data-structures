@@ -59,6 +59,17 @@ class LinkedList:
 
         return self
 
+    def to_array(self) -> List[Any]:
+        values = []
+
+        current = self.head
+
+        while current is not None:
+            values.append(current.value)
+            current = current.next
+
+        return values
+
     def delete(self, value: Any) -> LinkedListNode | None:
         current_node = self.head
         # deleted_node = None
