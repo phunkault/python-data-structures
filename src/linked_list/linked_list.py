@@ -120,6 +120,8 @@ class LinkedList:
 
     def _find_node_by_index(self, index: int) -> LinkedListNode:
         current_node = self.head
+
         for i in range(index):
             current_node = current_node.next
+
         return current_node
