@@ -7,14 +7,14 @@ from typing import Any, List, Optional
 class LinkedList:
     def __init__(self, initial: Any = None) -> None:
         self.__head = None
-        self.tail = None
+        self.__tail = None
         self.length = 0
 
         if initial:
             node = LinkedListNode(initial)
 
             self.__head = node
-            self.tail = node
+            self.__tail = node
             self.length = 1
 
     @property
@@ -24,6 +24,14 @@ class LinkedList:
     @head.setter
     def head(self, new_head: Optional[LinkedListNode]) -> None:
         self.__head = new_head
+
+    @property
+    def tail(self) -> Optional[LinkedListNode]:
+        return self.__tail
+
+    @tail.setter
+    def tail(self, new_tail: Optional[LinkedListNode]) -> None:
+        self.__tail = new_tail
 
     def is_empty(self) -> bool:
         return self.head is None
