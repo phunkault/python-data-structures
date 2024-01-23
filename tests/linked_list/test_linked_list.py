@@ -327,12 +327,12 @@ def test_is_empty_after_delete(non_empty_linked_list):
 
 def test_get_length_empty_list(empty_linked_list):
     # Act and Assert
-    assert empty_linked_list.get_length() == 0
+    assert empty_linked_list.length == 0
 
 
 def test_get_length_non_empty_list(non_empty_linked_list):
     # Act and Assert
-    assert non_empty_linked_list.get_length() == 1
+    assert non_empty_linked_list.length == 1
 
 
 def test_get_length_after_append(empty_linked_list):
@@ -340,7 +340,7 @@ def test_get_length_after_append(empty_linked_list):
     empty_linked_list.append(2)
 
     # Act and Assert
-    assert empty_linked_list.get_length() == 1
+    assert empty_linked_list.length == 1
 
 
 def test_get_length_after_delete(non_empty_linked_list):
@@ -348,4 +348,4 @@ def test_get_length_after_delete(non_empty_linked_list):
     non_empty_linked_list.delete(1)
 
     # Act and Assert
-    assert non_empty_linked_list.get_length() == 0
+    assert non_empty_linked_list.length == 0

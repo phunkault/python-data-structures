@@ -8,14 +8,14 @@ class LinkedList:
     def __init__(self, initial: Any = None) -> None:
         self.__head = None
         self.__tail = None
-        self.length = 0
+        self.__length = 0
 
         if initial:
             node = LinkedListNode(initial)
 
             self.__head = node
             self.__tail = node
-            self.length = 1
+            self.__length = 1
 
     @property
     def head(self) -> Optional[LinkedListNode]:
@@ -33,11 +33,16 @@ class LinkedList:
     def tail(self, new_tail: Optional[LinkedListNode]) -> None:
         self.__tail = new_tail
 
+    @property
+    def length(self) -> int:
+        return self.__length
+
+    @length.setter
+    def length(self, new_length: int) -> None:
+        self.__length = new_length
+
     def is_empty(self) -> bool:
         return self.head is None
-
-    def get_length(self) -> int:
-        return self.length
 
     def append(self, value: Any) -> LinkedList:
         node = LinkedListNode(value)
