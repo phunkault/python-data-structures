@@ -48,6 +48,7 @@ class LinkedList:
         else:
             node.next = self.head
             self._head = node
+
         self._length += 1
 
         return self
