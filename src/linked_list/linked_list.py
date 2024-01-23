@@ -17,6 +17,12 @@ class LinkedList:
             self.tail = node
             self.length = 1
 
+    def is_empty(self) -> bool:
+        return self.head is None
+
+    def get_length(self) -> int:
+        return self.length
+
     def append(self, value: Any) -> LinkedList:
         node = LinkedListNode(value)
 
@@ -117,9 +123,3 @@ class LinkedList:
         for i in range(index):
             current_node = current_node.next
         return current_node
-
-    def is_empty(self) -> bool:
-        return self.head is None
-
-    def get_length(self) -> int:
-        return self.length
