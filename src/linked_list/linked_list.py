@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from src.linked_list.linked_list_node import LinkedListNode
-from typing import Any, List
+from typing import Any, List, Optional
 
 
 class LinkedList:
@@ -71,33 +71,49 @@ class LinkedList:
 
         return f"{separator}".join(values)
 
-    def delete(self, value: Any) -> LinkedListNode | None:
-        current_node = self.head
-        # deleted_node = None
-
-        if current_node and current_node.value == value:
-            deleted_node = current_node
-            self.head = current_node.next
-            if self.head is None:
-                self.tail = None
-            # current_node = None
-            self.length -= 1
-            return deleted_node
-
-        prev_node = None
-        while current_node and current_node.value != value:
-            prev_node = current_node
-            current_node = current_node.next
-
-        if current_node is None:
+    def delete(self, value: Any) -> Optional[LinkedListNode]:
+        if not self.head:
             return None
 
-        deleted_node = current_node
-        prev_node.next = current_node.next
-        if current_node == self.tail:
-            self.tail = prev_node
-        # current_node = None
-        self.length -= 1
+        if self.head.value == value:
+            deleted_node = self._delete_head_update_tail()
+        else:
+            current_node = self.head
+
+            while current_node.next and current_node.next.value != value:
+                current_node = current_node.next
+
+            deleted_node = self._delete_node_update_tail(current_node)
+
+        if deleted_node:
+            deleted_node.next = None
+            self.length -= 1
+
+        return deleted_node
+
+    def _delete_head_update_tail(self) -> LinkedListNode:
+        deleted_node = self.head
+
+        if deleted_node.next:
+            self.head = deleted_node.next
+        else:
+            self.head = None
+            self.tail = None
+
+        return deleted_node
+
+    def _delete_node_update_tail(
+        self, prev_node: LinkedListNode
+    ) -> LinkedListNode:
+        deleted_node = None
+
+        if prev_node.next:
+            deleted_node = prev_node.next
+            prev_node.next = deleted_node.next
+
+            if not prev_node.next:
+                self.tail = prev_node
+
         return deleted_node
 
     def insert_at(self, index: int, value: Any) -> LinkedList:
