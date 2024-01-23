@@ -158,3 +158,29 @@ class LinkedList:
         self._length -= 1
 
         return deleted_node
+
+    def delete_tail(self) -> Optional[LinkedListNode]:
+        if self.head is None:
+            return None
+
+        deleted_tail = self.tail
+
+        # Linked list with one node.
+        if self.head == self.tail:
+            self._head = None
+            self._tail = None
+        else:
+            # Linked list with multiple nodes.
+            current_node = self.head
+
+            while (
+                current_node and current_node.next and current_node.next.next
+            ):
+                current_node = current_node.next
+
+            current_node.next = None
+            self._tail = current_node
+
+        self._length -= 1
+
+        return deleted_tail

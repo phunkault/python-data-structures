@@ -381,3 +381,48 @@ def test_delete_head_list_with_multiple_nodes(empty_linked_list):
     assert str(empty_linked_list) == "2 -> 3"
 
     assert empty_linked_list.length == 2
+
+
+def test_delete_tail_empty_list(empty_linked_list):
+    # Act
+    deleted_tail = empty_linked_list.delete_tail()
+
+    # Assert
+    assert deleted_tail is None
+    assert empty_linked_list.head is None
+    assert empty_linked_list.tail is None
+    assert empty_linked_list.length == 0
+
+
+def test_delete_tail_list_with_single_node(empty_linked_list):
+    # Arrange
+    empty_linked_list.append(1)
+
+    # Act
+    deleted_tail = empty_linked_list.delete_tail()
+
+    # Assert
+    assert deleted_tail.value == 1
+
+    assert empty_linked_list.head is None
+    assert empty_linked_list.tail is None
+
+    assert empty_linked_list.length == 0
+
+
+def test_delete_tail_list_with_multiple_nodes(empty_linked_list):
+    # Arrange
+    empty_linked_list.from_array([1, 2, 3])
+
+    # Act
+    deleted_tail = empty_linked_list.delete_tail()
+
+    # Assert
+    assert deleted_tail.value == 3
+
+    assert empty_linked_list.head.value == 1
+
+    assert empty_linked_list.tail.value == 2
+    assert empty_linked_list.tail.next is None
+
+    assert str(empty_linked_list) == "1 -> 2"
