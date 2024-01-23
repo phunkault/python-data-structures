@@ -5,37 +5,22 @@ from typing import Any, List, Optional
 
 
 class LinkedList:
-    def __init__(self, initial: Any = None) -> None:
-        self.__head: Optional[LinkedListNode] = None
-        self.__tail: Optional[LinkedListNode] = None
-        self.__length: int = 0
-
-        if initial:
-            self.append(initial)
+    def __init__(self) -> None:
+        self._head: Optional[LinkedListNode] = None
+        self._tail: Optional[LinkedListNode] = None
+        self._length: int = 0
 
     @property
     def head(self) -> Optional[LinkedListNode]:
-        return self.__head
-
-    @head.setter
-    def head(self, new_head: Optional[LinkedListNode]) -> None:
-        self.__head = new_head
+        return self._head
 
     @property
     def tail(self) -> Optional[LinkedListNode]:
-        return self.__tail
-
-    @tail.setter
-    def tail(self, new_tail: Optional[LinkedListNode]) -> None:
-        self.__tail = new_tail
+        return self._tail
 
     @property
     def length(self) -> int:
-        return self.__length
-
-    @length.setter
-    def length(self, new_length: int) -> None:
-        self.__length = new_length
+        return self._length
 
     def is_empty(self) -> bool:
         return self.head is None
@@ -44,12 +29,12 @@ class LinkedList:
         node = LinkedListNode(value)
 
         if not self.head:
-            self.head = node
-            self.tail = node
+            self._head = node
+            self._tail = node
         else:
             self.tail.next = node
-            self.tail = node
-        self.length += 1
+            self._tail = node
+        self._length += 1
 
         return self
 
@@ -57,12 +42,12 @@ class LinkedList:
         node = LinkedListNode(value)
 
         if not self.head:
-            self.head = node
-            self.tail = node
+            self._head = node
+            self._tail = node
         else:
             node.next = self.head
-            self.head = node
-        self.length += 1
+            self._head = node
+        self._length += 1
 
         return self
 
@@ -104,7 +89,7 @@ class LinkedList:
 
         if deleted_node:
             deleted_node.next = None
-            self.length -= 1
+            self._length -= 1
 
         return deleted_node
 
@@ -112,10 +97,10 @@ class LinkedList:
         deleted_node = self.head
 
         if deleted_node.next:
-            self.head = deleted_node.next
+            self._head = deleted_node.next
         else:
-            self.head = None
-            self.tail = None
+            self._head = None
+            self._tail = None
 
         return deleted_node
 
@@ -129,7 +114,7 @@ class LinkedList:
             prev_node.next = deleted_node.next
 
             if not prev_node.next:
-                self.tail = prev_node
+                self._tail = prev_node
 
         return deleted_node
 
@@ -148,7 +133,7 @@ class LinkedList:
             new_node.next = prev_node.next
             prev_node.next = new_node
 
-            self.length += 1
+            self._length += 1
 
         return self
 

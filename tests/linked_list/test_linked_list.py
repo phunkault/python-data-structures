@@ -11,7 +11,7 @@ def empty_linked_list():
 # Arrange
 @pytest.fixture
 def non_empty_linked_list():
-    return LinkedList(1)
+    return LinkedList().append(1)
 
 
 def test_initial_state(empty_linked_list):
