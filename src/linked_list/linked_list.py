@@ -25,6 +25,13 @@ class LinkedList:
     def is_empty(self) -> bool:
         return self.head is None
 
+    def __iter__(self) -> None:
+        current_node = self.head
+
+        while current_node is not None:
+            yield current_node
+            current_node = current_node.next
+
     def append(self, value: Any) -> LinkedList:
         node = LinkedListNode(value)
 
