@@ -169,15 +169,15 @@ class LinkedList:
             self._tail = None
         else:
             # Linked list with multiple nodes.
-            current_node = self.head
+            prev_node = None
 
-            while (
-                current_node and current_node.next and current_node.next.next
-            ):
-                current_node = current_node.next
-
-            current_node.next = None
-            self._tail = current_node
+            for current_node in self:
+                if current_node.next:
+                    prev_node = current_node
+                else:
+                    prev_node.next = None
+                    self._tail = prev_node
+                    break
 
         self._length -= 1
 
