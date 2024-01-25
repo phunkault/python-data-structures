@@ -4,10 +4,10 @@ from typing import Any
 
 class LinkedListNode:
     def __init__(
-        self, value: Any = None, next: LinkedListNode | None = None
+        self, data: Any = None, next: LinkedListNode | None = None
     ) -> None:
-        self.value = value
+        self.data = data
         self.next = next
 
     def __str__(self) -> str:
-        return f"LinkedListNode({self.value})"
+        return f"LinkedListNode({self.data})"

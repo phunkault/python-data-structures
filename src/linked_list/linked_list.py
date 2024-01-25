@@ -71,7 +71,7 @@ class LinkedList:
         current = self.head
 
         while current:
-            values.append(current.value)
+            values.append(current.data)
             current = current.next
 
         return values
@@ -81,50 +81,43 @@ class LinkedList:
 
         return f"{separator}".join(values)
 
-    def delete(self, value: Any) -> Optional[LinkedListNode]:
-        if not self.head:
+    def _is_match(self, value: Any, arg: Any) -> bool:
+        if callable(arg):
+            return arg(value)
+        else:
+            return value == arg
+
+    def delete(self, arg: Any) -> Optional[LinkedListNode]:
+        if self._head is None:
             return None
 
-        if self.head.value == value:
-            deleted_node = self._delete_head_update_tail()
-        else:
-            current_node = self.head
+        deleted_node = None
+        prev_node = None
 
-            while current_node.next and current_node.next.value != value:
-                current_node = current_node.next
+        for current_node in self:
+            if self._is_match(current_node.data, arg):
+                deleted_node = current_node
+                break
 
-            deleted_node = self._delete_node_update_tail(current_node)
+            prev_node = current_node
 
         if deleted_node:
+            self._delete_node_and_update_tail(deleted_node, prev_node)
             deleted_node.next = None
             self._length -= 1
 
         return deleted_node
 
-    def _delete_head_update_tail(self) -> LinkedListNode:
-        deleted_node = self.head
-
-        if deleted_node.next:
+    def _delete_node_and_update_tail(
+        self, deleted_node: LinkedListNode, prev_node: Optional[LinkedListNode]
+    ):
+        if prev_node is None:
             self._head = deleted_node.next
         else:
-            self._head = None
-            self._tail = None
-
-        return deleted_node
-
-    def _delete_node_update_tail(
-        self, prev_node: LinkedListNode
-    ) -> LinkedListNode:
-        deleted_node = None
-
-        if prev_node.next:
-            deleted_node = prev_node.next
             prev_node.next = deleted_node.next
 
-            if not prev_node.next:
-                self._tail = prev_node
-
-        return deleted_node
+        if deleted_node.next is None:
+            self._tail = prev_node
 
     def insert_at(self, index: int, value: Any) -> LinkedList:
         if index < 0 or index > self.length:
@@ -211,17 +204,13 @@ class LinkedList:
 
         return self
 
-    def find(self, value: Any) -> Optional[LinkedListNode]:
+    def find(self, arg: Any) -> Optional[LinkedListNode]:
         if not self.head:
             return None
 
-        current_node = self.head
-
-        while current_node:
-            if current_node.value == value:
+        for current_node in self:
+            if self._is_match(current_node.data, arg):
                 return current_node
-
-            current_node = current_node.next
 
         return None
 
