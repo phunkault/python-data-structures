@@ -11,7 +11,7 @@ def test_creates_node_with_value(test_value):
     node = LinkedListNode(test_value)
 
     # Assert
-    assert node.value == test_value
+    assert node.data == test_value
     assert node.next is None
 
 
@@ -21,7 +21,7 @@ def test_to_string_method(test_value):
     node = LinkedListNode(test_value)
 
     # Act and Assert
-    assert str(node) == f"LinkedListNode({node.value})"
+    assert str(node) == f"LinkedListNode({node.data})"
 
 
 def test_links_nodes_together():
@@ -34,5 +34,5 @@ def test_links_nodes_together():
     # Assert
     assert node1.next is not None
     assert node2.next is None
-    assert node1.value == 2
-    assert node1.next.value == 1
+    assert node1.data == 2
+    assert node1.next.data == 1
