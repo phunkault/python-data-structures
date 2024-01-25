@@ -82,7 +82,7 @@ class LinkedList:
 
         return f"{separator}".join(values)
 
-    def _is_match(self, value: T, arg: Any) -> bool:
+    def _is_match(self, value: Any, arg: Any) -> bool:
         if callable(arg):
             return arg(value)
         else:
