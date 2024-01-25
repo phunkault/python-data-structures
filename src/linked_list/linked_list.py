@@ -68,11 +68,9 @@ class LinkedList:
 
     def to_array(self) -> List[Any]:
         values = []
-        current = self.head
 
-        while current:
-            values.append(current.data)
-            current = current.next
+        for node in self:
+            values.append(node.data)
 
         return values
 
