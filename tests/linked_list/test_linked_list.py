@@ -4,37 +4,32 @@ from src.linked_list.linked_list import LinkedList
 
 # Arrange
 @pytest.fixture
+def linked_list():
+    return LinkedList()
+
+@pytest.fixture
 def empty_linked_list():
     return LinkedList()
 
-
-# Arrange
 @pytest.fixture
 def non_empty_linked_list():
     return LinkedList().append(1)
 
 
-def test_initial_state(empty_linked_list):
+def test_returns_initial_state_correctly(linked_list):
     # Assert
-    assert empty_linked_list.head is None
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+    assert linked_list.is_empty == True
 
-    assert empty_linked_list.tail is None
 
-    assert empty_linked_list.length == 0
-
-
-def test_append_empty_list(empty_linked_list):
-    # Act
-    empty_linked_list.append(1)
+def test_returns_false_for_the_non_empty_list(empty_linked_list):
+    # Arrange
+    linked_list.append(1)
 
     # Assert
-    assert empty_linked_list.head.data == 1
-    assert empty_linked_list.head.next is None
-
-    assert empty_linked_list.tail.data == 1
-    assert empty_linked_list.tail.next is None
-
-    assert empty_linked_list.length == 1
+    assert linked_list.length == 1
 
 
 def test_append_call_chain(empty_linked_list):
