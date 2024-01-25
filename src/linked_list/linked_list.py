@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from src.linked_list.linked_list_node import LinkedListNode
 from typing import Any, List, Optional
-from types import FunctionType
 
 
 class LinkedList:
