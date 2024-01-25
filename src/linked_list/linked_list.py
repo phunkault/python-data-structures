@@ -86,11 +86,11 @@ class LinkedList:
             return arg(value)
         else:
             return value == arg
-    
-    def delete(self, arg: Any) -> Optional[Node]:
+
+    def delete(self, arg: Any) -> Optional[LinkedListNode]:
         if self._head is None:
             return None
-        
+
         deleted_node = None
         prev_node = None
 
@@ -105,10 +105,12 @@ class LinkedList:
             self._delete_node_and_update_tail(deleted_node, prev_node)
             deleted_node.next = None
             self._length -= 1
-        
+
         return deleted_node
 
-    def _delete_node_and_update_tail(self, deleted_node: Node, prev_node: Optional[Node]):
+    def _delete_node_and_update_tail(
+        self, deleted_node: LinkedListNode, prev_node: Optional[LinkedListNode]
+    ):
         if prev_node is None:
             self._head = deleted_node.next
         else:
@@ -203,7 +205,7 @@ class LinkedList:
         return self
 
     def find(self, arg: Any) -> Optional[LinkedListNode]:
-        if not self.head: 
+        if not self.head:
             return None
 
         for current_node in self:
