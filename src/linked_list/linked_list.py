@@ -22,6 +22,7 @@ class LinkedList:
     def length(self) -> int:
         return self._length
 
+    @property
     def is_empty(self) -> bool:
         return self.head is None
 
