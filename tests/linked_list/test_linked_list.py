@@ -21,10 +21,10 @@ def test_returns_initial_state_correctly(linked_list):
     assert linked_list.head is None
     assert linked_list.tail is None
     assert linked_list.length == 0
-    assert linked_list.is_empty == True
+    assert linked_list.is_empty() == True
 
 
-def test_returns_false_for_the_non_empty_list(empty_linked_list):
+def test_returns_false_for_the_non_empty_list(linked_list):
     # Arrange
     linked_list.append(1)
 
