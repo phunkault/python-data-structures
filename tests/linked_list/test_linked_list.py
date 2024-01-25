@@ -537,3 +537,36 @@ def test_clear_non_empty_linked_list(non_empty_linked_list):
     assert non_empty_linked_list.tail is None
     assert non_empty_linked_list.length == 0
     assert non_empty_linked_list.is_empty()
+
+
+def test_delete_by_predicate():
+    # Arrange
+    class Value:
+        def __init__(self, key, value):
+            self.key = key
+            self.value = value
+
+        def __str__(self):
+            return f"({self.key}, {self.value})"
+
+    values = [
+        Value("one", 1),
+        Value("two", 2),
+        Value("three", 3),
+        Value("four", 4),
+    ]
+
+    linked_list = LinkedList()
+    linked_list.from_array(values)
+
+    # Act
+    deleted_node = linked_list.delete(lambda pair: pair.value.key == "two")
+
+    # Assert
+    assert deleted_node.value.value == 2
+
+    assert linked_list.head.value.value == 1
+    assert linked_list.head.next.value.value == 3
+    assert linked_list.tail.value.value == 4
+    assert str(linked_list) == "(one, 1) -> (three, 3) -> (four, 4)"
+    assert linked_list.length == 3

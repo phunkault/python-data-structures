@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from src.linked_list.linked_list_node import LinkedListNode
 from typing import Any, List, Optional
+from types import FunctionType
 
 
 class LinkedList:
@@ -85,12 +86,34 @@ class LinkedList:
         if not self.head:
             return None
 
+        if isinstance(value, FunctionType):
+            return self._delete_by_predicate(value)
+
         if self.head.value == value:
             deleted_node = self._delete_head_update_tail()
         else:
             current_node = self.head
 
             while current_node.next and current_node.next.value != value:
+                current_node = current_node.next
+
+            deleted_node = self._delete_node_update_tail(current_node)
+
+        if deleted_node:
+            deleted_node.next = None
+            self._length -= 1
+
+        return deleted_node
+
+    def _delete_by_predicate(
+        self, predicate: FunctionType
+    ) -> Optional[LinkedListNode]:
+        if predicate(self.head):
+            deleted_node = self._delete_head_update_tail()
+        else:
+            current_node = self.head
+
+            while current_node.next and not predicate(current_node.next):
                 current_node = current_node.next
 
             deleted_node = self._delete_node_update_tail(current_node)
