@@ -224,3 +224,8 @@ class LinkedList:
             current_node = current_node.next
 
         return None
+
+    def clear(self) -> None:
+        self._head = None
+        self._tail = None
+        self._length = 0

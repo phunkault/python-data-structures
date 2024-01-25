@@ -515,3 +515,25 @@ def test_find_list_with_multiple_node(empty_linked_list):
 
     # Assert
     assert founded_node.value == 2
+
+
+def test_clear_empty_linked_list(empty_linked_list):
+    # Act
+    empty_linked_list.clear()
+
+    # Assert
+    assert empty_linked_list.head is None
+    assert empty_linked_list.tail is None
+    assert empty_linked_list.length == 0
+    assert empty_linked_list.is_empty()
+
+
+def test_clear_non_empty_linked_list(non_empty_linked_list):
+    # Act
+    non_empty_linked_list.clear()
+
+    # Assert
+    assert non_empty_linked_list.head is None
+    assert non_empty_linked_list.tail is None
+    assert non_empty_linked_list.length == 0
+    assert non_empty_linked_list.is_empty()
