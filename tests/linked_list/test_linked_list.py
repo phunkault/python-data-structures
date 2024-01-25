@@ -14,7 +14,7 @@ def describe_initial_state():
         assert linked_list.head is None
         assert linked_list.tail is None
         assert linked_list.length == 0
-        assert linked_list.is_empty == True
+        assert linked_list.is_empty is True
 
 
 def describe_is_empty_method():
@@ -23,9 +23,9 @@ def describe_is_empty_method():
         linked_list.append(1)
 
         # Assert
-        assert linked_list.is_empty == False
+        assert linked_list.is_empty is False
         assert linked_list.length == 1
-        
+
 
 def describe_append_method():
     def add_nodes_to_the_list_correctly(linked_list):
