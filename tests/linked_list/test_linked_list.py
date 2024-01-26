@@ -15,7 +15,7 @@ def test_returns_corrent_initial_state(linked_list):
     assert linked_list.is_empty
     assert linked_list.length == 0
 
-# Append Method
+# Append
 def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     # Arrange
     linked_list.append(1)
@@ -59,7 +59,7 @@ def test_append_can_be_used_in_call_chain(linked_list):
 
     assert linked_list.length == 3
 
-# From Array Method
+# From Array
 def test_from_array_creates_an_empty_list_when_an_empty_array_is_passed(linked_list):
     # Act
     linked_list.from_array([])
@@ -81,7 +81,7 @@ def test_from_array_creates_list_with_the_same_nodes_as_the_input_array(linked_l
 
     assert linked_list.length == 3
 
-# To Array Method
+# To Array
 def test_to_array_returns_an_empty_array_for_the_empty_list(linked_list):
     # Act and Assert
     assert linked_list.to_array() == []
@@ -97,7 +97,7 @@ def test_to_array_returns_the_array_with_the_same_items_from_the_linked_list(lin
     # Act
     assert linked_list.to_array() == array
 
-# __str__ method
+# Stringifier
 def test_str_converts_the_single_node_list_to_a_string(linked_list):
     # Arrange
     linked_list.append(1)
@@ -116,7 +116,7 @@ def test_str_converts_the_multiple_node_list_to_a_string(linked_list):
     # Assert
     assert str(linked_list) == "1 -> 2 -> 3"
 
-# Prepend Method
+# Prepend
 def test_prepend_adds_nodes_to_the_rear_of_the_list_correctly(linked_list):
     # Act
     linked_list.prepend(2)
@@ -140,7 +140,7 @@ def test_prepend_can_be_used_in_call_chain(linked_list):
     assert str(linked_list) == "1 -> 2 -> 3"
     assert linked_list.length == 3
 
-# Delete Method
+# Delete
 def test_delete_returns_none_when_deleting_a_non_existing_node(linked_list):
     # Act
     deleted_node = linked_list.delete(3)
@@ -249,7 +249,7 @@ def test_deletes_node_by_predicate():
     assert str(linked_list) == "(one, 1) -> (three, 3)"
     assert linked_list.length == 2
 
-# Reverse Method
+# Reverse
 def test_reverse_the_empty_list(linked_list):
     # Act
     linked_list.reverse()
@@ -289,13 +289,79 @@ def test_reverse_the_multi_node_list(linked_list):
 def test_reverse_can_be_used_in_call_chain(linked_list):
     # Act
     linked_list.from_array([3, 2, 1]).reverse().append(4)
-    
+
     assert linked_list.length == 4
 
     # Assert
     assert str(linked_list) == '1 -> 2 -> 3 -> 4'
     assert linked_list.length == 4
     
+# Insert At
+def test_insert_at_throws_an_exception_if_the_index_is_less_than_the_list_length(linked_list):
+    # Act and Assert
+    with pytest.raises(
+        IndexError,
+        match="Index should be >= 0 and <= list length.",
+    ):
+        linked_list.insert_at(-1, 1)
+
+def test_insert_at_throws_an_exception_if_the_index_is_greater_than_the_list_length(linked_list):
+    # Act and Assert
+    with pytest.raises(
+        IndexError,
+        match="Index should be >= 0 and <= list length.",
+    ):
+        linked_list.insert_at(10, 1)
+
+def test_inserts_a_node_into_the_empty_list(linked_list):
+    # Act
+    linked_list.insert_at(0, 1)
+
+    # Assert
+    assert str(linked_list) == "1"
+    assert linked_list.length == 1
+
+def test_inserts_at_the_beginning_of_the_list(linked_list):
+    # Arrange
+    linked_list.append(2)
+
+    # Act
+    linked_list.insert_at(0, 1)
+
+    # Assert
+    assert str(linked_list) == '1 -> 2'
+    assert linked_list.length == 2
+
+def test_inserts_into_the_middle_of_the_list(linked_list):
+    # Arrange
+    linked_list.from_array([1, 3])
+
+    # Act
+    linked_list.insert_at(1, 2)
+
+    # Assert
+    assert str(linked_list) == '1 -> 2 -> 3'
+    assert linked_list.length == 3
+
+def test_inserts_at_the_end_of_the_list(linked_list):
+    # Arrange
+    linked_list.append(1)
+
+    # Act
+    linked_list.insert_at(1, 2)
+
+    # Assert
+    assert str(linked_list) == "1 -> 2"
+    assert linked_list.length == 2
+
+def test_insert_at_can_be_used_in_a_call_chain(linked_list):
+    # Act
+    linked_list.insert_at(0, 1).insert_at(1, 2)
+
+    # Assert
+    assert str(linked_list) == "1 -> 2"
+    assert linked_list.length == 2
+
 
 
 
