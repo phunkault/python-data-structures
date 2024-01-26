@@ -138,7 +138,124 @@ def test_prepend_can_be_used_in_call_chain(linked_list):
     # Assert
     assert str(linked_list) == "1 -> 2 -> 3"
     assert linked_list.length == 3
+
+# Delete Method
+def test_delete_returns_none_when_deleting_a_non_existing_node(linked_list):
+    # Act
+    deleted_node = linked_list.delete(3)
+
+    # Assert
+    assert deleted_node is None
+
+def test_deletes_the_element_outside_the_list(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2])
+    assert str(linked_list) == '1 -> 2'
+    assert linked_list.length == 2
+
+    # Act
+    delete_node = linked_list.delete(3)
     
+    # Assert
+    assert delete_node is None
+    assert str(linked_list) == '1 -> 2'
+    assert linked_list.length == 2
+
+def test_deletes_the_node_from_the_singular_node_list(linked_list):
+    # Arrange
+    linked_list.append(1)
+
+    # Act
+    deleted_node = linked_list.delete(1)
+
+    # Assert
+    assert deleted_node.data == 1
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+
+def test_deletes_the_first_node_from_the_multi_node_list(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2, 3])
+
+    assert str(linked_list) == '1 -> 2 -> 3'
+    assert linked_list.length == 3
+
+    # Act
+    deleted_node = linked_list.delete(1)
+
+    # Assert
+    assert deleted_node.data == 1
+    assert str(linked_list) == '2 -> 3'
+    assert linked_list.length == 2
+
+def test_deletes_node_from_the_middle_of_the_list(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2, 3])
+
+    assert str(linked_list) == '1 -> 2 -> 3'
+    assert linked_list.length == 3
+
+    # Act
+    deleted_node = linked_list.delete(2)
+
+    # Assert
+    assert deleted_node.data == 2
+    assert str(linked_list) == '1 -> 3'
+    assert linked_list.length == 2
+
+def test_deletes_the_last_element(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2])
+
+    assert str(linked_list) == '1 -> 2'
+    assert linked_list.length == 2
+
+    # Act
+    deleted_node = linked_list.delete(2)
+
+    # Assert
+    assert deleted_node.data == 2
+    assert str(linked_list) == '1'
+    assert linked_list.length == 1
+
+def test_deletes_node_by_predicate():
+        # Arrange
+    class Value:
+        def __init__(self, key, value):
+            self.key = key
+            self.value = value
+
+        def __str__(self):
+            return f"({self.key}, {self.value})"
+
+    values = [
+        Value("one", 1),
+        Value("two", 2),
+        Value("three", 3),
+    ]
+
+    linked_list = LinkedList().from_array(values)
+
+    assert str(linked_list) == "(one, 1) -> (two, 2) -> (three, 3)"
+    assert linked_list.length == 3
+
+    # Act
+    deleted_node = linked_list.delete(lambda node: node.key == 'two')
+    
+    # Assert
+    assert deleted_node.data.key == 'two'
+    assert str(linked_list) == "(one, 1) -> (three, 3)"
+    assert linked_list.length == 2
+
+
+
+
+
+
+
+
+
 # def test_prepend_empty_list(empty_linked_list):
 #     # Act
 #     empty_linked_list.prepend(1)
