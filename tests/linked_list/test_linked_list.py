@@ -277,6 +277,8 @@ def test_reverse_the_multi_node_list(linked_list):
     # Arrange
     linked_list.from_array([1, 2])
 
+    assert linked_list.length == 2
+
     # Act
     linked_list.reverse()
 
@@ -287,11 +289,13 @@ def test_reverse_the_multi_node_list(linked_list):
 def test_reverse_can_be_used_in_call_chain(linked_list):
     # Act
     linked_list.from_array([3, 2, 1]).reverse().append(4)
+    
+    assert linked_list.length == 4
 
     # Assert
     assert str(linked_list) == '1 -> 2 -> 3 -> 4'
+    assert linked_list.length == 4
     
-
 
 
 
