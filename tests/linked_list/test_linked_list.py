@@ -14,6 +14,7 @@ def test_returns_corrent_initial_state(linked_list):
     assert linked_list.length == 0
     assert linked_list.is_empty
 
+# Append method
 def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     # Arrange
     linked_list.append(1)
@@ -21,7 +22,7 @@ def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     # Assert
     assert linked_list.is_empty == False
 
-def test_append_add_nodes_to_the_list_correctly(linked_list):
+def test_append_adds_nodes_to_the_end_of_the_list_correctly(linked_list):
     # Act
     linked_list.append(1)
 
@@ -35,8 +36,10 @@ def test_append_add_nodes_to_the_list_correctly(linked_list):
 
     # Assert
     assert linked_list.head.data == 1
+    assert linked_list.head.next.data == 2
     assert linked_list.tail.data == 2
     assert linked_list.length == 2
+    assert str(linked_list) == '1 -> 2'
 
 def test_append_can_be_used_in_call_chain(linked_list):
     # Act
@@ -46,40 +49,38 @@ def test_append_can_be_used_in_call_chain(linked_list):
     assert linked_list.head.data == 1
     assert linked_list.tail.data == 3
     assert linked_list.length == 3
+    assert str(linked_list) == "1 -> 2 -> 3"
 
+# Prepend Method
+def test_prepend_adds_nodes_to_the_rear_of_the_list_correctly(linked_list):
+    # Act
+    linked_list.prepend(2)
 
+    # Assert
+    assert linked_list.head.data == 2
+    assert linked_list.tail.data == 2
+    assert linked_list.length == 1
 
+    # Act
+    linked_list.prepend(1)
 
+    # Assert
+    assert linked_list.head.data == 1
+    assert linked_list.head.next.data == 2
+    assert linked_list.tail.data == 2
+    assert linked_list.length == 2
+    assert str(linked_list) == "1 -> 2"
 
-# def test_append_call_chain(empty_linked_list):
-#     # Act
-#     empty_linked_list.append(1).append(2).append(3)
+def test_prepend_can_be_used_in_call_chain(linked_list):
+        # Act
+    linked_list.prepend(3).prepend(2).prepend(1)
 
-#     # Assert
-#     assert empty_linked_list.head.data == 1
-#     assert empty_linked_list.head.next.data == 2
-#     assert empty_linked_list.head.next.next.data == 3
-
-#     assert empty_linked_list.tail.data == 3
-#     assert empty_linked_list.tail.next is None
-
-#     assert empty_linked_list.length == 3
-
-
-# def test_append_non_empty_list(non_empty_linked_list):
-#     # Act
-#     non_empty_linked_list.append(2)
-
-#     # Assert
-#     assert non_empty_linked_list.head.data == 1
-#     assert non_empty_linked_list.head.next.data == 2
-
-#     assert non_empty_linked_list.tail.data == 2
-#     assert non_empty_linked_list.tail.next is None
-
-#     assert non_empty_linked_list.length == 2
-
-
+    # Assert
+    assert linked_list.head.data == 1
+    assert linked_list.tail.data == 3
+    assert linked_list.length == 3
+    assert str(linked_list) == "1 -> 2 -> 3"
+    
 # def test_prepend_empty_list(empty_linked_list):
 #     # Act
 #     empty_linked_list.prepend(1)
