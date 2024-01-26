@@ -47,6 +47,17 @@ class LinkedList:
 
         return self
 
+    def from_array(self, array: List[Any]) -> LinkedList:
+        for value in array:
+            self.append(value)
+
+        return self
+
+    def __str__(self, separator: str = " -> ") -> str:
+        values = [str(value) for value in self.to_array()]
+
+        return f"{separator}".join(values)
+
     def prepend(self, value: Any) -> LinkedList:
         node = LinkedListNode(value)
 
@@ -61,12 +72,6 @@ class LinkedList:
 
         return self
 
-    def from_array(self, array: List[Any]) -> LinkedList:
-        for value in array:
-            self.append(value)
-
-        return self
-
     def to_array(self) -> List[Any]:
         values = []
 
@@ -75,10 +80,7 @@ class LinkedList:
 
         return values
 
-    def __str__(self, separator: str = " -> ") -> str:
-        values = [str(value) for value in self.to_array()]
 
-        return f"{separator}".join(values)
 
     def _is_match(self, value: Any, arg: Any) -> bool:
         if callable(arg):
