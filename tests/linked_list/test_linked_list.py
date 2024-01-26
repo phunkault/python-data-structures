@@ -362,10 +362,30 @@ def test_insert_at_can_be_used_in_a_call_chain(linked_list):
     assert str(linked_list) == "1 -> 2"
     assert linked_list.length == 2
 
+# Delete Head
+def test_delete_the_node_from_the_empty_list(linked_list):
+    # Act
+    deleted_head = linked_list.delete_head()
 
+    # Assert
+    assert deleted_head is None
+    assert linked_list.length == 0
 
+def test_delete_head_from_the_front_of_the_list_corretly(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2])
 
+    # Act and Assert
+    assert linked_list.delete_head().data == 1
+    assert linked_list.length == 1
 
+    # Act and Assert
+    assert linked_list.delete_head().data == 2
+    
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+    
 
 
 
