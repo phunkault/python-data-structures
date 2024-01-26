@@ -20,7 +20,7 @@ def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     linked_list.append(1)
 
     # Assert
-    assert linked_list.is_empty == False
+    assert not linked_list.is_empty
 
 def test_append_adds_nodes_to_the_end_of_the_list_correctly(linked_list):
     # Act
