@@ -463,6 +463,31 @@ def test_delete_the_tail_from_the_multi_node_list(linked_list):
     assert linked_list.tail.next is None
     assert linked_list.length == 1
 
+# Find
+def test_find_returns_non_for_a_not_found_node(linked_list):
+    # Act and Assert
+    assert linked_list.find(1) is None
+    assert linked_list.find(lambda node: node == 100) is None
+
+def test_find_a_node_by_value(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2])
+
+    # Act
+    founded_node = linked_list.find(1)
+
+    # Assert
+    assert founded_node.data == 1
+
+def test_found_a_node_by_predicate(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2, 3])
+
+    # Act
+    founded_node = linked_list.find(lambda node: node > 2)
+
+    # Assert
+    assert founded_node.data == 3
 
 # def test_prepend_empty_list(empty_linked_list):
 #     # Act
