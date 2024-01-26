@@ -14,7 +14,7 @@ def test_returns_corrent_initial_state(linked_list):
     assert linked_list.length == 0
     assert linked_list.is_empty
 
-# Append method
+# append method
 def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     # Arrange
     linked_list.append(1)
@@ -29,6 +29,7 @@ def test_append_adds_nodes_to_the_end_of_the_list_correctly(linked_list):
     # Assert
     assert linked_list.head.data == 1
     assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
     assert linked_list.length == 1
 
     # Act
@@ -38,8 +39,9 @@ def test_append_adds_nodes_to_the_end_of_the_list_correctly(linked_list):
     assert linked_list.head.data == 1
     assert linked_list.head.next.data == 2
     assert linked_list.tail.data == 2
+    assert linked_list.tail.next is None
+
     assert linked_list.length == 2
-    assert str(linked_list) == '1 -> 2'
 
 def test_append_can_be_used_in_call_chain(linked_list):
     # Act
@@ -47,18 +49,63 @@ def test_append_can_be_used_in_call_chain(linked_list):
 
     # Assert
     assert linked_list.head.data == 1
+    assert linked_list.head.next.data == 2
+    assert linked_list.head.next.next.data == 3
+
     assert linked_list.tail.data == 3
+    assert linked_list.tail.next is None
+
     assert linked_list.length == 3
+
+# from_array method
+def test_from_array_creates_an_empty_list_when_an_empty_array_is_passed(linked_list):
+    # Act
+    linked_list.from_array([])
+
+    assert linked_list.is_empty
+    assert linked_list.length == 0
+
+def test_from_array_creates_list_with_the_same_nodes_as_the_input_array(linked_list):
+    # Act
+    linked_list.from_array([1, 2, 3])
+
+    # Assert
+    assert linked_list.head.data == 1
+    assert linked_list.head.next.data == 2
+    assert linked_list.head.next.next.data == 3
+
+    assert linked_list.tail.data == 3
+    assert linked_list.tail.next is None
+
+    assert linked_list.length == 3
+
+# __str__ method
+def test_str_converts_the_single_node_list_to_a_string(linked_list):
+    # Arrange
+    linked_list.append(1)
+
+    # Assert
+    assert linked_list.head.data == 1
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
+    assert str(linked_list) == "1"
+    assert linked_list.length == 1
+
+def test_str_converts_the_multiple_node_list_to_a_string(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2, 3])
+
+    # Assert
     assert str(linked_list) == "1 -> 2 -> 3"
 
-# Prepend Method
+# prepend method
 def test_prepend_adds_nodes_to_the_rear_of_the_list_correctly(linked_list):
     # Act
     linked_list.prepend(2)
 
     # Assert
     assert linked_list.head.data == 2
-    assert linked_list.tail.data == 2
+    assert str(linked_list) == "2"
     assert linked_list.length == 1
 
     # Act
