@@ -164,6 +164,9 @@ class LinkedList:
 
         if deleted_node.next:
             self._head = deleted_node.next
+        else:
+            self._head = None
+            self._tail = None
 
         self._length -= 1
 

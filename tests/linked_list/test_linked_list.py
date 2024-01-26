@@ -15,7 +15,7 @@ def test_returns_corrent_initial_state(linked_list):
     assert linked_list.is_empty
     assert linked_list.length == 0
 
-# Append
+# Is Empty
 def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     # Arrange
     linked_list.append(1)
@@ -24,6 +24,7 @@ def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     assert not linked_list.is_empty
     assert linked_list.length == 1
 
+# Append
 def test_append_adds_nodes_to_the_end_of_the_list_correctly(linked_list):
     # Act
     linked_list.append(1)
@@ -117,18 +118,24 @@ def test_str_converts_the_multiple_node_list_to_a_string(linked_list):
     assert str(linked_list) == "1 -> 2 -> 3"
 
 # Prepend
-def test_prepend_adds_nodes_to_the_rear_of_the_list_correctly(linked_list):
-    # Act
-    linked_list.prepend(2)
-
-    # Assert
-    assert str(linked_list) == "2"
-    assert linked_list.length == 1
-
+def test_prepend_a_node_to_the_beginning_of_the_empty_list(linked_list):
     # Act
     linked_list.prepend(1)
 
     # Assert
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
+    assert str(linked_list) == "1"
+    assert linked_list.length == 1
+
+def test_prepend_a_node_at_the_beginning_of_the_multi_node_list(linked_list):
+    # Act
+    linked_list.prepend(2)
+    linked_list.prepend(1)
+
+    # Assert
+    assert linked_list.tail.data == 2
+    assert linked_list.tail.next is None
     assert str(linked_list) == "1 -> 2"
     assert linked_list.length == 2
 
@@ -138,6 +145,8 @@ def test_prepend_can_be_used_in_call_chain(linked_list):
 
     # Assert
     assert str(linked_list) == "1 -> 2 -> 3"
+    assert linked_list.tail.data == 3
+    assert linked_list.tail.next is None
     assert linked_list.length == 3
 
 # Delete
@@ -147,12 +156,11 @@ def test_delete_returns_none_when_deleting_a_non_existing_node(linked_list):
 
     # Assert
     assert deleted_node is None
+    assert linked_list.length == 0
 
 def test_deletes_the_element_outside_the_list(linked_list):
     # Arrange
     linked_list.from_array([1, 2])
-    assert str(linked_list) == '1 -> 2'
-    assert linked_list.length == 2
 
     # Act
     delete_node = linked_list.delete(3)
@@ -160,6 +168,9 @@ def test_deletes_the_element_outside_the_list(linked_list):
     # Assert
     assert delete_node is None
     assert str(linked_list) == '1 -> 2'
+
+    assert linked_list.tail.data == 2
+    assert linked_list.tail.next is None
     assert linked_list.length == 2
 
 def test_deletes_the_node_from_the_singular_node_list(linked_list):
@@ -179,23 +190,20 @@ def test_deletes_the_first_node_from_the_multi_node_list(linked_list):
     # Arrange
     linked_list.from_array([1, 2, 3])
 
-    assert str(linked_list) == '1 -> 2 -> 3'
-    assert linked_list.length == 3
-
     # Act
     deleted_node = linked_list.delete(1)
 
     # Assert
     assert deleted_node.data == 1
     assert str(linked_list) == '2 -> 3'
+
+    assert linked_list.tail.data == 3
+    assert linked_list.tail.next is None
     assert linked_list.length == 2
 
 def test_deletes_node_from_the_middle_of_the_list(linked_list):
     # Arrange
     linked_list.from_array([1, 2, 3])
-
-    assert str(linked_list) == '1 -> 2 -> 3'
-    assert linked_list.length == 3
 
     # Act
     deleted_node = linked_list.delete(2)
@@ -203,21 +211,24 @@ def test_deletes_node_from_the_middle_of_the_list(linked_list):
     # Assert
     assert deleted_node.data == 2
     assert str(linked_list) == '1 -> 3'
+
+    assert linked_list.tail.data == 3
+    assert linked_list.tail.next is None
     assert linked_list.length == 2
 
 def test_deletes_the_last_element(linked_list):
     # Arrange
     linked_list.from_array([1, 2])
 
-    assert str(linked_list) == '1 -> 2'
-    assert linked_list.length == 2
-
     # Act
     deleted_node = linked_list.delete(2)
 
     # Assert
     assert deleted_node.data == 2
+
     assert str(linked_list) == '1'
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
     assert linked_list.length == 1
 
 def test_deletes_node_by_predicate():
@@ -239,6 +250,8 @@ def test_deletes_node_by_predicate():
     linked_list = LinkedList().from_array(values)
 
     assert str(linked_list) == "(one, 1) -> (two, 2) -> (three, 3)"
+    assert linked_list.tail.data.key == "three"
+    assert linked_list.tail.next is None
     assert linked_list.length == 3
 
     # Act
@@ -264,6 +277,8 @@ def test_reverse_the_singular_node(linked_list):
     linked_list.append(1)
 
     assert str(linked_list) == "1"
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
     assert linked_list.length == 1
 
     # Act
@@ -271,6 +286,8 @@ def test_reverse_the_singular_node(linked_list):
 
     # Assert
     assert str(linked_list) == "1"
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
     assert linked_list.length == 1
 
 def test_reverse_the_multi_node_list(linked_list):
@@ -284,6 +301,8 @@ def test_reverse_the_multi_node_list(linked_list):
 
     # Assert
     assert str(linked_list) == "2 -> 1"
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
     assert linked_list.length == 2
 
 def test_reverse_can_be_used_in_call_chain(linked_list):
@@ -294,6 +313,8 @@ def test_reverse_can_be_used_in_call_chain(linked_list):
 
     # Assert
     assert str(linked_list) == '1 -> 2 -> 3 -> 4'
+    assert linked_list.tail.data == 4
+    assert linked_list.tail.next is None
     assert linked_list.length == 4
     
 # Insert At
@@ -319,6 +340,8 @@ def test_inserts_a_node_into_the_empty_list(linked_list):
 
     # Assert
     assert str(linked_list) == "1"
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
     assert linked_list.length == 1
 
 def test_inserts_at_the_beginning_of_the_list(linked_list):
@@ -330,6 +353,8 @@ def test_inserts_at_the_beginning_of_the_list(linked_list):
 
     # Assert
     assert str(linked_list) == '1 -> 2'
+    assert linked_list.tail.data == 2
+    assert linked_list.tail.next is None
     assert linked_list.length == 2
 
 def test_inserts_into_the_middle_of_the_list(linked_list):
@@ -341,6 +366,8 @@ def test_inserts_into_the_middle_of_the_list(linked_list):
 
     # Assert
     assert str(linked_list) == '1 -> 2 -> 3'
+    assert linked_list.tail.data == 3
+    assert linked_list.tail.next is None
     assert linked_list.length == 3
 
 def test_inserts_at_the_end_of_the_list(linked_list):
@@ -352,6 +379,8 @@ def test_inserts_at_the_end_of_the_list(linked_list):
 
     # Assert
     assert str(linked_list) == "1 -> 2"
+    assert linked_list.tail.data == 2
+    assert linked_list.tail.next is None
     assert linked_list.length == 2
 
 def test_insert_at_can_be_used_in_a_call_chain(linked_list):
@@ -360,18 +389,37 @@ def test_insert_at_can_be_used_in_a_call_chain(linked_list):
 
     # Assert
     assert str(linked_list) == "1 -> 2"
+    assert linked_list.tail.data == 2
+    assert linked_list.tail.next is None
     assert linked_list.length == 2
 
 # Delete Head
-def test_delete_the_node_from_the_empty_list(linked_list):
+def test_delete_the_head_from_the_empty_list(linked_list):
     # Act
     deleted_head = linked_list.delete_head()
 
     # Assert
     assert deleted_head is None
+
+    assert linked_list.head is None
+    assert linked_list.tail is None
     assert linked_list.length == 0
 
-def test_delete_head_from_the_front_of_the_list_corretly(linked_list):
+def test_delete_the_head_from_the_singular_node_list(linked_list):
+    # Arrange
+    linked_list.append(1)
+
+    # Act
+    deleted_head = linked_list.delete_head()
+
+    # Assert
+    assert deleted_head.data == 1
+    
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+
+def test_delete_the_head_from_the_multy_node_list_corretly(linked_list):
     # Arrange
     linked_list.from_array([1, 2])
 
@@ -379,16 +427,41 @@ def test_delete_head_from_the_front_of_the_list_corretly(linked_list):
     assert linked_list.delete_head().data == 1
     assert linked_list.length == 1
 
-    # Act and Assert
-    assert linked_list.delete_head().data == 2
-    
+# Delete Tail
+def test_delete_the_tail_from_the_empty_list(linked_list):
+    # Act
+    deleted_tail = linked_list.delete_tail()
+
+    # Assert
+    assert deleted_tail is None
+    assert linked_list.length == 0
+
+def test_delete_the_tail_from_the_singular_node_list(linked_list):
+    # Arrange
+    linked_list.append(1)
+
+    # Act
+    deleted_tail = linked_list.delete_tail()
+
+    # Assert
+    assert deleted_tail.data == 1
+
     assert linked_list.head is None
     assert linked_list.tail is None
     assert linked_list.length == 0
-    
 
+def test_delete_the_tail_from_the_multi_node_list(linked_list):
+    # Arrange
+    linked_list.from_array([1, 2])
 
+    # Act
+    delete_tail = linked_list.delete_tail()
 
+    # Assert
+    assert delete_tail.data == 2
+    assert linked_list.tail.data == 1
+    assert linked_list.tail.next is None
+    assert linked_list.length == 1
 
 
 # def test_prepend_empty_list(empty_linked_list):
