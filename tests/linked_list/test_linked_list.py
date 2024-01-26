@@ -7,51 +7,48 @@ from src.linked_list.linked_list import LinkedList
 def linked_list():
     return LinkedList()
 
+def test_returns_corrent_initial_state(linked_list):
+    # Assert
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+    assert linked_list.is_empty
 
-def describe_initial_state():
-    def returns_corrent_state(linked_list):
-        # Assert
-        assert linked_list.head is None
-        assert linked_list.tail is None
-        assert linked_list.length == 0
-        assert linked_list.is_empty is True
+def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
+    # Arrange
+    linked_list.append(1)
+
+    # Assert
+    assert linked_list.is_empty == False
+
+def test_append_add_nodes_to_the_list_correctly(linked_list):
+    # Act
+    linked_list.append(1)
+
+    # Assert
+    assert linked_list.head.data == 1
+    assert linked_list.tail.data == 1
+    assert linked_list.length == 1
+
+    # Act
+    linked_list.append(2)
+
+    # Assert
+    assert linked_list.head.data == 1
+    assert linked_list.tail.data == 2
+    assert linked_list.length == 2
+
+def test_append_can_be_used_in_call_chain(linked_list):
+    # Act
+    linked_list.append(1).append(2).append(3)
+
+    # Assert
+    assert linked_list.head.data == 1
+    assert linked_list.tail.data == 3
+    assert linked_list.length == 3
 
 
-def describe_is_empty_method():
-    def returns_false_for_the_non_empty_list(linked_list):
-        # Arrange
-        linked_list.append(1)
 
-        # Assert
-        assert linked_list.is_empty is False
-
-
-def describe_append_method():
-    def add_nodes_to_the_list_correctly(linked_list):
-        # Act
-        linked_list.append(1)
-
-        # Assert
-        assert linked_list.head.data == 1
-        assert linked_list.tail.data == 1
-        assert linked_list.length == 1
-
-        # Act
-        linked_list.append(2)
-
-        # Assert
-        assert linked_list.head.data == 1
-        assert linked_list.tail.data == 2
-        assert linked_list.length == 2
-
-    def can_be_used_in_call_chain(linked_list):
-        # Act
-        linked_list.append(1).append(2).append(3)
-
-        # Assert
-        assert linked_list.head.data == 1
-        assert linked_list.tail.data == 3
-        assert linked_list.length == 3
 
 
 # def test_append_call_chain(empty_linked_list):
