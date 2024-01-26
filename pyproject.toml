@@ -1,6 +1,6 @@
 [project]
-# Support Python 3.10+.
-requires-python = "^3.10"
+# Support Python 3.11+.
+requires-python = "^3.11"
 
 [tool.poetry]
 name = "ci-cd-learning"
