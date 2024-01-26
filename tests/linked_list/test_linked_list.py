@@ -250,7 +250,7 @@ def test_deletes_node_by_predicate():
     assert linked_list.length == 2
 
 # Reverse Method
-def test_reverses_the_list_correctly(linked_list):
+def test_reverse_the_empty_list(linked_list):
     # Act
     linked_list.reverse()
 
@@ -258,7 +258,8 @@ def test_reverses_the_list_correctly(linked_list):
     assert linked_list.head is None
     assert linked_list.tail is None
     assert linked_list.length == 0
-
+    
+def test_reverse_the_singular_node(linked_list):
     # Arrange
     linked_list.append(1)
 
@@ -272,8 +273,9 @@ def test_reverses_the_list_correctly(linked_list):
     assert str(linked_list) == "1"
     assert linked_list.length == 1
 
+def test_reverse_the_multi_node_list(linked_list):
     # Arrange
-    linked_list.append(2)
+    linked_list.from_array([1, 2])
 
     # Act
     linked_list.reverse()
@@ -281,7 +283,13 @@ def test_reverses_the_list_correctly(linked_list):
     # Assert
     assert str(linked_list) == "2 -> 1"
     assert linked_list.length == 2
-    
+
+def test_reverse_can_be_used_in_call_chain(linked_list):
+    # Act
+    linked_list.from_array([3, 2, 1]).reverse().append(4)
+
+    # Assert
+    assert str(linked_list) == '1 -> 2 -> 3 -> 4'
     
 
 
