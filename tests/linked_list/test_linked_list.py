@@ -12,8 +12,8 @@ def test_returns_corrent_initial_state(linked_list):
     # Assert
     assert linked_list.head is None
     assert linked_list.tail is None
-    assert linked_list.length == 0
     assert linked_list.is_empty
+    assert linked_list.length == 0
 
 # Append Method
 def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
@@ -22,6 +22,7 @@ def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
 
     # Assert
     assert not linked_list.is_empty
+    assert linked_list.length == 1
 
 def test_append_adds_nodes_to_the_end_of_the_list_correctly(linked_list):
     # Act
@@ -247,6 +248,42 @@ def test_deletes_node_by_predicate():
     assert deleted_node.data.key == 'two'
     assert str(linked_list) == "(one, 1) -> (three, 3)"
     assert linked_list.length == 2
+
+# Reverse Method
+def test_reverses_the_list_correctly(linked_list):
+    # Act
+    linked_list.reverse()
+
+    # Assert
+    assert linked_list.head is None
+    assert linked_list.tail is None
+    assert linked_list.length == 0
+
+    # Arrange
+    linked_list.append(1)
+
+    assert str(linked_list) == "1"
+    assert linked_list.length == 1
+
+    # Act
+    linked_list.reverse()
+
+    # Assert
+    assert str(linked_list) == "1"
+    assert linked_list.length == 1
+
+    # Arrange
+    linked_list.append(2)
+
+    # Act
+    linked_list.reverse()
+
+    # Assert
+    assert str(linked_list) == "2 -> 1"
+    assert linked_list.length == 2
+    
+    
+
 
 
 
