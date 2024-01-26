@@ -26,6 +26,12 @@ class LinkedList:
     def is_empty(self) -> bool:
         return self.head is None
 
+    def _is_match(self, value: Any, arg: Any) -> bool:
+        if callable(arg):
+            return arg(value)
+        else:
+            return value == arg
+
     def __iter__(self) -> None:
         current_node = self.head
 
@@ -53,6 +59,14 @@ class LinkedList:
 
         return self
 
+    def to_array(self) -> List[Any]:
+        values = []
+
+        for node in self:
+            values.append(node.data)
+
+        return values
+
     def __str__(self, separator: str = " -> ") -> str:
         values = [str(value) for value in self.to_array()]
 
@@ -71,22 +85,6 @@ class LinkedList:
         self._length += 1
 
         return self
-
-    def to_array(self) -> List[Any]:
-        values = []
-
-        for node in self:
-            values.append(node.data)
-
-        return values
-
-
-
-    def _is_match(self, value: Any, arg: Any) -> bool:
-        if callable(arg):
-            return arg(value)
-        else:
-            return value == arg
 
     def delete(self, arg: Any) -> Optional[LinkedListNode]:
         if self._head is None:
