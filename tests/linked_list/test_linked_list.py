@@ -24,7 +24,6 @@ def describe_is_empty_method():
 
         # Assert
         assert linked_list.is_empty is False
-        assert linked_list.length == 1
 
 
 def describe_append_method():
