@@ -40,7 +40,7 @@ jobs:
         run: |
           pytest --verbose --cov .
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        env:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: phunkault/CI-CD-learning
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
