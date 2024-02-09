@@ -32,14 +32,12 @@ class LinkedList:
         else:
             return value == arg
 
-
     def __iter__(self) -> None:
         current_node = self.head
 
         while current_node is not None:
             yield current_node
             current_node = current_node.next
-
 
     def append(self, value: Any) -> LinkedList:
         node = LinkedListNode(value)
@@ -55,13 +53,11 @@ class LinkedList:
 
         return self
 
-
     def from_array(self, array: List[Any]) -> LinkedList:
         for value in array:
             self.append(value)
 
         return self
-
 
     def to_array(self) -> List[Any]:
         values = []
@@ -71,12 +67,10 @@ class LinkedList:
 
         return values
 
-
     def __str__(self, separator: str = " -> ") -> str:
         values = [str(value) for value in self.to_array()]
 
         return f"{separator}".join(values)
-
 
     def prepend(self, value: Any) -> LinkedList:
         node = LinkedListNode(value)
@@ -91,7 +85,6 @@ class LinkedList:
         self._length += 1
 
         return self
-
 
     def delete(self, arg: Any) -> Optional[LinkedListNode]:
         if self._head is None:
@@ -114,7 +107,6 @@ class LinkedList:
 
         return deleted_node
 
-
     def _delete_node_and_update_tail(
         self, deleted_node: LinkedListNode, prev_node: Optional[LinkedListNode]
     ):
@@ -125,7 +117,6 @@ class LinkedList:
 
         if deleted_node.next is None:
             self._tail = prev_node
-
 
     def insert_at(self, index: int, value: Any) -> LinkedList:
         if index < 0 or index > self.length:
@@ -146,7 +137,6 @@ class LinkedList:
 
         return self
 
-
     def _find_node_by_index(self, index: int) -> LinkedListNode:
         current_node = self.head
 
@@ -154,7 +144,6 @@ class LinkedList:
             current_node = current_node.next
 
         return current_node
-
 
     def delete_head(self) -> Optional[LinkedListNode]:
         if self.head is None:
@@ -171,7 +160,6 @@ class LinkedList:
         self._length -= 1
 
         return deleted_node
-
 
     def delete_tail(self) -> Optional[LinkedListNode]:
         if self.head is None:
@@ -199,7 +187,6 @@ class LinkedList:
 
         return deleted_tail
 
-
     def reverse(self) -> LinkedList:
         if not self.head or not self.head.next:
             return self
@@ -219,7 +206,6 @@ class LinkedList:
 
         return self
 
-
     def find(self, arg: Any) -> Optional[LinkedListNode]:
         if not self.head:
             return None
@@ -229,7 +215,6 @@ class LinkedList:
                 return current_node
 
         return None
-
 
     def clear(self) -> None:
         self._head = None
