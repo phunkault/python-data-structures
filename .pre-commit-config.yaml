@@ -16,3 +16,12 @@ repos:
     hooks:
     - id: bandit
       args: ["-c", "pyproject.toml"]
+-   repo: local
+    hooks:
+      - id: pytest
+        name: Running tests with coverage
+        stages: [commit]
+        entry: pytest --cov
+        language: system
+        pass_filenames: false
+        always_run: true
