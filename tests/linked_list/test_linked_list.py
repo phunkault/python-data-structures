@@ -1,5 +1,6 @@
 import pytest
 from src.linked_list.linked_list import LinkedList
+from src.linked_list.linked_list_node import LinkedListNode
 
 
 # Arrange
@@ -25,6 +26,11 @@ def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     # Assert
     assert not linked_list.is_empty
     assert linked_list.length == 1
+
+
+def test_returns_true_for_the_empty_list(linked_list):
+    # Act and Assert
+    assert linked_list.is_empty
 
 
 # Append
@@ -543,3 +549,56 @@ def test_clear_the_linked_list_correctly(linked_list):
     assert linked_list.tail is None
     assert linked_list.length == 0
     assert linked_list.is_empty
+
+
+# Index of
+def test_index_of_empty_list(linked_list):
+    assert linked_list.index_of(42) == -1
+
+
+@pytest.fixture
+def linked_list_with_values():
+    linked_list = LinkedList()
+    linked_list.from_array([1, 2, 3, 3, 4])
+    return linked_list
+
+
+def test_index_of_value_not_present(linked_list_with_values):
+    assert linked_list_with_values.index_of(42) == -1
+
+
+def test_index_of_value_present(linked_list_with_values):
+    assert linked_list_with_values.index_of(2) == 1
+
+
+def test_index_of_first_occurrence(linked_list_with_values):
+    assert linked_list_with_values.index_of(3) == 2
+
+
+def test_index_of_head_value(linked_list_with_values):
+    assert linked_list_with_values.index_of(1) == 0
+
+
+def test_index_of_tail_value(linked_list_with_values):
+    assert linked_list_with_values.index_of(4) == 4
+
+
+def test_index_of_custom_objects():
+    class Value:
+        def __init__(self, key):
+            self.key = key
+
+        def __str__(self):
+            return f"({self.key})"
+
+        def __eq__(self, other):
+            if isinstance(other, Value):
+                return self.key == other.key
+            return False
+
+    list_with_objects = LinkedList().from_array([
+        Value('value1'),
+        Value('value2'),
+    ])
+
+    assert list_with_objects.index_of(Value('value1')) == 0
