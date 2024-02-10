@@ -75,8 +75,9 @@ class BaseLinkedList(ABC):
         index = 0
 
         for node in self:
-            if node.data == value:
+            if self._is_match(node.data, value):
                 return index
+
             index += 1
 
         return -1
