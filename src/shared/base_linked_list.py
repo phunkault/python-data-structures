@@ -1,6 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Optional, Any, List
+from types import FunctionType
 
 from .base_linked_list_node import BaseLinkedListNode
 
@@ -46,12 +47,12 @@ class BaseLinkedList(ABC):
         return f"{separator}".join(values)
 
     def _is_match(self, value: Any, arg: Any) -> bool:
-        if callable(arg):
+        if type(arg) == FunctionType:
             return arg(value)
         else:
             return value == arg
 
-    def from_array(self, array) -> BaseLinkedList:
+    def from_array(self, array: List) -> BaseLinkedList:
         for value in array:
             self.append(value)
 
@@ -60,17 +61,17 @@ class BaseLinkedList(ABC):
     def to_array(self) -> List:
         return [node.data for node in self]
 
-    def find(self, arg: Any) -> Optional[BaseLinkedListNode]:
+    def find(self, value: Any) -> Optional[BaseLinkedListNode]:
         if not self.head:
             return None
 
         for current_node in self:
-            if self._is_match(current_node.data, arg):
+            if self._is_match(current_node.data, value):
                 return current_node
 
         return None
 
-    def index_of(self, value) -> int:
+    def index_of(self, value: Any) -> int:
         index = 0
 
         for node in self:
@@ -86,29 +87,29 @@ class BaseLinkedList(ABC):
         self._length = 0
 
     @abstractmethod
-    def append(self, value):
+    def append(self, value: Any) -> BaseLinkedList:
         pass
 
     @abstractmethod
-    def prepend(self, value):
+    def prepend(self, value: Any) -> BaseLinkedList:
         pass
 
     @abstractmethod
-    def insert_at(self, index, value):
+    def insert_at(self, index: int, value: Any) -> BaseLinkedList:
         pass
 
     @abstractmethod
-    def delete(self, value):
+    def delete(self, value: Any) -> Optional[BaseLinkedListNode]:
         pass
 
     @abstractmethod
-    def delete_head(self):
+    def delete_head(self) -> Optional[BaseLinkedListNode]:
         pass
 
     @abstractmethod
-    def delete_tail(self):
+    def delete_tail(self) -> Optional[BaseLinkedListNode]:
         pass
 
     @abstractmethod
-    def reverse(self):
+    def reverse(self) -> BaseLinkedList:
         pass
