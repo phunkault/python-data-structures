@@ -1,7 +1,7 @@
 from __future__ import annotations
+from typing import Any, List, Optional
 
 from src.linked_list.linked_list_node import LinkedListNode
-from typing import Any, List, Optional
 
 
 class LinkedList:
