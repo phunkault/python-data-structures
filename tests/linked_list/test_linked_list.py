@@ -594,6 +594,5 @@ def test_index_of_custom_objects():
         Value('value1'),
         Value('value2'),
     ])
-    print(list_with_objects)
 
     assert list_with_objects.index_of(Value('value1')) == 0
