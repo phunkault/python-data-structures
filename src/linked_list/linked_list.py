@@ -1,46 +1,13 @@
 from __future__ import annotations
-from typing import Any, List, Optional
+from typing import Any, Optional
 
 from src.linked_list.linked_list_node import LinkedListNode
+from src.shared.base_linked_list import BaseLinkedList
 
 
-class LinkedList:
-    def __init__(self) -> None:
-        self._head: Optional[LinkedListNode] = None
-        self._tail: Optional[LinkedListNode] = None
-        self._length: int = 0
-
-    @property
-    def head(self) -> Optional[LinkedListNode]:
-        return self._head
-
-    @property
-    def tail(self) -> Optional[LinkedListNode]:
-        return self._tail
-
-    @property
-    def length(self) -> int:
-        return self._length
-
-    @property
-    def is_empty(self) -> bool:
-        return self.head is None
-
-    def _is_match(self, value: Any, arg: Any) -> bool:
-        if callable(arg):
-            return arg(value)
-        else:
-            return value == arg
-
-    def __iter__(self) -> None:
-        current_node = self.head
-
-        while current_node is not None:
-            yield current_node
-            current_node = current_node.next
-
-    def append(self, value: Any) -> LinkedList:
-        node = LinkedListNode(value)
+class LinkedList(BaseLinkedList):
+    def append(self, data: Any) -> LinkedList:
+        node = LinkedListNode(data)
 
         if not self.head:
             self._head = node
@@ -53,27 +20,8 @@ class LinkedList:
 
         return self
 
-    def from_array(self, array: List[Any]) -> LinkedList:
-        for value in array:
-            self.append(value)
-
-        return self
-
-    def to_array(self) -> List[Any]:
-        values = []
-
-        for node in self:
-            values.append(node.data)
-
-        return values
-
-    def __str__(self, separator: str = " -> ") -> str:
-        values = [str(value) for value in self.to_array()]
-
-        return f"{separator}".join(values)
-
-    def prepend(self, value: Any) -> LinkedList:
-        node = LinkedListNode(value)
+    def prepend(self, data: Any) -> LinkedList:
+        node = LinkedListNode(data)
 
         if not self.head:
             self._head = node
@@ -83,6 +31,25 @@ class LinkedList:
             self._head = node
 
         self._length += 1
+
+        return self
+
+    def insert_at(self, index: int, value: Any) -> LinkedList:
+        if index < 0 or index > self.length:
+            raise IndexError("Index should be >= 0 and <= list length.")
+
+        if index == 0:
+            self.prepend(value)
+        elif index == self.length:
+            self.append(value)
+        else:
+            prev_node = self._find_node_by_index(index - 1)
+            new_node = LinkedListNode(value)
+
+            new_node.next = prev_node.next
+            prev_node.next = new_node
+
+            self._length += 1
 
         return self
 
@@ -109,7 +76,7 @@ class LinkedList:
 
     def _delete_node_and_update_tail(
         self, deleted_node: LinkedListNode, prev_node: Optional[LinkedListNode]
-    ):
+    ) -> None:
         if prev_node is None:
             self._head = deleted_node.next
         else:
@@ -117,33 +84,6 @@ class LinkedList:
 
         if deleted_node.next is None:
             self._tail = prev_node
-
-    def insert_at(self, index: int, value: Any) -> LinkedList:
-        if index < 0 or index > self.length:
-            raise IndexError("Index should be >= 0 and <= list length.")
-
-        if index == 0:
-            self.prepend(value)
-        elif index == self.length:
-            self.append(value)
-        else:
-            prev_node = self._find_node_by_index(index - 1)
-            new_node = LinkedListNode(value)
-
-            new_node.next = prev_node.next
-            prev_node.next = new_node
-
-            self._length += 1
-
-        return self
-
-    def _find_node_by_index(self, index: int) -> LinkedListNode:
-        current_node = self.head
-
-        for i in range(index):
-            current_node = current_node.next
-
-        return current_node
 
     def delete_head(self) -> Optional[LinkedListNode]:
         if self.head is None:
@@ -205,18 +145,3 @@ class LinkedList:
         self._head = prev_node
 
         return self
-
-    def find(self, arg: Any) -> Optional[LinkedListNode]:
-        if not self.head:
-            return None
-
-        for current_node in self:
-            if self._is_match(current_node.data, arg):
-                return current_node
-
-        return None
-
-    def clear(self) -> None:
-        self._head = None
-        self._tail = None
-        self._length = 0
