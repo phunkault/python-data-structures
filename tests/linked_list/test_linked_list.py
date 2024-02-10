@@ -1,5 +1,6 @@
 import pytest
 from src.linked_list.linked_list import LinkedList
+from src.linked_list.linked_list_node import LinkedListNode
 
 
 # Arrange
@@ -25,6 +26,11 @@ def test_is_empty_returns_false_for_the_non_empty_list(linked_list):
     # Assert
     assert not linked_list.is_empty
     assert linked_list.length == 1
+
+
+def test_returns_true_for_the_empty_list(linked_list):
+    # Act and Assert
+    assert linked_list.is_empty
 
 
 # Append
@@ -543,6 +549,19 @@ def test_clear_the_linked_list_correctly(linked_list):
     assert linked_list.tail is None
     assert linked_list.length == 0
     assert linked_list.is_empty
+
+
+# Find by index
+def test_find_node_by_index_empty_list(linked_list):
+    node = linked_list._find_node_by_index(0)
+    assert node is None
+
+
+def test_find_node_by_index_valid_index(linked_list):
+    linked_list.append(1)
+    result = linked_list._find_node_by_index(0)
+    assert isinstance(result, LinkedListNode)
+    assert result.data == 1
 
 
 # Index of
