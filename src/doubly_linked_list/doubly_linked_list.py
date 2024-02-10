@@ -40,7 +40,35 @@ class DoublyLinkedList(BaseLinkedList):
         pass
 
     def delete(self, value: Any) -> Optional[DoublyLinkedListNode]:
-        pass
+        if self._head is None:
+            return None
+
+        deleted_node: Optional[DoublyLinkedListNode] = None
+
+        for current_node in self:
+            if self._is_match(current_node.data, value):
+                deleted_node = current_node
+                break
+
+        if deleted_node is None:
+            return None
+
+        if deleted_node.prev is not None:
+            deleted_node.prev.next = deleted_node.next
+        else:
+            self._head = deleted_node.next
+
+        if deleted_node.next is not None:
+            deleted_node.next.prev = deleted_node.prev
+        else:
+            self._tail = deleted_node.prev
+
+        deleted_node.prev = None
+        deleted_node.next = None
+
+        self._length -= 1
+
+        return deleted_node
 
     def delete_head(self) -> Optional[DoublyLinkedListNode]:
         pass
