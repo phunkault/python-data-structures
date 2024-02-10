@@ -286,3 +286,88 @@ def test_reverse_in_call_chain(doubly_linked_list):
 
     assert str(doubly_linked_list) == '1 -> 2 -> 3'
     assert doubly_linked_list.length == 3
+
+
+# Insert at
+def test_insert_at_negative_index_raises_exception(doubly_linked_list):
+    # Act
+    with pytest.raises(ValueError, match="Index should be >= 0 and <= list length."):
+        doubly_linked_list.insert_at(-1, 1)
+
+
+def test_insert_at_index_greater_than_list_length_raises_exception(doubly_linked_list):
+    # Act
+    with pytest.raises(ValueError, match="Index should be >= 0 and <= list length."):
+        doubly_linked_list.insert_at(10, 1)
+
+
+def test_insert_at_beginning_of_list(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.append(2)
+
+    # Act
+    doubly_linked_list.insert_at(0, 1)
+
+    # Assert
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.head.next.data == 2
+    assert doubly_linked_list.head.prev is None
+
+    assert doubly_linked_list.tail.data == 2
+    assert doubly_linked_list.tail.next is None
+    assert doubly_linked_list.tail.prev.data == 1
+
+    assert doubly_linked_list.to_array() == [1, 2]
+    assert doubly_linked_list.length == 2
+
+
+def test_insert_at_end_of_list(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.append(1)
+
+    # Act
+    doubly_linked_list.insert_at(1, 2)
+
+    # Assert
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.head.next.data == 2
+    assert doubly_linked_list.head.prev is None
+
+    assert doubly_linked_list.tail.data == 2
+    assert doubly_linked_list.tail.next is None
+    assert doubly_linked_list.tail.prev.data == 1
+
+    assert doubly_linked_list.to_array() == [1, 2]
+    assert doubly_linked_list.length == 2
+
+
+def test_insert_in_middle_of_list(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.from_array([1, 3])
+
+    # Act
+    doubly_linked_list.insert_at(1, 2)
+
+    # Assert
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.head.next.data == 2
+    assert doubly_linked_list.head.next.next.data == 3
+    assert doubly_linked_list.head.next.prev.data == 1
+
+    assert doubly_linked_list.tail.data == 3
+    assert doubly_linked_list.tail.next is None
+
+    assert doubly_linked_list.to_array() == [1, 2, 3]
+    assert doubly_linked_list.length == 3
+
+
+def test_insert_at_call_chain(doubly_linked_list):
+    # Act
+    doubly_linked_list.insert_at(0, 1).insert_at(1, 2)
+
+    # Assert
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.tail.data == 2
+
+    assert doubly_linked_list.to_array() == [1, 2]
+    assert doubly_linked_list.length == 2

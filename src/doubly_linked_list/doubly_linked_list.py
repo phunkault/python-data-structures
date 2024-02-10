@@ -37,7 +37,25 @@ class DoublyLinkedList(BaseLinkedList):
         return self
 
     def insert_at(self, index: int, value: Any) -> DoublyLinkedList:
-        pass
+        is_invalid_index = index < 0 or index > self.length
+
+        if is_invalid_index:
+            raise ValueError("Index should be >= 0 and <= list length.")
+
+        if index == 0:
+            self.prepend(value)
+        elif index == self._length:
+            self.append(value)
+        else:
+            prev_node = self._find_node_by_index(index - 1)
+            new_node = DoublyLinkedListNode(value)
+            new_node.next = prev_node.next
+            new_node.prev = prev_node
+            prev_node.next = new_node
+
+            self._length += 1
+
+        return self
 
     def delete(self, value: Any) -> Optional[DoublyLinkedListNode]:
         if self._head is None:
