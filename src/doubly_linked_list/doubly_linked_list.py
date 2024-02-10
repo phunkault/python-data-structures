@@ -77,4 +77,21 @@ class DoublyLinkedList(BaseLinkedList):
         pass
 
     def reverse(self) -> BaseLinkedList:
-        pass
+        if self._head is None or self._head.next is None:
+            return self
+
+        prev_node = None
+        current_node = self._head
+
+        while current_node is not None:
+            next_node = current_node.next
+            current_node.next = prev_node
+            current_node.prev = next_node
+            prev_node = current_node
+
+            current_node = next_node
+
+        self._tail = self._head
+        self._head = prev_node
+
+        return self

@@ -227,3 +227,62 @@ def test_delete_node_with_object_value():
     assert doubly_linked_list.tail.data['value'] == 3
     assert doubly_linked_list.tail.next is None
     assert doubly_linked_list.length == 2
+
+
+# Reverse
+def test_reverse_empty_list(doubly_linked_list):
+    # Act
+    doubly_linked_list.reverse()
+
+    # Assert
+    assert doubly_linked_list.head is None
+    assert doubly_linked_list.tail is None
+    assert doubly_linked_list.length == 0
+
+
+def test_reverse_singular_node_list(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.append(1)
+
+    # Act
+    doubly_linked_list.reverse()
+
+    # Assert
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.head.prev is None
+
+    assert doubly_linked_list.tail.data == 1
+    assert doubly_linked_list.tail.next is None
+
+    assert str(doubly_linked_list) == '1'
+
+
+def test_reverse_list(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.from_array([1, 2])
+
+    # Act
+    doubly_linked_list.reverse()
+
+    # Assert
+    assert doubly_linked_list.head.data == 2
+    assert doubly_linked_list.head.next.data == 1
+    assert doubly_linked_list.head.prev is None
+
+    assert doubly_linked_list.tail.data == 1
+    assert doubly_linked_list.tail.next is None
+
+    assert str(doubly_linked_list) == '2 -> 1'
+    assert doubly_linked_list.length == 2
+
+
+def test_reverse_in_call_chain(doubly_linked_list):
+    # Arrange and Act
+    doubly_linked_list.from_array([2, 1]).reverse().append(3)
+
+    # Assert
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.tail.data == 3
+
+    assert str(doubly_linked_list) == '1 -> 2 -> 3'
+    assert doubly_linked_list.length == 3
