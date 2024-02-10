@@ -22,7 +22,19 @@ class DoublyLinkedList(BaseLinkedList):
         return self
 
     def prepend(self, value: Any) -> DoublyLinkedList:
-        pass
+        new_node = DoublyLinkedListNode(value)
+
+        if self._head is None:
+            self._head = new_node
+            self._tail = new_node
+        else:
+            new_node.next = self._head
+            self._head.prev = new_node
+            self._head = new_node
+
+        self._length += 1
+
+        return self
 
     def insert_at(self, index: int, value: Any) -> DoublyLinkedList:
         pass
