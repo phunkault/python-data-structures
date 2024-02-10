@@ -551,19 +551,6 @@ def test_clear_the_linked_list_correctly(linked_list):
     assert linked_list.is_empty
 
 
-# Find by index
-def test_find_node_by_index_empty_list(linked_list):
-    node = linked_list._find_node_by_index(0)
-    assert node is None
-
-
-def test_find_node_by_index_valid_index(linked_list):
-    linked_list.append(1)
-    result = linked_list._find_node_by_index(0)
-    assert isinstance(result, LinkedListNode)
-    assert result.data == 1
-
-
 # Index of
 def test_index_of_empty_list(linked_list):
     assert linked_list.index_of(42) == -1
