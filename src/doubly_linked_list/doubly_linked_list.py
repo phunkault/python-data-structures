@@ -88,11 +88,39 @@ class DoublyLinkedList(BaseLinkedList):
 
         return deleted_node
 
-    def delete_head(self) -> Optional[DoublyLinkedListNode]:
-        pass
+    def delete_head(self):
+        if self._head is None:
+            return None
+
+        deleted_node = self._head
+
+        if deleted_node.next:
+            self._head = deleted_node.next
+            self._head.prev = None
+        else:
+            self._head = None
+            self._tail = None
+
+        self._length -= 1
+
+        return deleted_node
 
     def delete_tail(self) -> Optional[DoublyLinkedListNode]:
-        pass
+        if self._head is None:
+            return None
+
+        deleted_node = self._tail
+
+        if self._head == self._tail:
+            self._head = None
+            self._tail = None
+        else:
+            self._tail = deleted_node.prev
+            self._tail.next = None
+
+        self._length -= 1
+
+        return deleted_node
 
     def reverse(self) -> BaseLinkedList:
         if self._head is None or self._head.next is None:

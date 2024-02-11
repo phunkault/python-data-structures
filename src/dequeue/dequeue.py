@@ -20,3 +20,7 @@ class Dequeue:
 
     def add_front(self, value: Any):
         self._list.prepend(value)
+        return self
+
+    def remove_front(self):
+        return self._list.delete_head()
