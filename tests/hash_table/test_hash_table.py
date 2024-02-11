@@ -217,3 +217,28 @@ def test_has_checks_if_key_exists_using_has_method():
     assert hash_map.has('one')
     assert hash_map.has('two')
     assert not hash_map.has('three')
+
+
+def test_delete_none_existing_value_in_an_empty_hash_map():
+    # Arrange
+    hash_map = HashMap()
+
+    # Act
+    received = hash_map.delete('non-existing-key')
+
+    # Assert
+    assert hash_map.size == 0
+    assert not received
+
+
+def test_delete_existing_values_for_existing_keys_in_a_non_empty_hash_map():
+    # Arrange
+    hash_map = HashMap()
+    hash_map.set('one', 1)
+    hash_map.set('two', 2)
+
+    # Act and Assert
+    assert hash_map.delete('one')
+    assert hash_map.size == 1
+    assert hash_map.delete('two')
+    assert hash_map.size == 0

@@ -118,3 +118,16 @@ class HashMap:
         node = bucket.find(lambda pair: pair.key == key)
 
         return bool(node)
+
+    def delete(self, key):
+        hash_value = self._hash_code(key)
+        bucket = self._buckets[hash_value]
+
+        if bucket:
+            deleted_node = bucket.delete(lambda pair: pair.key == key)
+
+            if deleted_node:
+                self._size -= 1
+                return True
+
+        return False
