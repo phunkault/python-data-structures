@@ -24,7 +24,7 @@ def test_push_single_element(stack):
 
     # Assert
     assert stack.length == 1
-    # assert str(stack) == '1'
+    assert str(stack) == '1'
 
 
 def test_push_multiple_elements(stack):
@@ -35,4 +35,4 @@ def test_push_multiple_elements(stack):
 
     # Assert
     assert stack.length == 3
-    # assert str(stack) == '30,20,10'
+    assert str(stack) == '10 -> 20 -> 30'

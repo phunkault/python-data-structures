@@ -18,3 +18,6 @@ class Stack:
 
     def push(self, value: Any):
         self._list.append(value)
+
+    def __str__(self) -> str:
+        return str(self._list)
