@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 from src.linked_list.linked_list import LinkedList
 
@@ -15,8 +15,12 @@ class Queue:
         return self._list.length
 
     @property
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return self._list.is_empty
 
     def enqueue(self, value: Any):
-        self._list.prepend(value)
+        self._list.append(value)
+
+    def dequeue(self) -> Optional[Any]:
+        dequeued_node = self._list.delete_head()
+        return dequeued_node.data if dequeued_node else None
