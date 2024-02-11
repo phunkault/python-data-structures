@@ -36,3 +36,29 @@ def test_push_multiple_elements(stack):
     # Assert
     assert stack.length == 3
     assert str(stack) == '10 -> 20 -> 30'
+
+
+# Pop
+
+def test_pop_removes_and_returns_top_element(stack):
+    # Arrange
+    stack.push(7)
+    stack.push(14)
+    stack.push(21)
+
+    # Act
+    popped_element = stack.pop()
+
+    # Assert
+    assert popped_element == 21
+    assert str(stack) == '7 -> 14'
+    assert stack.length == 2
+
+
+def test_pop_returns_none_for_empty_stack(stack):
+    # Act
+    popped_element = stack.pop()
+
+    # Assert
+    assert popped_element is None
+    assert stack.length == 0

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Any
+from typing import Any, Optional
 
 from src.linked_list.linked_list import LinkedList
 
@@ -7,6 +7,9 @@ from src.linked_list.linked_list import LinkedList
 class Stack:
     def __init__(self):
         self._list: LinkedList = LinkedList()
+
+    def __str__(self) -> str:
+        return str(self._list)
 
     @property
     def length(self) -> int:
@@ -19,5 +22,6 @@ class Stack:
     def push(self, value: Any):
         self._list.append(value)
 
-    def __str__(self) -> str:
-        return str(self._list)
+    def pop(self) -> Optional[Any]:
+        popped_node = self._list.delete_tail()
+        return popped_node.data if popped_node else None
