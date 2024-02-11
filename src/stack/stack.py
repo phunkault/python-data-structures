@@ -6,9 +6,10 @@ class Stack:
         self._list = LinkedList()
         self._size = 0
 
-    # @property
-    # def size(self) -> int:
-    #     return self._size
+    @property
+    def size(self) -> int:
+        return self._size
+
     #
     # @property
     # def is_empty(self) -> bool:

@@ -12,5 +12,5 @@ def stack():
 def test_initial_state(stack):
     # Act and Assert
     assert stack
-    # assert stack.size == 0
+    assert stack.size == 0
     # assert stack.is_empty
