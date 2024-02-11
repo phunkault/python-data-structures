@@ -5,6 +5,9 @@ class Dequeue:
     def __init__(self) -> None:
         self._list: DoublyLinkedList = DoublyLinkedList()
 
+    def __str__(self) -> str:
+        return str(self._list)
+
     @property
     def size(self) -> int:
         return self._list.length
