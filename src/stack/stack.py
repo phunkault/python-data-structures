@@ -20,10 +20,10 @@ class Stack:
         return self._list.is_empty
 
     def push(self, value: Any) -> None:
-        self._list.append(value)
+        self._list.prepend(value)
 
     def pop(self) -> Optional[Any]:
-        popped_node = self._list.delete_tail()
+        popped_node = self._list.delete_head()
         return popped_node.data if popped_node else None
 
     def clear(self) -> None:
