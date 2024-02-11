@@ -31,3 +31,6 @@ class Dequeue:
     def add_rear(self, value: Any):
         self._list.append(value)
         return self
+
+    def remove_rear(self):
+        return self._list.delete_tail()

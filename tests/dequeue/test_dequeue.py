@@ -76,3 +76,15 @@ def test_add_rear_adds_elements_to_the_rear_in_correct_order(dequeue):
     # Assert
     assert str(dequeue) == '1 -> 2'
     assert dequeue.size == 2
+
+
+# Remove rear
+def test_remove_rear_removes_elements_from_the_rear_in_correct_order(dequeue):
+    # Arrange
+    dequeue.add_rear(1).add_rear(2)
+
+    # Act and Assert
+    assert dequeue.remove_rear().data == 2
+    assert dequeue.remove_rear().data == 1
+    assert not dequeue.remove_rear()
+    assert dequeue.size == 0
