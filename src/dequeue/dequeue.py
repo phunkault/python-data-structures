@@ -24,3 +24,6 @@ class Dequeue:
 
     def remove_front(self):
         return self._list.delete_head()
+
+    def peek_front(self):
+        return self._list.head

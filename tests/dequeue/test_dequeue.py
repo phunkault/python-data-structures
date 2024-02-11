@@ -36,7 +36,6 @@ def test_add_front_adds_elements_to_the_front_in_correct_order(dequeue):
 
 
 # Remove front
-
 def test_remove_front_removes_elements_from_the_front_in_correct_order(dequeue):
     # Arrange
     dequeue.add_front(1).add_front(2)
@@ -44,5 +43,19 @@ def test_remove_front_removes_elements_from_the_front_in_correct_order(dequeue):
     # Act and Assert
     assert dequeue.remove_front().data == 2
     assert dequeue.remove_front().data == 1
-    assert dequeue.remove_front() is None
+    assert not dequeue.remove_front()
     assert dequeue.size == 0
+
+
+# Peek front
+def test_peek_front_peeks_elements_from_the_front_without_removing_it(dequeue):
+    # Act and Assert
+    assert not dequeue.peek_front()
+
+    # Act and Assert
+    dequeue.add_front(2)
+    assert dequeue.peek_front().data == 2
+
+    # Act and Assert
+    dequeue.add_front(1)
+    assert dequeue.peek_front().data == 1
