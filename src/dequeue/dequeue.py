@@ -1,3 +1,5 @@
+from typing import Any
+
 from src.doubly_linked_list.doubly_linked_list import DoublyLinkedList
 
 
@@ -15,3 +17,6 @@ class Dequeue:
     @property
     def is_empty(self) -> bool:
         return self._list.is_empty
+
+    def add_front(self, value: Any):
+        self._list.prepend(value)
