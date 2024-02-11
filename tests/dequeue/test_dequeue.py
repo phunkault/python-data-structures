@@ -88,3 +88,17 @@ def test_remove_rear_removes_elements_from_the_rear_in_correct_order(dequeue):
     assert dequeue.remove_rear().data == 1
     assert not dequeue.remove_rear()
     assert dequeue.size == 0
+
+
+# Peek rear
+def test_peek_rear_peeks_elements_from_the_rear_without_removing_it(dequeue):
+    # Act and Assert
+    assert not dequeue.peek_rear()
+
+    # Act and Assert
+    dequeue.add_rear(1)
+    assert dequeue.peek_rear().data == 1
+
+    # Act and Assert
+    dequeue.add_rear(2)
+    assert dequeue.peek_rear().data == 2

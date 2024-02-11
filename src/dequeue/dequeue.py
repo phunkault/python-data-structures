@@ -34,3 +34,6 @@ class Dequeue:
 
     def remove_rear(self):
         return self._list.delete_tail()
+
+    def peek_rear(self):
+        return self._list.tail
