@@ -137,3 +137,83 @@ def test_values_returns_empty_iterator_for_empty_hash_map():
 
     # Act and Assert
     assert list(hash_map.values()) == []
+
+
+def test_entries_returns_iterator_with_all_entries():
+    # Arrange
+    hash_map = HashMap()
+    hash_map.set('one', 1)
+    hash_map.set('two', 2)
+    hash_map.set('three', 3)
+    expected = [
+        ('one', 1),
+        ('two', 2),
+        ('three', 3),
+    ]
+
+    # Act
+    received = list(hash_map.items())
+
+    # Assert
+    assert received == expected
+
+
+def test_entries_returns_empty_iterator_for_empty_hash_map():
+    # Arrange
+    hash_map = HashMap()
+
+    # Act and Assert
+    assert list(hash_map.items()) == []
+
+
+def test_get_handles_non_existing_key_in_empty_hash_map():
+    # Arrange
+    hash_map = HashMap()
+
+    # Act and Assert
+    assert hash_map.get('one') is None
+    assert hash_map.size == 0
+
+
+def test_get_handles_non_existing_key_in_non_empty_hash_map():
+    # Arrange
+    hash_map = HashMap()
+    hash_map.set('one', 1)
+
+    # Act and Assert
+    assert hash_map.get('two') is None
+    assert hash_map.size == 1
+
+
+def test_get_returns_value_for_existing_key_in_non_empty_hash_map():
+    # Arrange
+    hash_map = HashMap()
+    hash_map.set('key', 10)
+
+    # Act and Assert
+    assert hash_map.get('key') == 10
+    assert hash_map.size == 1
+
+
+def test_get_returns_values_for_existing_keys_in_non_empty_hash_map():
+    # Arrange
+    hash_map = HashMap()
+    hash_map.set('ten', 10)
+    hash_map.set('twenty', 20)
+
+    # Act and Assert
+    assert hash_map.get('ten') == 10
+    assert hash_map.get('twenty') == 20
+    assert hash_map.size == 2
+
+
+def test_has_checks_if_key_exists_using_has_method():
+    # Arrange
+    hash_map = HashMap()
+    hash_map.set('one', 1)
+    hash_map.set('two', 2)
+
+    # Act and Assert
+    assert hash_map.has('one')
+    assert hash_map.has('two')
+    assert not hash_map.has('three')
