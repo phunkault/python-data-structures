@@ -25,3 +25,6 @@ class Stack:
     def pop(self) -> Optional[Any]:
         popped_node = self._list.delete_tail()
         return popped_node.data if popped_node else None
+
+    def clear(self) -> None:
+        self._list.clear()
