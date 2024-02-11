@@ -27,3 +27,7 @@ class Dequeue:
 
     def peek_front(self):
         return self._list.head
+
+    def add_rear(self, value: Any):
+        self._list.append(value)
+        return self

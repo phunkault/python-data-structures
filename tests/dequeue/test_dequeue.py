@@ -59,3 +59,20 @@ def test_peek_front_peeks_elements_from_the_front_without_removing_it(dequeue):
     # Act and Assert
     dequeue.add_front(1)
     assert dequeue.peek_front().data == 1
+
+
+# Add rear
+def test_add_rear_adds_elements_to_the_rear_in_correct_order(dequeue):
+    # Act
+    dequeue.add_rear(1)
+
+    # Assert
+    assert str(dequeue) == '1'
+    assert dequeue.size == 1
+
+    # Act
+    dequeue.add_rear(2)
+
+    # Assert
+    assert str(dequeue) == '1 -> 2'
+    assert dequeue.size == 2
