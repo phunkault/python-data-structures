@@ -28,3 +28,6 @@ class Queue:
     def peek(self) -> Optional[Any]:
         front_element = self._list.head
         return front_element.data if front_element else None
+
+    def clear(self) -> None:
+        self._list.clear()
