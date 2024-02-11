@@ -24,3 +24,7 @@ class Queue:
     def dequeue(self) -> Optional[Any]:
         dequeued_node = self._list.delete_head()
         return dequeued_node.data if dequeued_node else None
+
+    def peek(self) -> Optional[Any]:
+        front_element = self._list.head
+        return front_element.data if front_element else None
