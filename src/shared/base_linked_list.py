@@ -11,6 +11,13 @@ class BaseLinkedList(ABC):
     _tail: Optional[BaseLinkedListNode] = None
     _length: int = 0
 
+    @staticmethod
+    def _is_match(value: Any, arg: Any) -> bool:
+        if type(arg) == FunctionType:
+            return arg(value)
+        else:
+            return value == arg
+
     @property
     def head(self) -> Optional[BaseLinkedListNode]:
         return self._head
@@ -25,10 +32,10 @@ class BaseLinkedList(ABC):
 
     @property
     def is_empty(self) -> bool:
-        return self._head is None
+        return not self._head
 
-    def _find_node_by_index(self, index) -> Optional[BaseLinkedListNode]:
-        current_node = self._head
+    def _find_node_by_index(self, index: int) -> Optional[BaseLinkedListNode]:
+        current_node = self.head
 
         for i in range(index):
             current_node = current_node.next
@@ -37,7 +44,7 @@ class BaseLinkedList(ABC):
 
     def __iter__(self) -> None:
         current_node = self._head
-        while current_node is not None:
+        while current_node:
             yield current_node
             current_node = current_node.next
 
@@ -45,12 +52,6 @@ class BaseLinkedList(ABC):
         values = [str(value) for value in self.to_array()]
 
         return f"{separator}".join(values)
-
-    def _is_match(self, value: Any, arg: Any) -> bool:
-        if type(arg) == FunctionType:
-            return arg(value)
-        else:
-            return value == arg
 
     def from_array(self, array: List) -> BaseLinkedList:
         for value in array:
@@ -66,7 +67,7 @@ class BaseLinkedList(ABC):
             return None
 
         for current_node in self:
-            if self._is_match(current_node.data, value):
+            if BaseLinkedList._is_match(current_node.data, value):
                 return current_node
 
         return None
@@ -75,7 +76,7 @@ class BaseLinkedList(ABC):
         index = 0
 
         for node in self:
-            if self._is_match(node.data, value):
+            if BaseLinkedList._is_match(node.data, value):
                 return index
 
             index += 1

@@ -61,7 +61,7 @@ class LinkedList(BaseLinkedList):
         prev_node = None
 
         for current_node in self:
-            if self._is_match(current_node.data, arg):
+            if LinkedList._is_match(current_node.data, arg):
                 deleted_node = current_node
                 break
 

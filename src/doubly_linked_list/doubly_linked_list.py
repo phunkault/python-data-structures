@@ -64,7 +64,7 @@ class DoublyLinkedList(BaseLinkedList):
         deleted_node = None
 
         for current_node in self:
-            if self._is_match(current_node.data, value):
+            if DoublyLinkedList._is_match(current_node.data, value):
                 deleted_node = current_node
                 break
 
