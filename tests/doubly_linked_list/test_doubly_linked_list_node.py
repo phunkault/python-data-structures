@@ -7,8 +7,8 @@ def test_creates_node_with_value():
 
     # Assert
     assert node.data == 1
-    assert node.next is None
-    assert node.prev is None
+    assert not node.next
+    assert not node.prev
 
 
 def test_nodes_link_together():
@@ -24,11 +24,11 @@ def test_nodes_link_together():
     # Assert
     assert node1.data == 1
     assert node1.next.data == 2
-    assert node1.next.next is None
-    assert node1.prev is None
+    assert not node1.next.next
+    assert not node1.prev
 
-    assert node2.next is None
-    assert node2.prev is None
+    assert not node2.next
+    assert not node2.prev
 
     assert node3.next.data == 1
     assert node3.prev.data == 2

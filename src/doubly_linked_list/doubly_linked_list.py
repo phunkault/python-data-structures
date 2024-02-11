@@ -9,7 +9,7 @@ class DoublyLinkedList(BaseLinkedList):
     def append(self, value: Any) -> DoublyLinkedList:
         new_node = DoublyLinkedListNode(value)
 
-        if self._head is None:
+        if not self.head:
             self._head = new_node
             self._tail = new_node
         else:
@@ -24,11 +24,11 @@ class DoublyLinkedList(BaseLinkedList):
     def prepend(self, value: Any) -> DoublyLinkedList:
         new_node = DoublyLinkedListNode(value)
 
-        if self._head is None:
+        if not self.head:
             self._head = new_node
             self._tail = new_node
         else:
-            new_node.next = self._head
+            new_node.next = self.head
             self._head.prev = new_node
             self._head = new_node
 
@@ -44,7 +44,7 @@ class DoublyLinkedList(BaseLinkedList):
 
         if index == 0:
             self.prepend(value)
-        elif index == self._length:
+        elif index == self.length:
             self.append(value)
         else:
             prev_node = self._find_node_by_index(index - 1)
@@ -58,25 +58,25 @@ class DoublyLinkedList(BaseLinkedList):
         return self
 
     def delete(self, value: Any) -> Optional[DoublyLinkedListNode]:
-        if self._head is None:
+        if not self.head:
             return None
 
-        deleted_node: Optional[DoublyLinkedListNode] = None
+        deleted_node = None
 
         for current_node in self:
             if self._is_match(current_node.data, value):
                 deleted_node = current_node
                 break
 
-        if deleted_node is None:
+        if not deleted_node:
             return None
 
-        if deleted_node.prev is not None:
+        if deleted_node.prev:
             deleted_node.prev.next = deleted_node.next
         else:
             self._head = deleted_node.next
 
-        if deleted_node.next is not None:
+        if deleted_node.next:
             deleted_node.next.prev = deleted_node.prev
         else:
             self._tail = deleted_node.prev
@@ -88,11 +88,11 @@ class DoublyLinkedList(BaseLinkedList):
 
         return deleted_node
 
-    def delete_head(self):
-        if self._head is None:
+    def delete_head(self) -> Optional[DoublyLinkedListNode]:
+        if not self.head:
             return None
 
-        deleted_node = self._head
+        deleted_node = self.head
 
         if deleted_node.next:
             self._head = deleted_node.next
@@ -106,12 +106,12 @@ class DoublyLinkedList(BaseLinkedList):
         return deleted_node
 
     def delete_tail(self) -> Optional[DoublyLinkedListNode]:
-        if self._head is None:
+        if not self.head:
             return None
 
-        deleted_node = self._tail
+        deleted_node = self.tail
 
-        if self._head == self._tail:
+        if self.head == self.tail:
             self._head = None
             self._tail = None
         else:
@@ -122,14 +122,14 @@ class DoublyLinkedList(BaseLinkedList):
 
         return deleted_node
 
-    def reverse(self) -> BaseLinkedList:
-        if self._head is None or self._head.next is None:
+    def reverse(self) -> DoublyLinkedList:
+        if not self.head or not self.head.next:
             return self
 
         prev_node = None
-        current_node = self._head
+        current_node = self.head
 
-        while current_node is not None:
+        while current_node:
             next_node = current_node.next
             current_node.next = prev_node
             current_node.prev = next_node
@@ -137,7 +137,7 @@ class DoublyLinkedList(BaseLinkedList):
 
             current_node = next_node
 
-        self._tail = self._head
+        self._tail = self.head
         self._head = prev_node
 
         return self
