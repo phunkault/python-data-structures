@@ -35,7 +35,7 @@ def test_push_multiple_elements(stack):
 
     # Assert
     assert stack.length == 3
-    assert str(stack) == '10 -> 20 -> 30'
+    assert str(stack) == '30 -> 20 -> 10'
 
 
 # Pop
@@ -50,7 +50,7 @@ def test_pop_removes_and_returns_top_element(stack):
 
     # Assert
     assert popped_element == 21
-    assert str(stack) == '7 -> 14'
+    assert str(stack) == '14 -> 7'
     assert stack.length == 2
 
 
