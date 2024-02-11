@@ -131,3 +131,8 @@ class HashMap:
                 return True
 
         return False
+
+    def clear(self):
+        self._capacity = INITIAL_CAPACITY
+        self._buckets = [LinkedList() for _ in range(self._capacity)]
+        self._size = 0

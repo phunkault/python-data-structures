@@ -242,3 +242,18 @@ def test_delete_existing_values_for_existing_keys_in_a_non_empty_hash_map():
     assert hash_map.size == 1
     assert hash_map.delete('two')
     assert hash_map.size == 0
+
+
+def test_clear_clears_the_hash_map():
+    # Arrange
+    hash_map = HashMap()
+    hash_map.set('one', 1)
+    hash_map.set('two', 2)
+
+    # Act
+    hash_map.clear()
+
+    # Assert
+    assert hash_map.get('one') is None
+    assert hash_map.get('two') is None
+    assert hash_map.size == 0
