@@ -10,7 +10,6 @@ class Stack:
     def size(self) -> int:
         return self._size
 
-    #
-    # @property
-    # def is_empty(self) -> bool:
-    #     return self._list.is_empty
+    @property
+    def is_empty(self) -> bool:
+        return self._list.is_empty
