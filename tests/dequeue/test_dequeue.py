@@ -14,5 +14,5 @@ def test_dequeue_returns_initial_state_correctly(dequeue):
     # Act and Assert
     assert dequeue
     assert dequeue.size == 0
+    assert dequeue.is_empty
     # assert str(dequeue) == ''
-    # assert dequeue.is_empty
