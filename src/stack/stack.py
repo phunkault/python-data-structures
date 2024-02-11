@@ -5,7 +5,7 @@ from src.linked_list.linked_list import LinkedList
 
 
 class Stack:
-    def __init__(self):
+    def __init__(self) -> None:
         self._list: LinkedList = LinkedList()
 
     def __str__(self) -> str:
@@ -19,7 +19,7 @@ class Stack:
     def is_empty(self) -> bool:
         return self._list.is_empty
 
-    def push(self, value: Any):
+    def push(self, value: Any) -> None:
         self._list.append(value)
 
     def pop(self) -> Optional[Any]:

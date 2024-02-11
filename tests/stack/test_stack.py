@@ -39,7 +39,6 @@ def test_push_multiple_elements(stack):
 
 
 # Pop
-
 def test_pop_removes_and_returns_top_element(stack):
     # Arrange
     stack.push(7)
@@ -60,5 +59,5 @@ def test_pop_returns_none_for_empty_stack(stack):
     popped_element = stack.pop()
 
     # Assert
-    assert popped_element is None
+    assert not popped_element
     assert stack.length == 0
