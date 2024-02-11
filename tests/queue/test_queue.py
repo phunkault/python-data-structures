@@ -12,6 +12,6 @@ def queue():
 # Initial state
 def test_initial_state(queue):
     # Act and Assert
-    assert queue is not None
+    assert queue
     # assert queue.is_empty() is True
-    # assert queue.size() == 0
+    assert queue.size == 0
