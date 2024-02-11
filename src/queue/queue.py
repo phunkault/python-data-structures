@@ -8,3 +8,7 @@ class Queue:
     @property
     def size(self) -> int:
         return self._list.length
+
+    @property
+    def is_empty(self):
+        return self._list.is_empty
