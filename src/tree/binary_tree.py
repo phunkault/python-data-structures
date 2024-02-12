@@ -49,3 +49,16 @@ class BinaryTree:
         if left_size:
             return left_size
         return self._search(node.right, value)
+
+    def traverse_preorder(self) -> list[BinaryTreeNode]:
+        result = []
+        self._traverse_preorder(self._root, result)
+        return result
+
+    def _traverse_preorder(
+        self, node: Optional[BinaryTreeNode], result: list[BinaryTreeNode]
+    ) -> None:
+        if node:
+            result.append(node.value)
+            self._traverse_preorder(node.left, result)
+            self._traverse_preorder(node.right, result)
