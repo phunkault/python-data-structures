@@ -7,6 +7,13 @@ class BinaryTree:
     def __init__(self, root: Optional[BinaryTreeNode] = None) -> None:
         self._root = root
 
+    @staticmethod
+    def _find_successor(node):
+        while not node.left:
+            node = node.left
+
+        return node
+
     @property
     def root(self) -> BinaryTreeNode:
         return self._root
@@ -28,8 +35,10 @@ class BinaryTree:
     def search(self, value: Any) -> Optional[BinaryTreeNode]:
         return self._search(self.root, value)
 
-    def _search(self, node, value):
-        if node is None:
+    def _search(
+        self, node: BinaryTreeNode, value: Any
+    ) -> Optional[BinaryTreeNode]:
+        if not node:
             return None  # Value not found
         if node.value == value:
             return node  # Value found
@@ -37,3 +46,28 @@ class BinaryTree:
             return self._search(node.left, value)
         else:
             return self._search(node.right, value)
+
+    def delete(self, value: Any) -> None:
+        self._root = self._delete(self.root, value)
+
+    def _delete(
+        self, node: BinaryTreeNode, value: Any
+    ) -> Optional[BinaryTreeNode]:
+        if not node:
+            return None
+
+        if value < node.value:
+            node.left = self._delete(node.left, value)
+        elif value > node.value:
+            node.right = self._delete(node.right, value)
+        else:
+            if not node.left:
+                return node.right
+            elif not node.right:
+                return node.left
+
+            successor = BinaryTree._find_successor(node.right)
+            node = successor
+            node.right = self._delete(node.right, successor.value)
+
+        return node
