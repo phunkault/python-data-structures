@@ -27,3 +27,22 @@ def test_to_string(binary_tree_node):
 
     # Assert
     assert str(node) == "1"
+
+
+def test_nodes_link_together(binary_tree_node):
+    # Act and arrange
+    node = BinaryTreeNode(
+        value=0,
+        left=BinaryTreeNode(1),
+        right=BinaryTreeNode(2)
+    )
+
+    # Assert
+    assert node.left.value == 1
+    assert node.right.value == 2
+
+    assert not node.left.left
+    assert not node.left.right
+
+    assert not node.right.left
+    assert not node.right.right
