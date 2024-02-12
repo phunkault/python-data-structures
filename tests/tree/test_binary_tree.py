@@ -40,3 +40,28 @@ def test_insert_in_non_empty_tree():
     assert tree.root.left.value == 2
     assert tree.root.right.value == 3
     assert tree.root.left.left.value == 4
+
+
+# Search
+def test_search_in_empty_tree_returns_none(binary_tree):
+    # Act and assert
+    result = binary_tree.search(1)
+    assert not result
+
+
+def test_search_for_existing_node_returns_node(binary_tree):
+    # Arrange
+    binary_tree.insert(1)
+    # Act and assert
+    result = binary_tree.search(1)
+    assert result.value == 1
+
+
+def test_search_for_non_existing_node_returns_none(binary_tree):
+    # Arrange
+    binary_tree.insert(1)
+    binary_tree.insert(2)
+    binary_tree.insert(3)
+    # Act and assert
+    result = binary_tree.search(4)
+    assert not result

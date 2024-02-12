@@ -24,3 +24,16 @@ class BinaryTree:
         else:
             node.left = self._insert(node.left, value)
         return node
+
+    def search(self, value: Any) -> Optional[BinaryTreeNode]:
+        return self._search(self.root, value)
+
+    def _search(self, node, value):
+        if node is None:
+            return None  # Value not found
+        if node.value == value:
+            return node  # Value found
+        elif value < node.value:
+            return self._search(node.left, value)
+        else:
+            return self._search(node.right, value)
