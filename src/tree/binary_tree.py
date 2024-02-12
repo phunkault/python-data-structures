@@ -1,18 +1,10 @@
-from __future__ import annotations
-
-from typing import Any, Optional
+from .binary_tree_node import BinaryTreeNode
 
 
-class BinaryTreeNode:
-    def __init__(
-        self,
-        value: Any = None,
-        left: Optional[BinaryTreeNode] = None,
-        right: Optional[BinaryTreeNode] = None,
-    ) -> None:
-        self.value = value
-        self.left = left
-        self.right = right
+class BinaryTree:
+    def __init__(self, root: BinaryTreeNode = None) -> None:
+        self._root = root
 
-    def __str__(self):
-        return f"{self.value}"
+    @property
+    def root(self):
+        return self._root
