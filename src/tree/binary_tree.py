@@ -6,3 +6,6 @@ class BinaryTreeNode:
         self.value = value
         self.left: Optional[BinaryTreeNode] = None
         self.right: Optional[BinaryTreeNode] = None
+
+    def __str__(self):
+        return f"{self.value}"
