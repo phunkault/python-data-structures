@@ -39,6 +39,13 @@ jobs:
       - name: Run tests and collect coverage
         run: |
           pytest --verbose --cov .
+      - name: Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          flags: unittests
+          verbose: true
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload coverage reports to Codecov
         run: |
           curl -Os https://uploader.codecov.io/latest/linux/codecov
