@@ -23,16 +23,24 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
-# Set the maximum line length to 79.
 line-length = 79
 exclude = ["test_*.py"]
 
 
 [tool.ruff.lint]
-# Add the `line-too-long` rule to the enforced rule set.
 extend-select = ["E501"]
 
 [tool.bandit]
 exclude_dirs = ["tests"]
 tests = ["B201", "B301"]
 skips = ["B101", "B601"]
+
+[tool.coverage.run]
+branch = true
+command_line = '-m pytest'
+source = ['.']
+
+[tool.coverage.report]
+precision = 2
+skip_covered = true
+fail_under = 95

@@ -75,7 +75,7 @@ def test_delete_leaf_node(bst):
     assert bst.root.left.right.value == 7
 
 
-def test_delete_node_with_one_child(bst):
+def test_delete_node_with_one_child_on_right_subtree(bst):
     # Arrange
     bst.insert(10).insert(5).insert(15).insert(3).insert(8).insert(17)
 
@@ -86,6 +86,20 @@ def test_delete_node_with_one_child(bst):
     assert not bst.search(15)
     assert bst.search(17).value == 17
     assert bst.root.right.value == 17
+
+
+def test_delete_node_with_one_child_on_left_subtree(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(17)
+
+    # Act
+    bst.delete(5)
+
+    # Assert
+    assert not bst.search(5)
+    assert bst.root.value == 10
+    assert bst.root.left.value == 3
+    assert bst.root.right.value == 15
 
 
 def test_delete_node_with_two_children(bst):
@@ -190,7 +204,7 @@ def find_min_in_non_empty_tree_returns_min_node_value(bst):
 # Find max
 def find_max_in_empty_tree_returns_none(bst):
     # Act and Assert
-    assert not bst.find_min()
+    assert not bst.find_max()
 
 
 def find_max_in_non_empty_tree_returns_max_node_value(bst):
