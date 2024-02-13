@@ -14,7 +14,7 @@ class BinarySearchTree:
         while root.left:
             root = root.left
         return root.value
-
+      
     @property
     def root(self) -> Optional[BinaryTreeNode]:
         return self._root
@@ -127,7 +127,10 @@ class BinarySearchTree:
     def find_max(self) -> Optional[Any]:
         if not self.root:
             return None
+          
         max_val_node = None
+        
         while self.root.right:
             max_val_node = self.root.right
+            
         return max_val_node.value
