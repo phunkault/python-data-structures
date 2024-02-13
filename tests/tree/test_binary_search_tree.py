@@ -157,3 +157,17 @@ def test_traverse_inorder_non_empty_tree(bst):
 
     # Act and Assert
     assert bst.traverse_inorder() == [3, 5, 7, 10, 15]
+
+
+# Traverse postorder
+def test_traverse_postorder_empty_tree(bst):
+    # Act and Assert
+    assert bst.traverse_postorder() == []
+
+
+def test_traverse_postorder_non_empty_tree(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7)
+
+    # Act and Assert
+    assert bst.traverse_postorder() == [3, 7, 5, 15, 10]
