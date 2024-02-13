@@ -36,3 +36,13 @@ extend-select = ["E501"]
 exclude_dirs = ["tests"]
 tests = ["B201", "B301"]
 skips = ["B101", "B601"]
+
+[tool.coverage.run]
+branch = true
+command_line = '-m pytest'
+source = ['.']
+
+[tool.coverage.report]
+precision = 2
+skip_covered = true
+fail_under = 90
