@@ -13,16 +13,32 @@ class BinarySearchTree:
     def root(self) -> Optional[BinaryTreeNode]:
         return self._root
 
-    def insert(self, key: Any) -> BinarySearchTree:
-        self._root = self._insert(self.root, key)
+    def insert(self, value: Any) -> BinarySearchTree:
+        self._root = self._insert(self.root, value)
         return self
 
-    def _insert(self, root: BinaryTreeNode, key: Any) -> BinaryTreeNode:
+    def _insert(self, root: BinaryTreeNode, value: Any) -> BinaryTreeNode:
         if not root:
-            return BinaryTreeNode(key)
-        if key < root.value:
-            root.left = self._insert(root.left, key)
-        elif key > root.value:
-            root.right = self._insert(root.right, key)
+            return BinaryTreeNode(value)
+        if value < root.value:
+            root.left = self._insert(root.left, value)
+        elif value > root.value:
+            root.right = self._insert(root.right, value)
 
         return root
+
+    def search(self, value: Any) -> Optional[BinaryTreeNode]:
+        return self._search(self.root, value)
+
+    def _search(
+        self, root: BinaryTreeNode, value: Any
+    ) -> Optional[BinaryTreeNode]:
+        if not root:
+            return None
+        if root.value == value:
+            return root
+
+        if value < root.value:
+            return self._search(root.left, value)
+        else:
+            return self._search(root.right, value)

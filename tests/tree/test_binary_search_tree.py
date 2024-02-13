@@ -37,3 +37,25 @@ def test_insert_call_chain(bst):
     assert bst.root.right.value == 10
     assert bst.root.left.left.value == 1
     assert bst.root.left.right.value == 6
+
+
+# Search
+def test_search_in_empty_tree_returns_none(bst):
+    # Act and Assert
+    assert not bst.search(2)
+
+
+def test_search_existing_node_returns_node(bst):
+    # Arrange
+    bst.insert(4).insert(3).insert(5)
+
+    # Act and Assert
+    assert bst.search(3).value == 3
+
+
+def test_search_non_existing_node_returns_none(bst):
+    # Arrange
+    bst.insert(4).insert(3).insert(5)
+
+    # Act and Assert
+    assert not bst.search(7)
