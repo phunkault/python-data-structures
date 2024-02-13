@@ -10,7 +10,7 @@ class BinarySearchTree:
         self._root = root
 
     @staticmethod
-    def _get_min_value(root: BinaryTreeNode):
+    def _get_min_value(root: BinaryTreeNode) -> Optional[Any]:
         while root.left:
             root = root.left
         return root.value
@@ -115,3 +115,8 @@ class BinarySearchTree:
             self._traverse_postorder(root.left, result)
             self._traverse_postorder(root.right, result)
             result.append(root.value)
+
+    def find_min(self) -> Optional[Any]:
+        if not self.root:
+            return None
+        return BinarySearchTree._get_min_value(self.root)

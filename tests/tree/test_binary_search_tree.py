@@ -171,3 +171,17 @@ def test_traverse_postorder_non_empty_tree(bst):
 
     # Act and Assert
     assert bst.traverse_postorder() == [3, 7, 5, 15, 10]
+
+
+# Find min
+def find_min_in_empty_tree_returns_none(bst):
+    # Act and Assert
+    assert not bst.find_min()
+
+
+def find_min_in_non_empty_tree_returns_min_node_value(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7)
+
+    # Act and Assert
+    assert bst.find_min() == 3
