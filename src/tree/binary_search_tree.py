@@ -15,6 +15,12 @@ class BinarySearchTree:
             root = root.left
         return root.value
 
+    @staticmethod
+    def _get_max_value(root: BinaryTreeNode) -> Optional[Any]:
+        while root.right:
+            root = root.right
+        return root.value
+
     @property
     def root(self) -> Optional[BinaryTreeNode]:
         return self._root
@@ -120,3 +126,8 @@ class BinarySearchTree:
         if not self.root:
             return None
         return BinarySearchTree._get_min_value(self.root)
+
+    def find_max(self) -> Optional[Any]:
+        if not self.root:
+            return None
+        return BinarySearchTree._get_max_value(self.root)

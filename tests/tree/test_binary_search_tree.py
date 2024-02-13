@@ -185,3 +185,17 @@ def find_min_in_non_empty_tree_returns_min_node_value(bst):
 
     # Act and Assert
     assert bst.find_min() == 3
+
+
+# Find max
+def find_max_in_empty_tree_returns_none(bst):
+    # Act and Assert
+    assert not bst.find_min()
+
+
+def find_max_in_non_empty_tree_returns_max_node_value(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7)
+
+    # Act and Assert
+    assert bst.find_max() == 15
