@@ -9,6 +9,12 @@ class BinarySearchTree:
     def __init__(self, root: Optional[BinaryTreeNode] = None) -> None:
         self._root = root
 
+    @staticmethod
+    def _get_min_value(root: BinaryTreeNode):
+        while root.left:
+            root = root.left
+        return root.value
+
     @property
     def root(self) -> Optional[BinaryTreeNode]:
         return self._root
@@ -42,3 +48,31 @@ class BinarySearchTree:
             return self._search(root.left, value)
         else:
             return self._search(root.right, value)
+
+    def delete(self, value: Any) -> BinarySearchTree:
+        self._root = self._delete(self.root, value)
+        return self
+
+    def _delete(
+        self, root: BinaryTreeNode, value: Any
+    ) -> Optional[BinaryTreeNode]:
+        if not root:
+            return None
+
+        if value < root.value:
+            root.left = self._delete(root.left, value)
+        elif value > root.value:
+            root.right = self._delete(root.right, value)
+        else:
+            # Node with only one child or no child
+            if not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+
+            # Node with two children
+            root.value = BinarySearchTree._get_min_value(root.right)
+            # Delete the inorder successor
+            root.right = self._delete(root.right, root.value)
+
+        return root

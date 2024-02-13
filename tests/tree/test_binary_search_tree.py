@@ -59,3 +59,73 @@ def test_search_non_existing_node_returns_none(bst):
 
     # Act and Assert
     assert not bst.search(7)
+
+
+# Delete
+def test_delete_leaf_node(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7)
+
+    # Act
+    bst.delete(3)
+
+    # Assert
+    assert not bst.search(3)
+    assert not bst.root.left.left
+    assert bst.root.left.right.value == 7
+
+
+def test_delete_node_with_one_child(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(8).insert(17)
+
+    # Act
+    bst.delete(15)
+
+    # Assert
+    assert not bst.search(15)
+    assert bst.search(17).value == 17
+    assert bst.root.right.value == 17
+
+
+def test_delete_node_with_two_children(bst):
+    # Arrange
+    bst.insert(20).insert(5).insert(30).insert(3).insert(7).insert(29).insert(31)
+
+    # Act
+    bst.delete(30)
+
+    # Assert
+    assert not bst.search(30)
+    assert bst.root.value == 20
+    assert bst.root.right.value == 31
+    assert bst.root.right.left.value == 29
+
+
+def test_delete_root_node(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7).insert(12).insert(18)
+
+    # Act
+    bst.delete(10)
+
+    # Assert
+    assert not bst.search(10)
+    assert bst.root.value == 12
+    assert bst.root.right.value == 15
+    assert bst.root.right.right.value == 18
+
+
+def test_delete_nonexistent_node(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7)
+
+    # Act
+    bst.delete(20)
+
+    # Assert
+    assert bst.root.value == 10
+    assert bst.root.left.value == 5
+    assert bst.root.right.value == 15
+    assert bst.root.left.left.value == 3
+    assert bst.root.left.right.value == 7
