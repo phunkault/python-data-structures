@@ -25,6 +25,9 @@ class BinarySearchTree:
     def root(self) -> Optional[BinaryTreeNode]:
         return self._root
 
+    def __str__(self) -> str:
+        return str(self.traverse_preorder())
+
     def insert(self, value: Any) -> BinarySearchTree:
         self._root = self._insert(self.root, value)
         return self

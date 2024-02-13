@@ -199,3 +199,17 @@ def find_max_in_non_empty_tree_returns_max_node_value(bst):
 
     # Act and Assert
     assert bst.find_max() == 15
+
+
+# Stringify
+def test_str_empty_tree(bst):
+    # Act and Assert:
+    assert str(bst) == "[]"
+
+
+def test_str_non_empty_tree(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7)
+
+    # Act and Assert
+    assert str(bst) == "[10, 5, 3, 7, 15]"
