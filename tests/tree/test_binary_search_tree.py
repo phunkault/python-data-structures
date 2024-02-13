@@ -131,15 +131,29 @@ def test_delete_nonexistent_node(bst):
     assert bst.root.left.right.value == 7
 
 
-# Traverse_preorder
-def test_traverse_empty_tree(bst):
+# Traverse preorder
+def test_traverse_preorder_empty_tree(bst):
     # Act and Assert
     assert bst.traverse_preorder() == []
 
 
-def test_traverse_non_empty_tree(bst):
+def test_traverse_preorder_non_empty_tree(bst):
     # Arrange
     bst.insert(10).insert(5).insert(15).insert(3).insert(7)
 
     # Act and Assert
     assert bst.traverse_preorder() == [10, 5, 3, 7, 15]
+
+
+# Traverse inorder
+def test_traverse_inorder_empty_tree(bst):
+    # Act and Assert
+    assert bst.traverse_inorder() == []
+
+
+def test_traverse_inorder_non_empty_tree(bst):
+    # Arrange
+    bst.insert(10).insert(5).insert(15).insert(3).insert(7)
+
+    # Act and Assert
+    assert bst.traverse_inorder() == [3, 5, 7, 10, 15]

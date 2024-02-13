@@ -89,3 +89,16 @@ class BinarySearchTree:
             result.append(root.value)
             self._traverse_preorder(root.left, result)
             self._traverse_preorder(root.right, result)
+
+    def traverse_inorder(self) -> list[Any]:
+        result = []
+        self._traverse_inorder(self.root, result)
+        return result
+
+    def _traverse_inorder(
+        self, root: BinaryTreeNode, result: list[Any]
+    ) -> None:
+        if root:
+            self._traverse_inorder(root.left, result)
+            result.append(root.value)
+            self._traverse_inorder(root.right, result)
