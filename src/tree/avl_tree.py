@@ -11,3 +11,8 @@ class AVLTree(BinarySearchTree):
     @staticmethod
     def get_height(node: Optional[AVLTreeNode]) -> int:
         return 0 if not node else node.height
+
+    def get_balance_factor(self, node: Optional[AVLTreeNode]) -> int:
+        bf = self.get_height(node.left) - self.get_height(node.right)
+
+        return 0 if not node else bf
