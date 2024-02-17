@@ -84,3 +84,69 @@ def test_avl_tree_double_rotation(avl_tree):
     assert avl_tree.root.left.value == 5
     assert avl_tree.root.right.value == 20
     assert avl_tree.root.right.left.value == 15
+
+
+# Delete
+def test_avl_tree_delete_leaf(avl_tree):
+    # Arrange
+    avl_tree.insert(10)
+    avl_tree.insert(5)
+    avl_tree.insert(15)
+
+    # Act
+    avl_tree.delete(5)
+
+    # Assert
+    assert avl_tree.root.value == 10
+    assert avl_tree.root.left is None
+    assert avl_tree.root.right.value == 15
+
+
+def test_avl_tree_delete_node_with_one_child(avl_tree):
+    # Arrange
+    avl_tree.insert(10)
+    avl_tree.insert(5)
+    avl_tree.insert(15)
+    avl_tree.insert(12)
+
+    # Act
+    avl_tree.delete(15)
+
+    # Assert
+    assert avl_tree.root.value == 10
+    assert avl_tree.root.left.value == 5
+    assert avl_tree.root.right.value == 12
+    assert avl_tree.root.right.right is None
+
+
+def test_avl_tree_delete_node_with_two_children(avl_tree):
+    # Arrange
+    avl_tree.insert(10)
+    avl_tree.insert(5)
+    avl_tree.insert(15)
+    avl_tree.insert(12)
+    avl_tree.insert(17)
+
+    # Act
+    avl_tree.delete(15)
+
+    # Assert
+    assert avl_tree.root.value == 10
+    assert avl_tree.root.left.value == 5
+    assert avl_tree.root.right.value == 17
+    assert avl_tree.root.right.left.value == 12
+
+
+def test_avl_tree_delete_root(avl_tree):
+    # Arrange
+    avl_tree.insert(10)
+    avl_tree.insert(5)
+    avl_tree.insert(15)
+
+    # Act
+    avl_tree.delete(10)
+
+    # Assert
+    assert avl_tree.root.value == 15
+    assert avl_tree.root.left.value == 5
+    assert avl_tree.root.right is None
