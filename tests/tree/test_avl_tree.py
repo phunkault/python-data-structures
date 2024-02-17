@@ -57,11 +57,11 @@ def test_avl_tree_left_rotation(avl_tree):
     assert avl_tree.root.right.height == 1
 
     # Check the balance factor of the root
-    assert avl_tree._balance(avl_tree.root) == 0
+    assert avl_tree._balance_factor(avl_tree.root) == 0
     # Check the balance factor of the left child
-    assert avl_tree._balance(avl_tree.root.left) == 0
+    assert avl_tree._balance_factor(avl_tree.root.left) == 0
     # Check the balance factor of the right child
-    assert avl_tree._balance(avl_tree.root.right) == 0
+    assert avl_tree._balance_factor(avl_tree.root.right) == 0
 
 
 def test_avl_tree_right_rotation(avl_tree):
