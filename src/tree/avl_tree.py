@@ -10,7 +10,8 @@ class AVLTree(BinarySearchTree):
     def __init__(self, root: Optional[BinaryTreeNode] = None) -> None:
         super().__init__(root)
 
-    def _height(self, node: BinaryTreeNode) -> int:
+    @staticmethod
+    def _height(node: BinaryTreeNode) -> int:
         return node.height if node else 0
 
     def _balance_factor(self, node: BinaryTreeNode) -> int:
@@ -70,31 +71,39 @@ class AVLTree(BinarySearchTree):
 
         return node
 
-    def _rotate_left(self, y: BinaryTreeNode) -> BinaryTreeNode:
-        x = y.right
-        T2 = x.left
+    def _rotate_left(self, node: BinaryTreeNode) -> BinaryTreeNode:
+        node_r = node.right
+        node_r_l = node_r.left
 
-        x.left = y
-        y.right = T2
-
-        # Update heights
-        y.height = 1 + max(self._height(y.left), self._height(y.right))
-        x.height = 1 + max(self._height(x.left), self._height(x.right))
-
-        return x
-
-    def _rotate_right(self, x: BinaryTreeNode) -> BinaryTreeNode:
-        y = x.left
-        T2 = y.right
-
-        y.right = x
-        x.left = T2
+        node_r.left = node
+        node.right = node_r_l
 
         # Update heights
-        x.height = 1 + max(self._height(x.left), self._height(x.right))
-        y.height = 1 + max(self._height(y.left), self._height(y.right))
+        node.height = 1 + max(
+            self._height(node.left), self._height(node.right)
+        )
+        node_r.height = 1 + max(
+            self._height(node_r.left), self._height(node_r.right)
+        )
 
-        return y
+        return node_r
+
+    def _rotate_right(self, node: BinaryTreeNode) -> BinaryTreeNode:
+        node_l = node.left
+        node_l_r = node_l.right
+
+        node_l.right = node
+        node.left = node_l_r
+
+        # Update heights
+        node.height = 1 + max(
+            self._height(node.left), self._height(node.right)
+        )
+        node_l.height = 1 + max(
+            self._height(node_l.left), self._height(node_l.right)
+        )
+
+        return node_l
 
     def delete(self, value: Any) -> AVLTree:
         self._root = self._delete(self.root, value)
@@ -104,7 +113,7 @@ class AVLTree(BinarySearchTree):
         self, root: BinaryTreeNode, value: Any
     ) -> Optional[BinaryTreeNode]:
         if not root:
-            return root
+            return None
 
         # Perform standard BST delete
         if value < root.value:
@@ -119,13 +128,13 @@ class AVLTree(BinarySearchTree):
                 return root.left
 
             # Node with two children, get the inorder successor
-            successor = self._get_min_value_node(root.right)
+            successor_value = BinarySearchTree._get_min_value(root.right)
 
             # Copy the inorder successor's value to this node
-            root.value = successor.value
+            root.value = successor_value
 
             # Delete the inorder successor
-            root.right = self._delete(root.right, successor.value)
+            root.right = self._delete(root.right, successor_value)
 
         # Update height of the current node
         root.height = 1 + max(
@@ -134,8 +143,3 @@ class AVLTree(BinarySearchTree):
 
         # Perform rotations if the tree is unbalanced
         return self._balance(root, value)
-
-    def _get_min_value_node(self, node: BinaryTreeNode) -> BinaryTreeNode:
-        while node.left:
-            node = node.left
-        return node
