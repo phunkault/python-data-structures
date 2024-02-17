@@ -54,56 +54,53 @@ class AVLTree(BinarySearchTree):
         if balance > 1:
             if value < node.left.value:
                 # Left-Left Case
-                return self._rotate_right(node)
+                return self._rotate(node, "right")
             else:
                 # Left-Right Case
-                node.left = self._rotate_left(node.left)
-                return self._rotate_right(node)
+                node.left = self._rotate(node.left, "left")
+                return self._rotate(node, "right")
 
         if balance < -1:
             if value > node.right.value:
                 # Right-Right Case
-                return self._rotate_left(node)
+                return self._rotate(node, "left")
             else:
                 # Right-Left Case
-                node.right = self._rotate_right(node.right)
-                return self._rotate_left(node)
+                node.right = self._rotate(node, "right")
+                return self._rotate(node, "left")
 
         return node
 
-    def _rotate_left(self, node: BinaryTreeNode) -> BinaryTreeNode:
-        node_r = node.right
-        node_r_l = node_r.left
+    def _rotate(
+        self, node: BinaryTreeNode, direction: str
+    ) -> Optional[BinaryTreeNode]:
+        if direction == "left":
+            child = node.right
+            grandchild = child.left
 
-        node_r.left = node
-        node.right = node_r_l
+            child.left = node
+            node.right = grandchild
 
-        # Update heights
-        node.height = 1 + max(
-            self._height(node.left), self._height(node.right)
-        )
-        node_r.height = 1 + max(
-            self._height(node_r.left), self._height(node_r.right)
-        )
+        elif direction == "right":
+            child = node.left
+            grandchild = child.right
 
-        return node_r
+            child.right = node
+            node.left = grandchild
 
-    def _rotate_right(self, node: BinaryTreeNode) -> BinaryTreeNode:
-        node_l = node.left
-        node_l_r = node_l.right
-
-        node_l.right = node
-        node.left = node_l_r
+        else:
+            # Handle invalid direction
+            return None
 
         # Update heights
         node.height = 1 + max(
             self._height(node.left), self._height(node.right)
         )
-        node_l.height = 1 + max(
-            self._height(node_l.left), self._height(node_l.right)
+        child.height = 1 + max(
+            self._height(child.left), self._height(child.right)
         )
 
-        return node_l
+        return child
 
     def delete(self, value: Any) -> AVLTree:
         self._root = self._delete(self.root, value)
