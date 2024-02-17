@@ -49,9 +49,9 @@ class AVLTree(BinarySearchTree):
         return new_root
 
     def _balance(self, node: BinaryTreeNode, value: Any) -> BinaryTreeNode:
-        balance = self._balance_factor(node)
+        balance_factor = self._balance_factor(node)
 
-        if balance > 1:
+        if balance_factor > 1:
             if value < node.left.value:
                 # Left-Left Case
                 return self._rotate(node, "right")
@@ -60,7 +60,7 @@ class AVLTree(BinarySearchTree):
                 node.left = self._rotate(node.left, "left")
                 return self._rotate(node, "right")
 
-        if balance < -1:
+        if balance_factor < -1:
             if value > node.right.value:
                 # Right-Right Case
                 return self._rotate(node, "left")
