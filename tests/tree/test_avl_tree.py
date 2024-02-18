@@ -17,6 +17,30 @@ def test_avl_tree_initial_state(avl_tree):
 
 
 # Insert
+def test_insert_node_with_duplicate_value_does_nothing(avl_tree):
+    # Arrange
+    avl_tree.insert(5)
+
+    # Act
+    avl_tree.insert(5)
+
+    # Assert
+    assert avl_tree.root.value == 5
+    assert not avl_tree.root.left
+    assert not avl_tree.root.right
+
+
+def test_insertion_to_right(avl_tree):
+    # Arrange
+    avl_tree.insert(5)
+
+    # Act
+    avl_tree.insert(10)
+
+    # Assert
+    assert avl_tree.root.right.value == 10
+
+
 def test_avl_tree_insertion(avl_tree):
     # Act
     avl_tree.insert(10).insert(5).insert(15)
@@ -60,7 +84,7 @@ def test_avl_tree_right_rotation(avl_tree):
     assert avl_tree.root.right.value == 20
 
 
-def test_avl_tree_double_rotation(avl_tree):
+def test_avl_tree_left_right_rotation(avl_tree):
     # Arrange
     avl_tree.insert(10).insert(5).insert(20).insert(15)
 
@@ -72,6 +96,11 @@ def test_avl_tree_double_rotation(avl_tree):
 
 
 # Delete
+def test_delete_non_existing_node(avl_tree):
+    # Act and Assert
+    assert avl_tree.delete(1) == avl_tree
+
+
 def test_avl_tree_delete_leaf(avl_tree):
     # Arrange
     avl_tree.insert(10).insert(5).insert(15)

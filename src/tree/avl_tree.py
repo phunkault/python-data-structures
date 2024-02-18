@@ -81,16 +81,12 @@ class AVLTree(BinarySearchTree):
             child.left = node
             node.right = grandchild
 
-        elif direction == "right":
+        else:
             child = node.left
             grandchild = child.right
 
             child.right = node
             node.left = grandchild
-
-        else:
-            # Handle invalid direction
-            return None
 
         # Update heights
         node.height = 1 + max(
