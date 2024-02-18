@@ -13,6 +13,7 @@ class BinaryTreeNode:
         self.value = value
         self.left = left
         self.right = right
+        self.height: int = 1
 
     def __str__(self):
         return f"{self.value}"
