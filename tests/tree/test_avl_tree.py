@@ -86,13 +86,22 @@ def test_avl_tree_right_rotation(avl_tree):
 
 def test_avl_tree_left_right_rotation(avl_tree):
     # Arrange
-    avl_tree.insert(10).insert(5).insert(20).insert(15)
+    avl_tree.insert(3).insert(1).insert(2)
 
     # Assert
-    assert avl_tree.root.value == 10
-    assert avl_tree.root.left.value == 5
-    assert avl_tree.root.right.value == 20
-    assert avl_tree.root.right.left.value == 15
+    assert avl_tree.root.value == 2
+    assert avl_tree.root.left.value == 1
+    assert avl_tree.root.right.value == 3
+
+
+def test_avl_tree_right_left_rotation(avl_tree):
+    # Arrange
+    avl_tree.insert(1).insert(3).insert(2)
+
+    # Assert
+    assert avl_tree.root.value == 2
+    assert avl_tree.root.left.value == 1
+    assert avl_tree.root.right.value == 3
 
 
 # Delete

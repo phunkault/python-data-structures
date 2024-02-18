@@ -66,7 +66,7 @@ class AVLTree(BinarySearchTree):
                 return self._rotate(node, "left")
             else:
                 # Right-Left Case
-                node.right = self._rotate(node, "right")
+                node.right = self._rotate(node.right, "right")
                 return self._rotate(node, "left")
 
         return node
