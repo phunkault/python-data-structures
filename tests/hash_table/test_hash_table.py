@@ -80,7 +80,6 @@ def test_keys_returns_unique_keys_even_with_duplicate_items(hash_map):
 
 def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
     # Arrange
-    # hash_map = HashMap(5)
     hash_map.set("one", 1)
     hash_map.set("two", 2)
     hash_map.set("three", 3)
@@ -91,7 +90,7 @@ def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
 
     # Assert
     assert len(keys_list) == 4
-
+    
     assert "one" in keys_list
     assert "two" in keys_list
     assert "three" in keys_list
@@ -100,7 +99,6 @@ def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
 
 def test_keys_returns_iterator_with_colliding_entries(hash_map):
     # Arrange
-    # hash_map = HashMap(5)
     hash_map.set("one", 1)
     hash_map.set("two", 2)
     hash_map.set("three", 3)
