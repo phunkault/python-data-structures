@@ -60,10 +60,12 @@ class HashMap:
         index = HashMap._get_index(hash_value, self._capacity)
         return self._buckets[index]
 
-    def _resize_if_needed(self) -> None:
+    def _is_loaded(self):
         load_factor = self._size / len(self._buckets)
+        return load_factor > RESIZE_THRESHOLD
 
-        if load_factor < RESIZE_THRESHOLD:
+    def _resize_if_needed(self) -> None:
+        if not self._is_loaded():
             return
 
         new_capacity = self._capacity * 2
