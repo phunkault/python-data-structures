@@ -80,7 +80,6 @@ def test_keys_returns_unique_keys_even_with_duplicate_items(hash_map):
 
 def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
     # Arrange
-    # hash_map = HashMap(5)
     hash_map.set("one", 1)
     hash_map.set("two", 2)
     hash_map.set("three", 3)
@@ -91,7 +90,7 @@ def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
 
     # Assert
     assert len(keys_list) == 4
-
+    
     assert "one" in keys_list
     assert "two" in keys_list
     assert "three" in keys_list
@@ -100,7 +99,6 @@ def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
 
 def test_keys_returns_iterator_with_colliding_entries(hash_map):
     # Arrange
-    # hash_map = HashMap(5)
     hash_map.set("one", 1)
     hash_map.set("two", 2)
     hash_map.set("three", 3)
@@ -117,30 +115,6 @@ def test_keys_returns_iterator_with_colliding_entries(hash_map):
     assert "two" in keys_list
     assert "three" in keys_list
     assert "neo" in keys_list
-
-
-def test_resize_on_overflow(hash_map):
-    # Arrange
-    # hash_map = HashMap(5)
-
-    hash_map.set("one", 1)
-    hash_map.set("two", 2)
-    hash_map.set("three", 3)
-    hash_map.set("four", 4)
-
-    # Act
-    hash_map.set("five", 5)
-
-    # Assert
-    assert hash_map.get("one") == 1
-    assert hash_map.get("two") == 2
-    assert hash_map.get("three") == 3
-    assert hash_map.get("four") == 4
-    assert hash_map.get("five") == 5
-
-    assert hash_map.size == 5
-
-    assert hash_map._capacity == 8
 
 
 # Values
@@ -254,3 +228,30 @@ def test_clears_the_hash_map(hash_map):
     assert not hash_map.get("one")
     assert not hash_map.get("two")
     assert hash_map.size == 0
+
+
+# Resize
+def test_resize_on_overflow(hash_map):
+    # Arrange
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("three", 3)
+    hash_map.set("four", 4)
+    hash_map.set("five", 5)
+    hash_map.set("six", 6)
+
+    # Act
+    hash_map.set("seven", 7)
+
+    # Assert
+    assert hash_map.get("one") == 1
+    assert hash_map.get("two") == 2
+    assert hash_map.get("three") == 3
+    assert hash_map.get("four") == 4
+    assert hash_map.get("five") == 5
+    assert hash_map.get("six") == 6
+    assert hash_map.get("seven") == 7
+
+    assert hash_map.size == 7
+
+    assert hash_map._capacity == 16
