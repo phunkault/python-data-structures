@@ -78,9 +78,9 @@ def test_keys_returns_unique_keys_even_with_duplicate_items(hash_map):
     assert "two" in keys_list
 
 
-def test_keys_returns_iterator_with_all_keys_including_colliding_keys():
+def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
     # Arrange
-    hash_map = HashMap(5)
+    # hash_map = HashMap(5)
     hash_map.set("one", 1)
     hash_map.set("two", 2)
     hash_map.set("three", 3)
@@ -98,9 +98,9 @@ def test_keys_returns_iterator_with_all_keys_including_colliding_keys():
     assert "neo" in keys_list
 
 
-def test_keys_returns_iterator_with_all_unique_keys_for_colliding_entries():
+def test_keys_returns_iterator_with_colliding_entries(hash_map):
     # Arrange
-    hash_map = HashMap(5)
+    # hash_map = HashMap(5)
     hash_map.set("one", 1)
     hash_map.set("two", 2)
     hash_map.set("three", 3)
@@ -119,9 +119,9 @@ def test_keys_returns_iterator_with_all_unique_keys_for_colliding_entries():
     assert "neo" in keys_list
 
 
-def test_resize_on_overflow():
+def test_resize_on_overflow(hash_map):
     # Arrange
-    hash_map = HashMap(5)
+    # hash_map = HashMap(5)
 
     hash_map.set("one", 1)
     hash_map.set("two", 2)
@@ -140,7 +140,7 @@ def test_resize_on_overflow():
 
     assert hash_map.size == 5
 
-    assert hash_map._capacity == 10
+    assert hash_map._capacity == 8
 
 
 # Values
