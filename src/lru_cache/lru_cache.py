@@ -42,3 +42,7 @@ class LRUCache:
             return node.data
 
         return -1
+
+    def clear(self) -> None:
+        self.list.clear()
+        self.node_map.clear()

@@ -85,3 +85,19 @@ def test_put_update_lru_cache_on_get(lru_cache):
 
     # Assert
     assert str(lru_cache.list) == "3 -> 4 -> 2"
+
+
+# Clear
+def test_clear_non_empty_cache(lru_cache):
+    # Arrange
+    lru_cache.put(1)
+    lru_cache.put(2)
+    lru_cache.put(3)
+
+    # Act
+    lru_cache.clear()
+
+    # Assert
+    assert lru_cache.list.is_empty
+
+    assert len(lru_cache.node_map) == 0
