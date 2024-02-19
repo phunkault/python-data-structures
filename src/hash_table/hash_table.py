@@ -1,8 +1,11 @@
 from __future__ import annotations
-from typing import Any
+
+from typing import Any, Optional
+
 from src.linked_list.linked_list import LinkedList
 
-INITIAL_CAPACITY = 10
+INITIAL_CAPACITY = 8
+RESIZE_THRESHOLD = 0.7
 
 
 class KeyValuePair:
@@ -23,7 +26,7 @@ class HashMap:
     def size(self) -> int:
         return self._size
 
-    def _hash_code(self, key: Any):
+    def _hash_value(self, key: Any) -> int:
         hash_string = str(key)
 
         prime = 31
@@ -34,18 +37,20 @@ class HashMap:
             code_point = ord(hash_string[i])
 
             # Invalid Unicode character.
-            if code_point is None:
+            if not code_point:
                 break
 
-            hash_value = (hash_value * prime + code_point) % len(self._buckets)
+            hash_value = hash_value * prime + code_point
 
             # Move to the next code point.
             i += 2 if code_point >= 0x10000 else 1
 
         return hash_value
 
-    def _resize_if_needed(self):
-        RESIZE_THRESHOLD = 0.7
+    def _hash_code(self, hash_value: int, buckets_len: int) -> int:
+        return hash_value % buckets_len
+
+    def _resize_if_needed(self) -> None:
         load_factor = self._size / len(self._buckets)
 
         if load_factor < RESIZE_THRESHOLD:
@@ -57,7 +62,8 @@ class HashMap:
         # Rehash existing key-value pairs into the new buckets
         for bucket in self._buckets:
             for node in bucket:
-                new_index = self._hash_code(node.data.key) % new_capacity
+                new_hash_value = self._hash_value(node.data.key)
+                new_index = self._hash_code(new_hash_value, new_capacity)
                 new_buckets[new_index].append(
                     KeyValuePair(node.data.key, node.data.value)
                 )
@@ -68,8 +74,11 @@ class HashMap:
     def set(self, key: Any, value: Any) -> HashMap:
         self._resize_if_needed()
 
-        hash_val = self._hash_code(key)
-        bucket = self._buckets[hash_val] or LinkedList()
+        hash_val = self._hash_value(key)
+        hash_code = self._hash_code(
+            hash_value=hash_val, buckets_len=self._capacity
+        )
+        bucket = self._buckets[hash_code]
         existing_node = bucket.find(lambda node: node.key == key)
 
         if existing_node:
@@ -78,31 +87,32 @@ class HashMap:
             bucket.append(KeyValuePair(key, value))
             self._size += 1
 
-            if self._buckets[hash_val] is None:
-                self._buckets[hash_val] = bucket
+            if not self._buckets[hash_code]:
+                self._buckets[hash_code] = bucket
 
         return self
 
-    def keys(self):
+    def keys(self) -> Any:
         for bucket in self._buckets:
             for node in bucket:
                 yield node.data.key
 
-    def values(self):
+    def values(self) -> Any:
         for bucket in self._buckets:
             for node in bucket:
                 yield node.data.value
 
-    def items(self):
+    def items(self) -> Any:
         for bucket in self._buckets:
             for node in bucket:
                 yield node.data.key, node.data.value
 
-    def _find_bucket_by_key(self, key: Any):
-        index = self._hash_code(key)
+    def _find_bucket_by_key(self, key: Any) -> Any:
+        hash_value = self._hash_value(key)
+        index = self._hash_code(hash_value, self._capacity)
         return self._buckets[index]
 
-    def get(self, key: Any):
+    def get(self, key: Any) -> Optional[Any]:
         bucket = self._find_bucket_by_key(key)
 
         if not bucket:
@@ -112,16 +122,18 @@ class HashMap:
 
         return node.data.value if node else None
 
-    def has(self, key: Any):
+    def has(self, key: Any) -> bool:
         bucket = self._find_bucket_by_key(key)
 
         node = bucket.find(lambda pair: pair.key == key)
 
         return bool(node)
 
-    def delete(self, key):
-        hash_value = self._hash_code(key)
-        bucket = self._buckets[hash_value]
+    def delete(self, key) -> bool:
+        hash_value = self._hash_value(key)
+        hash_code = self._hash_code(hash_value, self._capacity)
+        # hash_value = self._hash_code(key)
+        bucket = self._buckets[hash_code]
 
         if bucket:
             deleted_node = bucket.delete(lambda pair: pair.key == key)
@@ -132,7 +144,7 @@ class HashMap:
 
         return False
 
-    def clear(self):
+    def clear(self) -> None:
         self._capacity = INITIAL_CAPACITY
         self._buckets = [LinkedList() for _ in range(self._capacity)]
         self._size = 0
