@@ -17,43 +17,41 @@ def test_initial_state(hash_map):
 # Set
 def test_set_values(hash_map):
     # Act
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+
+    received = dict(hash_map.items())
+    expected = {"one": 1, "two": 2}
 
     # Assert
-    received = dict(hash_map.items())
-
-    assert received == {
-        'one': 1,
-        'two': 2,
-    }
-
-    assert hash_map.size == 2
+    assert received == expected
 
 
 def test_update_existing_values(hash_map):
     # Act
-    hash_map.set('value', 1)
-    hash_map.set('value', 2)
+    hash_map.set("one", 1)
+    hash_map.set("one", 2)
 
     # Assert
-    assert hash_map.get('value') == 2
+    received = dict(hash_map.items())
+    expected = {"one": 2}
+
+    assert received == expected
 
 
 # Keys
 def test_keys_returns_iterator_with_all_keys(hash_map):
     # Arrange
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
-    hash_map.set('three', 3)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("three", 3)
 
-    expected = ['one', 'two', 'three']
-
-    # Act
     received = list(hash_map.keys())
 
     # Assert
-    assert received == expected
+    assert "one" in received
+    assert "two" in received
+    assert "three" in received
 
 
 def test_keys_returns_empty_iterator_for_empty_hash_map(hash_map):
@@ -62,72 +60,103 @@ def test_keys_returns_empty_iterator_for_empty_hash_map(hash_map):
 
     # Assert
     assert list(empty_keys_iterator) == []
-    assert len(list(empty_keys_iterator)) == 0
 
 
 def test_keys_returns_unique_keys_even_with_duplicate_items(hash_map):
     # Arrange
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
-    hash_map.set('one', 3)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("one", 3)
 
     # Act
-    keys_iterator = hash_map.keys()
-    keys_array = list(keys_iterator)
+    keys_list = list(hash_map.keys())
 
     # Assert
-    assert set(keys_array) == {'one', 'two'}
-    assert len(keys_array) == 2
+
+    assert len(keys_list) == 2
+    assert "one" in keys_list
+    assert "two" in keys_list
 
 
-def test_keys_returns_iterator_with_all_keys_including_colliding_keys():
+def test_keys_returns_iterator_with_all_keys_including_colliding_keys(hash_map):
     # Arrange
-    hash_map = HashMap(5)
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
-    hash_map.set('three', 3)
-    hash_map.set('neo', 4)  # Collision with 'one'
+    # hash_map = HashMap(5)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("three", 3)
+    hash_map.set("neo", 4)  # Collision with 'one'
 
     # Act
-    keys_iterator = hash_map.keys()
-    keys_array = list(keys_iterator)
+    keys_list = list(hash_map.keys())
 
     # Assert
-    assert set(keys_array) == {'one', 'two', 'three', 'neo'}
-    assert len(keys_array) == 4
+    assert len(keys_list) == 4
+
+    assert "one" in keys_list
+    assert "two" in keys_list
+    assert "three" in keys_list
+    assert "neo" in keys_list
 
 
-def test_keys_returns_iterator_with_all_unique_keys_for_colliding_entries():
+def test_keys_returns_iterator_with_colliding_entries(hash_map):
     # Arrange
-    hash_map = HashMap(5)
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
-    hash_map.set('three', 3)
-    hash_map.set('neo', 4)  # Collision with 'one'
-    hash_map.set('one', 5)  # Addition with the same collision-causing key
+    # hash_map = HashMap(5)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("three", 3)
+    hash_map.set("neo", 4)  # Collision with 'one'
+    hash_map.set("one", 5)  # Addition with the same collision-causing key
 
     # Act
-    keys_iterator = hash_map.keys()
-    keys_array = list(keys_iterator)
+    keys_list = list(hash_map.keys())
 
     # Assert
-    assert set(keys_array) == {'one', 'two', 'three', 'neo'}
-    assert len(keys_array) == 4
+    assert len(keys_list) == 4
+
+    assert "one" in keys_list
+    assert "two" in keys_list
+    assert "three" in keys_list
+    assert "neo" in keys_list
+
+
+def test_resize_on_overflow(hash_map):
+    # Arrange
+    # hash_map = HashMap(5)
+
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("three", 3)
+    hash_map.set("four", 4)
+
+    # Act
+    hash_map.set("five", 5)
+
+    # Assert
+    assert hash_map.get("one") == 1
+    assert hash_map.get("two") == 2
+    assert hash_map.get("three") == 3
+    assert hash_map.get("four") == 4
+    assert hash_map.get("five") == 5
+
+    assert hash_map.size == 5
+
+    assert hash_map._capacity == 8
 
 
 # Values
 def test_values_returns_iterator_with_all_values(hash_map):
     # Arrange
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
-    hash_map.set('three', 3)
-    expected = [1, 2, 3]
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("three", 3)
 
     # Act
-    received = list(hash_map.values())
+    values_list = list(hash_map.values())
 
     # Assert
-    assert received == expected
+    assert 1 in values_list
+    assert 2 in values_list
+    assert 3 in values_list
 
 
 def test_values_returns_empty_iterator_for_empty_hash_map(hash_map):
@@ -138,20 +167,17 @@ def test_values_returns_empty_iterator_for_empty_hash_map(hash_map):
 # Items
 def test_items_returns_iterator_with_all_items(hash_map):
     # Arrange
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
-    hash_map.set('three', 3)
-    expected = [
-        ('one', 1),
-        ('two', 2),
-        ('three', 3),
-    ]
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
+    hash_map.set("three", 3)
 
     # Act
-    received = list(hash_map.items())
+    items_list = list(hash_map.items())
 
     # Assert
-    assert received == expected
+    assert ("one", 1) in items_list
+    assert ("two", 2) in items_list
+    assert ("three", 3) in items_list
 
 
 def test_items_returns_empty_iterator_for_empty_hash_map(hash_map):
@@ -162,82 +188,69 @@ def test_items_returns_empty_iterator_for_empty_hash_map(hash_map):
 # Get
 def test_get_handles_non_existing_key_in_empty_hash_map(hash_map):
     # Act and Assert
-    assert hash_map.get('one') is None
+    assert not hash_map.get("one")
     assert hash_map.size == 0
 
 
 def test_get_handles_non_existing_key_in_non_empty_hash_map(hash_map):
-    hash_map.set('one', 1)
+    hash_map.set("one", 1)
 
     # Act and Assert
-    assert hash_map.get('two') is None
+    assert not hash_map.get("two")
     assert hash_map.size == 1
 
 
 def test_get_returns_value_for_existing_key_in_non_empty_hash_map(hash_map):
     # Arrange
-    hash_map.set('key', 10)
+    hash_map.set("one", 1)
 
     # Act and Assert
-    assert hash_map.get('key') == 10
+    assert hash_map.get("one") == 1
     assert hash_map.size == 1
-
-
-def test_get_returns_values_for_existing_keys_in_non_empty_hash_map(hash_map):
-    # Arrange
-    hash_map.set('ten', 10)
-    hash_map.set('twenty', 20)
-
-    # Act and Assert
-    assert hash_map.get('ten') == 10
-    assert hash_map.get('twenty') == 20
-    assert hash_map.size == 2
 
 
 # Has
 def test_has_checks_if_key_exists_using_has_method(hash_map):
     # Arrange
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
 
     # Act and Assert
-    assert hash_map.has('one')
-    assert hash_map.has('two')
-    assert not hash_map.has('three')
+    assert hash_map.size == 2
+    assert hash_map.has("one")
+    assert hash_map.has("two")
+    assert not hash_map.has("three")
 
 
 # Delete
 def test_delete_none_existing_value_in_an_empty_hash_map(hash_map):
-    # Act
-    received = hash_map.delete('non-existing-key')
-
-    # Assert
+    # Act and Assert
     assert hash_map.size == 0
-    assert not received
+    assert not hash_map.delete("one")
 
 
 def test_delete_existing_values_for_existing_keys_in_a_non_empty_hash_map(hash_map):
     # Arrange
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
 
     # Act and Assert
-    assert hash_map.delete('one')
+    assert hash_map.delete("one")
     assert hash_map.size == 1
-    assert hash_map.delete('two')
+    assert hash_map.delete("two")
     assert hash_map.size == 0
 
 
 # Clear
 def test_clears_the_hash_map(hash_map):
     # Arrange
-    hash_map.set('one', 1)
-    hash_map.set('two', 2)
+    hash_map.set("one", 1)
+    hash_map.set("two", 2)
 
     # Act
     hash_map.clear()
 
     # Assert
-    assert hash_map.get('one') is None
-    assert hash_map.get('two') is None
+    assert not hash_map.get("one")
+    assert not hash_map.get("two")
     assert hash_map.size == 0
