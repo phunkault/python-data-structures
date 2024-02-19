@@ -48,7 +48,7 @@ def test_lru_cache_put_overflow(lru_cache):
     # Arrange
     lru_cache.put(1).put(2).put(3)
 
-    # Actr
+    # Act
     lru_cache.put(4)
 
     # Assert
@@ -57,3 +57,31 @@ def test_lru_cache_put_overflow(lru_cache):
     assert len(lru_cache.node_map) == 3
 
     assert str(lru_cache.list) == "2 -> 3 -> 4"
+
+
+# Get
+def test_get_existing_node(lru_cache):
+    # Arrange
+    lru_cache.put(1)
+
+    # Act and Assert
+    assert lru_cache.get(1) == 1
+
+
+def test_get_non_existing_node(lru_cache):
+    # Act and Assert
+    assert lru_cache.get(1) == -1
+
+
+def test_put_update_lru_cache_on_get(lru_cache):
+    # Arrange
+    lru_cache.put(1)
+    lru_cache.put(2)
+    lru_cache.put(3)
+    lru_cache.put(4)
+
+    # Act and Assert
+    assert lru_cache.get(2) == 2
+
+    # Assert
+    assert str(lru_cache.list) == "3 -> 4 -> 2"
