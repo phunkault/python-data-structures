@@ -6,6 +6,23 @@ from .doubly_linked_list_node import DoublyLinkedListNode
 
 
 class DoublyLinkedList(BaseLinkedList):
+    def __init__(self):
+        self._head: Optional[DoublyLinkedListNode] = None
+        self._tail: Optional[DoublyLinkedListNode] = None
+        self._length: int = 0
+
+    @property
+    def head(self) -> DoublyLinkedListNode:
+        return self._head
+
+    @property
+    def tail(self) -> DoublyLinkedListNode:
+        return self._tail
+
+    @property
+    def length(self) -> int:
+        return self._length
+
     def append(self, value: Any) -> DoublyLinkedList:
         new_node = DoublyLinkedListNode(value)
 
@@ -87,6 +104,19 @@ class DoublyLinkedList(BaseLinkedList):
         self._length -= 1
 
         return deleted_node
+
+    def delete_by_ref(self, node: DoublyLinkedListNode) -> None:
+        if node.prev:
+            node.prev.next = node.next
+        else:
+            self._head = node.next
+
+        if node.next:
+            node.next.prev = node.prev
+        else:
+            self._tail = node.prev
+
+        self._length -= 1
 
     def delete_head(self) -> Optional[DoublyLinkedListNode]:
         if not self.head:

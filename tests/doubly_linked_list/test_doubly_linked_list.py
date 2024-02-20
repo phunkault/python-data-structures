@@ -1,5 +1,6 @@
 import pytest
 from src.doubly_linked_list.doubly_linked_list import DoublyLinkedList
+from src.doubly_linked_list.doubly_linked_list_node import DoublyLinkedListNode
 
 
 # Arrange
@@ -371,3 +372,64 @@ def test_insert_at_call_chain(doubly_linked_list):
 
     assert doubly_linked_list.to_array() == [1, 2]
     assert doubly_linked_list.length == 2
+
+
+# Delete by ref
+def test_delete_by_ref_single_node(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.append(1)
+
+    ref = doubly_linked_list.tail
+
+    # Act
+    doubly_linked_list.delete_by_ref(ref)
+
+    # Assert
+    assert doubly_linked_list.is_empty
+    assert not doubly_linked_list.head
+    assert not doubly_linked_list.tail
+
+
+def test_delete_by_ref_at_the_beginning(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.append(1).append(2)
+
+    ref = doubly_linked_list.head
+
+    # Act
+    doubly_linked_list.delete_by_ref(ref)
+
+    # Assert
+    assert doubly_linked_list.length == 1
+    assert doubly_linked_list.head.data == 2
+    assert doubly_linked_list.tail.data == 2
+
+
+def test_delete_by_ref_at_the_end(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.append(1).append(2)
+
+    ref = doubly_linked_list.tail
+
+    # Act
+    doubly_linked_list.delete_by_ref(ref)
+
+    # Assert
+    assert doubly_linked_list.length == 1
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.tail.data == 1
+
+
+def test_delete_by_ref_in_the_middle(doubly_linked_list):
+    # Arrange
+    doubly_linked_list.append(1).append(2).append(3)
+
+    ref = doubly_linked_list.head.next
+
+    # Act
+    doubly_linked_list.delete_by_ref(ref)
+
+    # Assert
+    assert doubly_linked_list.length == 2
+    assert doubly_linked_list.head.data == 1
+    assert doubly_linked_list.tail.data == 3
