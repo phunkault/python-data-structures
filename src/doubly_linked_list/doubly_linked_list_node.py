@@ -7,8 +7,9 @@ class DoublyLinkedListNode(BaseLinkedListNode):
     def __init__(
         self,
         data=None,
-        next=None,
+        next: Optional[DoublyLinkedListNode] = None,
         prev: Optional[DoublyLinkedListNode] = None,
     ) -> None:
-        super().__init__(data, next)
+        super().__init__(data)
+        self.next = next
         self.prev = prev
