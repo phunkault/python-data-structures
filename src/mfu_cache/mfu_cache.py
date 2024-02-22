@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from src.doubly_linked_list.doubly_linked_list_node import DoublyLinkedListNode
 from src.doubly_linked_list.doubly_linked_list import DoublyLinkedList
@@ -29,6 +29,13 @@ class MFUCache:
             self._max_freq: DoublyLinkedList()
         }
 
+    def __str__(self) -> str:
+        string = ""
+        for bucket in self._buckets:
+            freq_str = f"Freq {bucket}: {str(self._buckets[bucket])}\n"
+            string += freq_str
+        return string
+
     @property
     def size(self) -> int:
         return self._size
@@ -37,7 +44,7 @@ class MFUCache:
     def capacity(self) -> int:
         return self._capacity
 
-    def _delete_mfu_node(self):
+    def _delete_mfu_node(self) -> None:
         mfu_node_bucket = self._buckets[self._max_freq]
         mfu_node = mfu_node_bucket.delete_tail()
 
@@ -46,12 +53,39 @@ class MFUCache:
 
         self._size -= 1
 
+    def _update_frequency(self, key: Any) -> None:
+        node = self._node_map[key]
+        node_data = NodeData(node.data.key, node.data.value)
+
+        old_freq = self._freq_map[key]
+
+        old_bucket = self._buckets[old_freq]
+        old_bucket.delete_by_ref(node)
+
+        new_freq = old_freq + 1
+
+        try:
+            new_bucket = self._buckets[new_freq]
+        except KeyError:
+            new_bucket = DoublyLinkedList()
+            self._buckets[new_freq] = new_bucket
+
+        new_bucket.append(node_data)
+
+        self._node_map[key] = new_bucket.tail
+        self._freq_map[key] = new_freq
+
+        if new_freq > self._max_freq:
+            self._max_freq = new_freq
+
     def put(self, key: Any, value: Any) -> MFUCache:
         if key in self._node_map:
             # renew value
             node = self._node_map[key]
             node.data.value = value
             # update frequency
+            self._update_frequency(key)
+
             return self
 
         # MFUCache is loaded
@@ -72,17 +106,14 @@ class MFUCache:
 
         return self
 
-    def get(self, key: Any) -> Optional[Any]:
+    def get(self, key: Any) -> Any:
         # key doesn't exist
         if key not in self._node_map:
             return None
 
         node = self._node_map[key]
-        # freq = self._freq_map[key]
-        # bucket = self._buckets[freq]
-
-        # temp = bucket.delete_by_ref(node)
-
+        value = node.data.value
         # update frequency
+        self._update_frequency(key)
 
-        return node.data.value
+        return value

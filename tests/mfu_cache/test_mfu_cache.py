@@ -94,3 +94,30 @@ def test_get_all_existing_node_values(mfu_cache):
     assert mfu_cache.get("one") == 1
     assert mfu_cache.get("two") == 2
     assert mfu_cache.get("three") == 3
+
+
+# Update frequency
+def test_update_frequency(mfu_cache):
+    # Arrange
+    mfu_cache.put("one", 1).put("two", 2).put("three", 3)
+
+    cache_str = "Freq 1: one, 1 -> two, 2 -> three, 3\n"
+    assert str(mfu_cache) == cache_str
+
+    mfu_cache.get("one")
+    mfu_cache.get("two")
+    mfu_cache.get("three")
+
+    cache_str = "Freq 1: \nFreq 2: one, 1 -> two, 2 -> three, 3\n"
+    assert str(mfu_cache) == cache_str
+
+    # Act
+    mfu_cache.get("three")
+
+    cache_str = "Freq 1: \nFreq 2: one, 1 -> two, 2\nFreq 3: three, 3\n"
+    assert str(mfu_cache) == cache_str
+
+    mfu_cache.put("four", 4)
+
+    cache_str = "Freq 1: four, 4\nFreq 2: one, 1 -> two, 2\nFreq 3: \n"
+    assert str(mfu_cache) == cache_str
