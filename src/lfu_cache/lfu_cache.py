@@ -51,6 +51,7 @@ class LFUCache:
 
     def _update_frequency(self, key: Any) -> None:
         node = self._node_map[key]
+        node_data = NodeData(node.data.key, node.data.value)
 
         old_freq = self._freq_map[key]
 
@@ -65,12 +66,9 @@ class LFUCache:
             new_bucket = DoublyLinkedList()
             self._buckets[new_freq] = new_bucket
 
-        node_data = NodeData(node.data.key, node.data.value)
-
         new_bucket.append(node_data)
 
         self._node_map[key] = new_bucket.tail
-
         self._freq_map[key] = new_freq
 
         if old_bucket.length == 0 and old_freq == self._min_freq:

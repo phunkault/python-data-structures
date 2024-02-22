@@ -18,6 +18,17 @@ def test_lfu_cache_initial_state(lfu_cache):
 
 
 # Put
+def test_put_call_chain(lfu_cache):
+    # Arrange and act
+    lfu_cache.put("one", 1).put("two", 2).put("three", 3)
+
+    # Assert
+    assert lfu_cache.size == 3
+    assert lfu_cache.get("one") == 1
+    assert lfu_cache.get("two") == 2
+    assert lfu_cache.get("three") == 3
+
+
 def test_put_in_non_loaded_cache(lfu_cache):
     # Arrange
     lfu_cache.put("one", 1)
@@ -52,6 +63,17 @@ def test_put_in_loaded_cache(lfu_cache):
     assert lfu_cache.get("two") == 2
     assert lfu_cache.get("three") == 3
     assert lfu_cache.get("four") == 4
+
+
+def test_put_renew_value_of_key(lfu_cache):
+    # Arrange
+    lfu_cache.put("one", 1)
+
+    # Act
+    lfu_cache.put("one", 10)
+
+    # Assert
+    assert lfu_cache.get("one") == 10
 
 
 # Get
