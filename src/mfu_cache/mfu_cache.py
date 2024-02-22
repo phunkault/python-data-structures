@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Optional
 
 from src.doubly_linked_list.doubly_linked_list_node import DoublyLinkedListNode
 from src.doubly_linked_list.doubly_linked_list import DoublyLinkedList
@@ -71,3 +71,18 @@ class MFUCache:
         self._size += 1
 
         return self
+
+    def get(self, key: Any) -> Optional[Any]:
+        # key doesn't exist
+        if key not in self._node_map:
+            return None
+
+        node = self._node_map[key]
+        # freq = self._freq_map[key]
+        # bucket = self._buckets[freq]
+
+        # temp = bucket.delete_by_ref(node)
+
+        # update frequency
+
+        return node.data.value

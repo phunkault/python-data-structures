@@ -68,3 +68,29 @@ def test_put_in_mfu_cache_call_chain(mfu_cache):
 
     # Assert
     assert mfu_cache.size == 3
+
+
+# Get
+def test_get_existing_node_value(mfu_cache):
+    # Arrange
+    mfu_cache.put("one", 1)
+
+    # Act and assert
+    assert mfu_cache.get("one") == 1
+    assert mfu_cache.size == 1
+
+
+def test_get_non_existing_node_value(mfu_cache):
+    # Assert
+    assert not mfu_cache.get("one")
+    assert mfu_cache.size == 0
+
+
+def test_get_all_existing_node_values(mfu_cache):
+    # Arrange
+    mfu_cache.put("one", 1).put("two", 2).put("three", 3)
+
+    # Act and assert
+    assert mfu_cache.get("one") == 1
+    assert mfu_cache.get("two") == 2
+    assert mfu_cache.get("three") == 3
