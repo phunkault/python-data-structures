@@ -11,6 +11,9 @@ class Heap:
         self._size: int = 0
         self._is_empty: bool = True
 
+    def __str__(self) -> str:
+        return str(self._container)
+
     @property
     def container(self) -> List[Any]:
         return self._container
@@ -42,7 +45,4 @@ class Heap:
         pass
 
     def find(self):
-        pass
-
-    def __str__(self):
         pass
