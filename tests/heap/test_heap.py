@@ -17,6 +17,7 @@ def test_heap_initial_state(heap):
     assert heap.size == 0
     assert heap.is_empty
     assert not heap.peek()
+    assert heap.find(1) == []
 
 
 # Str

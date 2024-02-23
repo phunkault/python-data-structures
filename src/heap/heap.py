@@ -56,6 +56,7 @@ class Heap:
     def get_parent(self, child_index: int) -> Any:
         if not self._has_parent(child_index):
             return None
+
         return self.container[self._get_parent_index(child_index)]
 
     def _swap(self, first_idx: int, second_idx: int) -> None:
@@ -70,6 +71,15 @@ class Heap:
 
     def peek(self) -> Any:
         return self._container[0] if not self._is_empty else None
+
+    def find(self, value: Any) -> List[int]:
+        found_indices = []
+
+        for el in self.container:
+            if el == value:
+                found_indices.append(self.container.index(el))
+
+        return found_indices
 
     def heapify(self, target: List[int]) -> List[Any]:
         pass
@@ -87,7 +97,4 @@ class Heap:
         pass
 
     def merge(self):
-        pass
-
-    def find(self):
         pass
