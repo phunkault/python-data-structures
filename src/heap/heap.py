@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, Any, Optional
 
 
@@ -20,7 +22,7 @@ class Heap:
 
     @property
     def size(self) -> int:
-        return self._size
+        return len(self._container)
 
     @property
     def is_empty(self) -> bool:
@@ -81,11 +83,25 @@ class Heap:
 
         return found_indices
 
-    def push(self):
-        pass
+    def push(self, value: Any) -> Heap:
+        self._container.append(value)
+        self.heapify_up()
 
-    def pop(self):
-        pass
+        return self
+
+    def replace(self) -> Any:
+        if not self.container:
+            return None
+
+        if self.size == 1:
+            return self.container.pop()
+
+        replaced = self.container[0]
+
+        self.container[0] = self.container.pop()
+        self.heapify_down()
+
+        return replaced
 
     def heapify_up(self, custom_start_index: Optional[int] = None) -> None:
         cur_idx = custom_start_index or len(self.container) - 1
@@ -115,9 +131,6 @@ class Heap:
             self._swap(cur_idx, next_index)
 
             cur_idx = next_index
-
-    def replace(self):
-        pass
 
     def remove(self):
         pass
