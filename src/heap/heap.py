@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, Optional
 
 
 class Heap:
@@ -53,7 +53,7 @@ class Heap:
     def _get_right_child(self, parent_index: int) -> Any:
         return self.container[self._get_right_child_index(parent_index)]
 
-    def get_parent(self, child_index: int) -> Any:
+    def _get_parent(self, child_index: int) -> Any:
         if not self._has_parent(child_index):
             return None
 
@@ -81,14 +81,40 @@ class Heap:
 
         return found_indices
 
-    def heapify(self, target: List[int]) -> List[Any]:
-        pass
-
     def push(self):
         pass
 
     def pop(self):
         pass
+
+    def heapify_up(self, custom_start_index: Optional[int] = None) -> None:
+        cur_idx = custom_start_index or len(self.container) - 1
+
+        while self._has_parent(cur_idx) and not self._correct_order(
+            self._get_parent(cur_idx), self.container[cur_idx]
+        ):
+            self._swap(cur_idx, self._get_parent_index(cur_idx))
+            cur_idx = self._get_parent_index(cur_idx)
+
+    def heapify_down(self) -> None:
+        cur_idx = 0
+
+        while self._has_left_child(cur_idx):
+            if self._has_right_child(cur_idx) and self._correct_order(
+                self._get_right_child(cur_idx), self._get_left_child(cur_idx)
+            ):
+                next_index = self._get_right_child_index(cur_idx)
+            else:
+                next_index = self._get_left_child_index(cur_idx)
+
+            if self._correct_order(
+                self.container[cur_idx], self.container[next_index]
+            ):
+                break
+
+            self._swap(cur_idx, next_index)
+
+            cur_idx = next_index
 
     def replace(self):
         pass
@@ -97,4 +123,7 @@ class Heap:
         pass
 
     def merge(self):
+        pass
+
+    def _correct_order(self, first_element, second_element):
         pass
