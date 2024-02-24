@@ -184,7 +184,29 @@ def test_min_heap_remove_multiple_occurrences(heap):
 
 
 # Heapify down
-def test_min_heap_heapify_down_no_swap(heap):
+def test_min_heap_heapify_down_no_children(heap):
+    # Arrange
+    heap.push(5)
+
+    # Act
+    heap.heapify_down()
+
+    # Assert
+    assert heap.container == [5]
+
+
+def test_min_heap_heapify_down_only_left_child(heap):
+    # Arrange
+    heap.push(5).push(3)
+
+    # Act
+    heap.heapify_down()
+
+    # Assert
+    assert heap.container == [3, 5]
+
+
+def test_min_heap_heapify_down_swap_with_left_child(heap):
     # Arrange
     heap.push(5).push(3).push(8).push(2).push(7)
 
@@ -195,12 +217,23 @@ def test_min_heap_heapify_down_no_swap(heap):
     assert heap.container == [2, 3, 8, 5, 7]
 
 
-def test_min_heap_heapify_down_with_swap(heap):
+def test_min_heap_heapify_down_swap_with_right_child(heap):
     # Arrange
     heap.push(8).push(5).push(3).push(2).push(7)
 
     # Act
     heap.heapify_down()
+
+    # Assert
+    assert heap.container == [2, 3, 5, 8, 7]
+
+
+def test_min_heap_heapify_down_custom_start_index(heap):
+    # Arrange
+    heap.push(8).push(5).push(3).push(2).push(7)
+
+    # Act
+    heap.heapify_down(1)
 
     # Assert
     assert heap.container == [2, 3, 5, 8, 7]
