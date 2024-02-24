@@ -181,3 +181,26 @@ def test_min_heap_remove_multiple_occurrences(heap):
 
     # Assert
     assert heap.container == [2, 5, 8, 7]
+
+
+# Heapify down
+def test_min_heap_heapify_down_no_swap(heap):
+    # Arrange
+    heap.push(5).push(3).push(8).push(2).push(7)
+
+    # Act
+    heap.heapify_down()
+
+    # Assert
+    assert heap.container == [2, 3, 8, 5, 7]
+
+
+def test_min_heap_heapify_down_with_swap(heap):
+    # Arrange
+    heap.push(8).push(5).push(3).push(2).push(7)
+
+    # Act
+    heap.heapify_down()
+
+    # Assert
+    assert heap.container == [2, 3, 5, 8, 7]
