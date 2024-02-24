@@ -150,6 +150,13 @@ class MinHeap:
 
         return self
 
-    def merge(self):
-        # merge two heaps into a new one
-        pass
+    def merge(self, second_heap: MinHeap) -> MinHeap:
+        new_heap = MinHeap()
+
+        for item in self.container:
+            new_heap.push(item)
+
+        for item in second_heap.container:
+            new_heap.push(item)
+
+        return new_heap
