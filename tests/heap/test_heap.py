@@ -239,6 +239,37 @@ def test_min_heap_heapify_down_custom_start_index(heap):
     assert heap.container == [2, 3, 5, 8, 7]
 
 
+# Heapify up
+def test_min_heap_get_parent_with_parent(heap):
+    # Arrange
+    heap.push(5).push(3).push(8).push(2).push(7)
+
+    # Assert
+    assert heap.container == [2, 3, 8, 5, 7]
+
+
+def test_min_heap_heapify_up_no_swap(heap):
+    # Arrange
+    heap.push(2).push(5).push(8)
+
+    # Act
+    heap.heapify_up()
+
+    # Assert
+    assert heap.container == [2, 5, 8]
+
+
+def test_min_heap_heapify_up_with_swap(heap):
+    # Arrange
+    heap.push(7).push(5).push(3)
+
+    # Act
+    heap.heapify_up()
+
+    # Assert
+    assert heap.container == [3, 7, 5]
+
+
 # Merge
 def test_min_heap_merge_non_empty_heaps(heap):
     # Arrange
