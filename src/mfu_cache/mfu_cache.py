@@ -14,9 +14,6 @@ class NodeData:
         self.key = key
         self.value = value
 
-    def __str__(self) -> str:
-        return f"{self.key}, {self.value}"
-
 
 class MFUCache:
     def __init__(self, capacity: int = DEFAULT_CAPACITY) -> None:

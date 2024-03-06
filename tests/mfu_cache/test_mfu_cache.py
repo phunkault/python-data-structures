@@ -58,6 +58,21 @@ def test_put_in_loaded_mfu_cache(mfu_cache_cap_2):
     assert mfu_cache_cap_2.max_freq == 1
 
 
+def test_put_three_nodes_and_override_values(mfu_cache_cap_2):
+    mfu_cache_cap_2.put("one", 1)
+    mfu_cache_cap_2.put("two", 2)
+
+    mfu_cache_cap_2.put("one", 11)
+    mfu_cache_cap_2.put("two", 22)
+
+    # Act
+    mfu_cache_cap_2.put("three", 3)
+
+    # Assert
+    assert mfu_cache_cap_2.max_freq == 2
+    assert mfu_cache_cap_2.to_array() == ["three", "two"]
+
+
 def test_put_same_key_in_mfu_cache_overrides_value(mfu_cache_cap_2):
     # Arrange
     mfu_cache_cap_2.put("one", 1)
@@ -104,62 +119,3 @@ def test_get_all_existing_node_values(mfu_cache_cap_2):
     assert mfu_cache_cap_2.get("two") == 2
 
     assert mfu_cache_cap_2.max_freq == 2
-
-
-# Max's tests with two nodes
-def test_max_two_nodes_first(mfu_cache_cap_2):
-    # Arrange
-    mfu_cache_cap_2.put("a", 1)
-    mfu_cache_cap_2.put("b", 2)
-
-    # Act
-    mfu_cache_cap_2.put("c", 3)
-
-    # Assert
-    assert mfu_cache_cap_2.max_freq == 1
-    assert mfu_cache_cap_2.to_array() == ["b", "c"]
-
-
-def test_max_two_nodes_second(mfu_cache_cap_2):
-    # Arrange
-    mfu_cache_cap_2.put("a", 1)
-    mfu_cache_cap_2.put("b", 2)
-
-    # Act
-    mfu_cache_cap_2.put("b", 22)
-    mfu_cache_cap_2.put("c", 3)
-
-    # Assert
-    assert mfu_cache_cap_2.max_freq == 1
-    assert mfu_cache_cap_2.to_array() == ["a", "c"]
-
-
-def test_max_two_nodes_third(mfu_cache_cap_2):
-    # Arrange
-    mfu_cache_cap_2.put("a", 1)
-    mfu_cache_cap_2.put("b", 2)
-
-    mfu_cache_cap_2.put("a", 11)
-    mfu_cache_cap_2.put("b", 22)
-
-    # Act
-    mfu_cache_cap_2.put("c", 3)
-
-    # Assert
-    assert mfu_cache_cap_2.max_freq == 2
-    assert mfu_cache_cap_2.to_array() == ["c", "b"]
-
-
-# Max's tests with three nodes
-def test_max_three_nodes_first(mfu_cache_cap_3):
-    # Arrange
-    mfu_cache_cap_3.put("a", 1)
-    mfu_cache_cap_3.put("b", 2)
-    mfu_cache_cap_3.put("c", 3)
-
-    # Act
-    mfu_cache_cap_3.put("c", 33)
-
-    # Assert
-    assert mfu_cache_cap_3.max_freq == 2
-    assert mfu_cache_cap_3.to_array() == ["a", "b", "c"]
