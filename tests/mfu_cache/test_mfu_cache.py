@@ -119,3 +119,18 @@ def test_get_all_existing_node_values(mfu_cache_cap_2):
     assert mfu_cache_cap_2.get("two") == 2
 
     assert mfu_cache_cap_2.max_freq == 2
+
+
+def test_mfu_three_nodes_updates_max_freq_correctly(mfu_cache_cap_3):
+    # Arrange
+    mfu_cache_cap_3.put("one", 1)
+    mfu_cache_cap_3.put("two", 2)
+    mfu_cache_cap_3.put("three", 3)
+
+    # Act
+    mfu_cache_cap_3.put("three", 33)
+    mfu_cache_cap_3.put("four", 4)
+
+    # Assert
+    assert mfu_cache_cap_3.max_freq == 1
+    assert mfu_cache_cap_3.to_array() == ["one", "two", "four"]
