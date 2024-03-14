@@ -103,3 +103,36 @@ def test_get_vertices(graph):
     assert "A" in vertices
     assert "B" in vertices
     assert "C" in vertices
+
+
+def test_add_edge_existing_vertices(graph):
+    # Arrange
+    vertexA = Vertex("A")
+    vertexB = Vertex("B")
+    graph.add_vertex(vertexA)
+    graph.add_vertex(vertexB)
+
+    # Act and Assert
+    assert graph.add_edge("A", "B") is True
+    assert "B" in graph.vertices["A"].neighbors
+    assert "A" in graph.vertices["B"].neighbors
+
+
+def test_add_edge_non_existing_vertices(graph):
+    # Act and Assert
+    assert graph.add_edge("A", "D") is False
+    assert not graph.vertices.get("A")
+    assert not graph.vertices.get("D")
+
+
+def test_add_edge_with_one_existing_vertex(graph):
+    # Arrange
+    vertexD = Vertex("D")
+    graph.add_vertex(vertexD)
+
+    # Act and Assert
+    assert graph.add_edge("A", "D") is False
+
+
+def test_add_edge_with_no_vertices(graph):
+    assert graph.add_edge("A", "B") is False
