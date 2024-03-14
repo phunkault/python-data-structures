@@ -14,3 +14,10 @@ class Vertex:
 class Graph:
     def __init__(self):
         self.vertices: dict[Any, Vertex] = {}
+
+    def add_vertex(self, vertex: "Vertex") -> bool:
+        if vertex.id not in self.vertices:
+            self.vertices[vertex.id] = vertex
+            return True
+
+        return False

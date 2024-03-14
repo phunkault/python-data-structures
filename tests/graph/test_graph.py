@@ -37,7 +37,50 @@ def test_add_vertex_neighbors(vertexA):
 
 
 # Graph
-def graph_initial_state(graph):
+def test_graph_initial_state(graph):
     # Assert
     assert graph
     assert not graph.vertices
+
+
+def test_add_unique_vertex_to_graph(graph):
+    # Arrange
+    vertex = Vertex("A")
+
+    # Act
+    graph.add_vertex(vertex)
+
+    # Assert
+    assert len(graph.vertices) == 1
+    assert vertex.id in graph.vertices
+
+
+def test_add_vertex_duplicate_to_graph(graph):
+    # Arrange
+    vertex = Vertex("A")
+    graph.add_vertex(vertex)
+
+    # Act
+    graph.add_vertex(vertex)
+
+    # Assert
+    assert len(graph.vertices) == 1
+    assert vertex.id in graph.vertices
+
+
+def test_add_multiple_vertices_to_graph(graph):
+    # Arrange
+    vertexA = Vertex("A")
+    vertexB = Vertex("B")
+    vertexC = Vertex("C")
+
+    # Act
+    graph.add_vertex(vertexA)
+    graph.add_vertex(vertexB)
+    graph.add_vertex(vertexC)
+
+    # Assert
+    assert len(graph.vertices) == 3
+    assert vertexA.id in graph.vertices
+    assert vertexB.id in graph.vertices
+    assert vertexC.id in graph.vertices
