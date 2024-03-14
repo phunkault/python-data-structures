@@ -9,3 +9,8 @@ class Vertex:
     def add_neighbor(self, neighbor: "Vertex") -> None:
         if neighbor not in self.neighbors:
             self.neighbors.append(neighbor)
+
+
+class Graph:
+    def __init__(self):
+        self.vertices: dict[Any, Vertex] = {}

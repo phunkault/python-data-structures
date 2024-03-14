@@ -1,11 +1,16 @@
 import pytest
-from src.graph.graph import Vertex
+from src.graph.graph import Vertex, Graph
 
 
 # Arrange
 @pytest.fixture()
 def vertexA():
     return Vertex("A")
+
+
+@pytest.fixture()
+def graph():
+    return Graph()
 
 
 # Vertex
@@ -29,3 +34,10 @@ def test_add_vertex_neighbors(vertexA):
     assert len(vertexA.neighbors) == 2
     assert vertexB in vertexA.neighbors
     assert vertexC in vertexA.neighbors
+
+
+# Graph
+def graph_initial_state(graph):
+    # Assert
+    assert graph
+    assert not graph.vertices
