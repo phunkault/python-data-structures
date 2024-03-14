@@ -84,3 +84,22 @@ def test_add_multiple_vertices_to_graph(graph):
     assert vertexA.id in graph.vertices
     assert vertexB.id in graph.vertices
     assert vertexC.id in graph.vertices
+
+
+def test_get_vertices(graph):
+    # Arrange
+    vertexA = Vertex("A")
+    vertexB = Vertex("B")
+    vertexC = Vertex("C")
+
+    graph.add_vertex(vertexA)
+    graph.add_vertex(vertexB)
+    graph.add_vertex(vertexC)
+
+    # Act and Assert
+    vertices = graph.get_vertices()
+
+    assert len(vertices) == 3
+    assert "A" in vertices
+    assert "B" in vertices
+    assert "C" in vertices

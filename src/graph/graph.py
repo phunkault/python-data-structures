@@ -21,3 +21,6 @@ class Graph:
             return True
 
         return False
+
+    def get_vertices(self) -> list[Any]:
+        return list(self.vertices.keys())
